@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Doctor;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,82 +13,77 @@ class AuthController extends Controller
 {
     // register fucntion
     public function register(Request $request)
-{
-    // Common validation for all users
-    $users = [
-        'name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'phone' => 'required|string|max:20',
-        'password' => 'required|string|min:8|confirmed',
-        'role' => 'required|in:patient,doctor',
-    ];
-
-    // Role-specific validation
-    $roleRules = [];
-    if ($request->userType === 'doctor') {
-        $roleRules = [
-            'specialty' => 'required|string|max:255',
-            'licenseNumber' => 'required|string|max:255|unique:doctors,medical_licence',
-            'licenseDocument' => 'required|file|mimes:pdf|max:2048',
+    {
+        $users = [
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|string|max:20',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|in:patient,doctor',
         ];
-    } else {
-        $roleRules = [
-            'dateOfBirth' => 'required|date',
-        ];
-    }
 
-    $validatedData = $request->validate(array_merge($users, $roleRules));
+        $roleRules = [];
+        if ($request->userType === 'doctor') {
+            $roleRules = [
+                'specialty' => 'required|string|max:255',
+                'medical_licence' => 'required|string|max:255|unique:doctors,medical_licence',
+                'medical_document' => 'required|file|mimes:pdf|max:2048',
+            ];
+        } else {
+            $roleRules = [
+                'birthdate' => 'required|date',
+            ];
+        }
 
-    // Handle file upload for doctor's license document
-    $licensePath = null;
-    if ($request->hasFile('licenseDocument')) {
-        $licensePath = $request->file('licenseDocument')->store('medical_licenses', 'public');
-    }
+        $validatedData = $request->validate(array_merge($users, $roleRules));
 
-    // Create user
-    $user = User::create([
-        'name' => $request->firstName . ' ' . $request->lastName,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'password' => Hash::make($request->password),
-        'role' => $request->userType,
-    ]);
+        $licensePath = null;
+        if ($request->hasFile('medical_document')) {
+            $licensePath = $request->file('medical_document')->store('medical_licenses', 'public');
+        }
 
-    // Create role-specific record
-    if ($request->userType === 'doctor') {
-        Doctor::create([
-            'user_id' => $user->id,
-            'education' => $request->specialty,
-            'medical_licence' => $request->licenseNumber,
-            'medical_document' => $licensePath,
-            // Initialize other doctor fields with default values
-            'city' => '',
-            'office_address' => '',
-            'fees' => 0,
-            'experience' => 0,
+        // Create user
+        $user = User::create([
+            'name' => $request->firstName . ' ' . $request->lastName,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+            'role' => $request->userType,
         ]);
-    } else {
-        Patient::create([
-            'user_id' => $user->id,
-            'birthdate' => $request->dateOfBirth,
-            // Initialize other patient fields with default values
-            'gender' => '',
-            'blood_type' => '',
-            'past_illnesses' => '',
-            'surgeries' => '',
-            'allergies' => '',
-            'chronic' => '',
-        ]);
+
+        // Create role-specific record
+        if ($request->userType === 'doctor') {
+            Doctor::create([
+                'user_id' => $user->id,
+                'education' => $request->specialty,
+                'medical_licence' => $request->licenseNumber,
+                'medical_document' => $licensePath,
+                'city' => '',
+                'office_address' => '',
+                'fees' => 0,
+                'experience' => 0,
+            ]);
+        } else {
+            Patient::create([
+                'user_id' => $user->id,
+                'birthdate' => $request->dateOfBirth,
+                'gender' => '',
+                'blood_type' => '',
+                'past_illnesses' => '',
+                'surgeries' => '',
+                'allergies' => '',
+                'chronic' => '',
+            ]);
+        }
+
+        Auth::login($user);
+        echo("register successfully");
+
+        // Redirect based on user type
+        // return redirect()->intended($request->userType === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard')
+        //             ->with('success', 'Registration successful!');
     }
-
-    // Log in the user
-    Auth::login($user);
-
-    // Redirect based on user type
-    return redirect()->intended($request->userType === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard')
-                   ->with('success', 'Registration successful!');
-}
     // public function register(Request $request){
 
     //     $request->validate([
