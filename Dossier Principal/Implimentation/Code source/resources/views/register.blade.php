@@ -22,13 +22,14 @@
   
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form class="space-y-6" action="#" method="POST">
+          <form class="space-y-6" method="POST" action="{{ route('register.submit') }}">
+            @csrf
             <div>
-              <label for="userType" class="block text-sm font-medium text-gray-700">
+              <label for="role" class="block text-sm font-medium text-gray-700">
                 I am registering as a
               </label>
               <div class="mt-1">
-                <select id="userType" name="userType" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                <select id="role" name="role" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                   <option value="patient">Patient</option>
                   <option value="doctor">Doctor</option>
                 </select>
@@ -37,20 +38,20 @@
   
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
-                <label for="firstName" class="block text-sm font-medium text-gray-700">
+                <label for="name" class="block text-sm font-medium text-gray-700">
                   First name
                 </label>
                 <div class="mt-1">
-                  <input id="firstName" name="firstName" type="text" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                  <input id="name" name="name" type="text" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                 </div>
               </div>
   
               <div>
-                <label for="lastName" class="block text-sm font-medium text-gray-700">
+                <label for="last_name" class="block text-sm font-medium text-gray-700">
                   Last name
                 </label>
                 <div class="mt-1">
-                  <input id="lastName" name="lastName" type="text" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                  <input id="last_name" name="last_name" type="text" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                 </div>
               </div>
             </div>
@@ -73,13 +74,13 @@
               </div>
             </div>
   
-            <div id="doctorFields" class="hidden space-y-6">
+            {{-- <div id="doctorFields" class="hidden space-y-6">
               <div>
-                <label for="specialty" class="block text-sm font-medium text-gray-700">
+                <label for="speciality_id" class="block text-sm font-medium text-gray-700">
                   Medical specialty
                 </label>
                 <div class="mt-1">
-                  <select id="specialty" name="specialty" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                  <select id="speciality_id" name="speciality_id" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                     <option value="">Select your specialty</option>
                     <option value="general">General Medicine</option>
                     <option value="cardiology">Cardiology</option>
@@ -96,20 +97,20 @@
               </div>
   
               <div>
-                <label for="licenseNumber" class="block text-sm font-medium text-gray-700">
+                <label for="medical_licence" class="block text-sm font-medium text-gray-700">
                   Medical License Number
                 </label>
                 <div class="mt-1">
-                  <input id="licenseNumber" name="licenseNumber" type="text" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                  <input id="medical_licence" name="medical_licence" type="text" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                 </div>
               </div>
   
               <div>
-                <label for="licenseDocument" class="block text-sm font-medium text-gray-700">
+                <label for="medical_document" class="block text-sm font-medium text-gray-700">
                   Upload Medical License Document (PDF)
                 </label>
                 <div class="mt-1">
-                  <input id="licenseDocument" name="licenseDocument" type="file" accept=".pdf" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                  <input id="medical_document" name="medical_document" type="file" accept=".pdf" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                 </div>
                 <p class="mt-1 text-xs text-gray-500">Your account will need to be verified by an administrator before you can use the platform.</p>
               </div>
@@ -117,14 +118,14 @@
   
             <div id="patientFields" class="space-y-6">
               <div>
-                <label for="dateOfBirth" class="block text-sm font-medium text-gray-700">
+                <label for="birthdate" class="block text-sm font-medium text-gray-700">
                   Date of Birth
                 </label>
                 <div class="mt-1">
-                  <input id="dateOfBirth" name="dateOfBirth" type="date" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                  <input id="birthdate" name="birthdate" type="date" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                 </div>
               </div>
-            </div>
+            </div> --}}
   
             <div>
               <label for="password" class="block text-sm font-medium text-gray-700">
@@ -135,21 +136,12 @@
               </div>
             </div>
   
-            <div>
-              <label for="passwordConfirmation" class="block text-sm font-medium text-gray-700">
-                Confirm password
-              </label>
-              <div class="mt-1">
-                <input id="passwordConfirmation" name="passwordConfirmation" type="password" autocomplete="new-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
-              </div>
-            </div>
-  
-            <div class="flex items-center">
+            {{-- <div class="flex items-center">
               <input id="terms" name="terms" type="checkbox" required class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
               <label for="terms" class="ml-2 block text-sm text-gray-900">
                 I agree to the <a href="#" class="text-primary-600 hover:text-primary-500">Terms and Conditions</a> and <a href="#" class="text-primary-600 hover:text-primary-500">Privacy Policy</a>
               </label>
-            </div>
+            </div> --}}
   
             <div>
               <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
@@ -169,7 +161,7 @@
   
     <script>
       // Toggle doctor/patient specific fields based on user type selection
-      document.getElementById('userType').addEventListener('change', function() {
+      document.getElementById('role').addEventListener('change', function() {
         const doctorFields = document.getElementById('doctorFields');
         const patientFields = document.getElementById('patientFields');
         

@@ -18,9 +18,15 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'last_name', 'password', 'role', 'phone', 
+        'medical_licence', 'medical_document', 'speciality_id',
+        'city', 'office_address', 'education', 'fees', 'experience',
+        'birthdate', 'gender', 'blood_type', 'past_illnesses',
+        'surgeries', 'allergies', 'chronic', 'is_activated', 'is_approved'
+    ];
+
+    protected $casts = [
+        'is_activated' => 'boolean'
     ];
 
     /**
