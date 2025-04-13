@@ -80,10 +80,10 @@
             <div>
               <label for="speciality_id" class="block text-sm font-medium text-gray-700">Medical Specialty <span class="text-red-500">*</span></label>
               <div class="mt-1">
-                <select id="speciality_id" name="speciality_id" required class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md">
+                <select id="speciality_id" name="speciality_id" required class="shadow-sm py-1.5 px-1.5 focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md">
                   <option value="" selected disabled>Select your specialty</option>
                   @foreach($specialties as $specialty)
-                    <option value="{{ $specialty->id }}" {{ old('speciality_id') == $specialty->id ? 'selected' : '' }}>{{ $specialty->name }}</option>
+                    <option value="{{ $specialty->id }}" {{ old('speciality_id') == $specialty->id ? 'selected' : '' }}>{{ $specialty->speciality_name }}</option>
                   @endforeach
                 </select>
               </div>

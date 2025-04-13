@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
 
-class SpecialityController extends Controller
+class HomeController extends Controller
 {
-    public function create(){
+    public function index(){
         $specialties = Speciality::all();
-        return view('doctor_form', compact('specialties'));
+        return view('home', compact('specialties'));
     }
 }

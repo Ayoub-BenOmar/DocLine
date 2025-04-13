@@ -27,22 +27,15 @@
               <div class="sm:flex">
                 <div class="min-w-0 flex-1">
                   <select class="block w-full px-4 py-3 rounded-l-full border-gray-300 focus:ring-green-300 focus:border-green-300 sm:text-sm">
-                    <option value="">Select specialty</option>
-                    {{-- @foreach($specialties ?? [] as $specialty)
-                      <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
-                    @endforeach --}}
-                    {{-- @empty($specialties) --}}
-                      <option value="cardiology">Cardiology</option>
-                      <option value="neurology">Neurology</option>
-                      <option value="pediatrics">Pediatrics</option>
-                      <option value="dermatology">Dermatology</option>
-                      <option value="orthopedics">Orthopedics</option>
-                    {{-- @endempty --}}
+                    <option value="" disabled selected>Select specialty</option>
+                    @foreach ($specialties as $specialty)
+                        <option name="" id="{{ $specialty->id }}">{{$specialty->speciality_name}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="mt-3 sm:mt-0 sm:ml-3">
                   <button type="submit" class="block w-full px-5 py-3 rounded-r-full bg-white text-black hover:bg-primary hover:text-white font-medium hover:border-2 sm:px-10 transition-colors duration-200">
-                    Find Doctor
+                    <a href="{{ route('find_doctor') }}">Find Doctor</a>
                   </button>
                 </div>
               </div>
