@@ -236,9 +236,6 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
                                                 <i class="fas fa-check"></i>
                                             </button>
                                             <button class="text-red-500 hover:text-red-700">
@@ -273,9 +270,6 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
                                             <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
                                                 <i class="fas fa-check"></i>
                                             </button>
@@ -336,9 +330,6 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
                                             <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
                                                 <i class="fas fa-edit"></i>
                                             </button>
