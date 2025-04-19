@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\Speciality;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class DoctorController extends Controller
 {
+    public function create(){
+        $specialties = Speciality::all();
+        return view('doctor_form', compact('specialties'));
+    }
+    
     public function storeProfile(Request $request)
     {
         // validate  data

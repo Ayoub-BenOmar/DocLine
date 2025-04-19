@@ -7,8 +7,5 @@ use Illuminate\Http\Request;
 
 class SpecialityController extends Controller
 {
-    public function create(){
-        $specialties = Speciality::all();
-        return view('doctor_form', compact('specialties'));
-    }
+
 }

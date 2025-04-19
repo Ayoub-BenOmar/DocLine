@@ -35,7 +35,7 @@
                 </div>
                 <div class="mt-3 sm:mt-0 sm:ml-3">
                   <button type="submit" class="block w-full px-5 py-3 rounded-r-full bg-white text-black hover:bg-primary hover:text-white font-medium hover:border-2 sm:px-10 transition-colors duration-200">
-                    <a href="{{ route('find_doctor') }}">Find Doctor</a>
+                    <a href="{{ route('find-doctor') }}">Find Doctor</a>
                   </button>
                 </div>
               </div>

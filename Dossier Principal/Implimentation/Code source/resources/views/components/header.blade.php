@@ -10,7 +10,7 @@
             </div>
             <nav class="hidden md:flex md:space-x-8">
                 <a href="{{ route('home') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Home</a>
-                <a href="{{ route('find_doctor') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Find Doctors</a>
+                <a href="{{ route('find-doctor') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Find Doctors</a>
                 <a href="{{ route('articles') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Articles</a>
                 <a href="" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">About</a>
                 <a href="" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Contact</a>
@@ -28,9 +28,9 @@
     </div>
     <!-- Mobile Menu -->
     <nav id="mobile-menu" class="hidden md:hidden bg-white shadow-md absolute top-20 left-0 w-full py-4">
-        <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Home</a>
-        <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Find Doctors</a>
-        <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Articles</a>
+        <a href="{{ route('home') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Home</a>
+        <a href="{{ route('find-doctor') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Find Doctors</a>
+        <a href="{{ route('articles') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Articles</a>
         <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">About</a>
         <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Contact</a>
         <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Space</a>

@@ -22,11 +22,11 @@
                     </div>
                 </div>
                 <div class="mt-5">
-                    <a href="{{ route('patient-dashboard') }}" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
+                    <a href="{{ route('patient.dashboard') }}" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
                         <i class="fas fa-home mr-3 text-[#7fbfbf]"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a href="{{ route('patient-appointments') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('patient.appointments') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-calendar-alt mr-3 text-gray-400"></i>
                         <span>Appointments</span>
                     </a>
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="absolute bottom-0 w-64 p-4 border-t">
-                <a href="#" class="flex items-center text-gray-600 hover:text-[#7fbfbf]">
+                <a href="{{ route('logout') }}" class="flex items-center text-gray-600 hover:text-[#7fbfbf]">
                     <i class="fas fa-sign-out-alt mr-3"></i>
                     <span>Logout</span>
                 </a>
@@ -80,11 +80,11 @@
                         </div>
                     </div>
                     <div class="mt-5">
-                        <a href="{{ route('patient-dashboard') }}" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
+                        <a href="{{ route('patient.dashboard') }}" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
                             <i class="fas fa-home mr-3 text-[#7fbfbf]"></i>
                             <span>Dashboard</span>
                         </a>
-                        <a href="{{ route('patient-appointments') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('patient.appointments') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-calendar-alt mr-3 text-gray-400"></i>
                             <span>Appointments</span>
                         </a>

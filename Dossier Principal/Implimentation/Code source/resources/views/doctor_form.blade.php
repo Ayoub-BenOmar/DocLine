@@ -39,7 +39,7 @@
           </div>
 
           <!-- Form -->
-          <form action="" method="POST" enctype="multipart/form-data" class="space-y-8">
+          <form action="{{route('doctor.store-profile')}}" method="POST" enctype="multipart/form-data" class="space-y-8">
             @csrf
             
             <!-- Medical License -->

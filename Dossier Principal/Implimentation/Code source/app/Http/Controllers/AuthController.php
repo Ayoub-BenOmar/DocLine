@@ -53,18 +53,30 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            // return redirect()->intended('/dashboard');
+            
+            $user = Auth::user();
+            switch ($user->role) {
+                case 'doctor':
+                    return redirect()->route('doctor.dashboard');
+                case 'admin':
+                    return redirect()->route('admin.dashboard');
+                case 'patient':
+                    return redirect()->route('home');
+                default:
+                    return redirect()->route('home');
+            }
         }
 
         return back()->withErrors(['email' => 'Incorrect Informations']);
     }
 
     // logout fucntion
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect()->route('login');
     }
 }
 
