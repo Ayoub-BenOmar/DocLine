@@ -40,7 +40,7 @@ Route::prefix('patient')
 
     });
 
-Route::get('/doctor-form', [SpecialityController::class, 'create']);
+Route::get('/doctor-form', [SpecialityController::class, 'create'])->name('doctor-form');
 
 Route::get('/confirmation-page', function(){
     return view('waiting_page');

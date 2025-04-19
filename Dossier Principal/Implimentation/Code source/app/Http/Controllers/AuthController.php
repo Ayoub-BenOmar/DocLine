@@ -37,9 +37,9 @@ class AuthController extends Controller
 
         Auth::login($user);
         if($request->role === 'doctor'){
-            return view("doctor_form");
+            return redirect("/doctor-form");
         }else{
-            return view('home');
+            return redirect('/');
         }
     }
 
