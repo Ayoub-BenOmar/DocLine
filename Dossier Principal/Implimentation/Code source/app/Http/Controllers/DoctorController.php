@@ -6,6 +6,7 @@ use App\Models\Doctor;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,9 +21,9 @@ class DoctorController extends Controller
     {
         // validate  data
         $request->validate([
-            'medical_licence' => 'required|string|unique:doctors,medical_licence',
+            'medical_licence' => 'required|string|unique:users,medical_licence',
             'medical_document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'speciality_id' => 'required|exists:specialities,id',
+            'speciality_id' => 'required|exists:speciality,id',
             'city' => 'required|string|max:255',
             'office_address' => 'required|string|max:255',
             'education' => 'required|string',
@@ -34,9 +35,9 @@ class DoctorController extends Controller
             // handle file upload
             $documentPath = $request->file('medical_document')->store('medical_documents', 'public');
 
-            // create doctor profile
-            Doctor::create([
-                'user_id' => Auth::id(),
+            // update user profile with doctor details
+            $user = Auth::user();
+            $user->update([
                 'medical_licence' => $request->medical_licence,
                 'medical_document' => $documentPath,
                 'speciality_id' => $request->speciality_id,
@@ -45,6 +46,7 @@ class DoctorController extends Controller
                 'education' => $request->education,
                 'experience' => $request->experience,
                 'fees' => $request->fees,
+                'is_activated' => false
             ]);
 
             // redirect to waiting page
