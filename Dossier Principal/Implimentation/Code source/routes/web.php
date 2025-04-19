@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\SpecialityController;
+use App\Http\Middleware\CheckDoctorActivation;
 
 //Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -20,8 +21,8 @@ Route::get('/articles', function() {
 Route::get('/doctor-form', [DoctorController::class, 'create'])->name('doctor-form');
 Route::post('/doctor-form', [DoctorController::class, 'storeProfile'])->name('doctor.store-profile');
 Route::get('/confirmation-page', function() {
-    return view('waiting_page');
-})->name('doctor.confirmation');
+    return view('confirmation_page');
+})->name('doctor-confirmation');
 
 //Auth routes
 Route::middleware('guest')->group(function () {
@@ -46,7 +47,7 @@ Route::get('/logout', [AuthController::class, 'logout'])
 //doctor routes
 Route::prefix('doctor')
     ->name('doctor.')
-    ->middleware(['auth', CheckRole::class . ':doctor'])
+    ->middleware(['auth', CheckRole::class . ':doctor', CheckDoctorActivation::class])
     ->group(function(){
         Route::get('/dashboard', function() {
             return view('doctor.dashboard');
@@ -85,11 +86,5 @@ Route::prefix('patient')
             return view('patient.certificate');
         })->name('certificate');
 
-});
-
-
-
-    Route::get('/confirmation-page', function(){
-    return view('waiting_page');
 });
 

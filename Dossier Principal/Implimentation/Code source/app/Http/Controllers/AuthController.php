@@ -57,6 +57,9 @@ class AuthController extends Controller
             $user = Auth::user();
             switch ($user->role) {
                 case 'doctor':
+                    if ($user->is_activated === false) {
+                        return redirect()->route('doctor-confirmation');
+                    }
                     return redirect()->route('doctor.dashboard');
                 case 'admin':
                     return redirect()->route('admin.dashboard');
