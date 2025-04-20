@@ -67,6 +67,18 @@ Route::prefix('admin')
             return view('admin.doctors');
         })->name('doctors');
 
+        Route::get('/patients', function() {
+            return view('admin.patients');
+        })->name('patients');
+
+        Route::get('/contents', function() {
+            return view('admin.contents');
+        })->name('contents');
+
+        Route::get('/statistics', function() {
+            return view('admin.statistics');
+        })->name('statistics');
+
 });
 
 //patient routes

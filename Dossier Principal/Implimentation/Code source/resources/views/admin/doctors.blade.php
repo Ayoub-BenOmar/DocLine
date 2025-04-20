@@ -22,29 +22,25 @@
                     </div>
                 </div>
                 <div class="mt-5">
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-tachometer-alt mr-3 text-gray-400"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
+                    <a href="{{ route('admin.doctors') }}" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
                         <i class="fas fa-user-md mr-3 text-[#7fbfbf]"></i>
                         <span>Doctors</span>
                     </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('admin.patients') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-users mr-3 text-gray-400"></i>
                         <span>Patients</span>
                     </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('admin.contents') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-newspaper mr-3 text-gray-400"></i>
                         <span>Content</span>
                     </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('admin.statistics') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-chart-bar mr-3 text-gray-400"></i>
                         <span>Statistics</span>
-                    </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
-                        <i class="fas fa-cog mr-3 text-gray-400"></i>
-                        <span>Settings</span>
                     </a>
                 </div>
             </div>
@@ -88,29 +84,25 @@
                         </div>
                     </div>
                     <div class="mt-5">
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-tachometer-alt mr-3 text-gray-400"></i>
                             <span>Dashboard</span>
                         </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
+                        <a href="{{ route('admin.doctors') }}" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
                             <i class="fas fa-user-md mr-3 text-[#7fbfbf]"></i>
                             <span>Doctors</span>
                         </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('admin.patients') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-users mr-3 text-gray-400"></i>
                             <span>Patients</span>
                         </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('admin.contents') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-newspaper mr-3 text-gray-400"></i>
                             <span>Content</span>
                         </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('admin.statistics') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-chart-bar mr-3 text-gray-400"></i>
                             <span>Statistics</span>
-                        </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
-                            <i class="fas fa-cog mr-3 text-gray-400"></i>
-                            <span>Settings</span>
                         </a>
                     </div>
                 </div>
@@ -142,21 +134,6 @@
                         <li class="mr-2">
                             <a href="#" class="inline-block py-2 px-4 text-sm font-medium text-center border-b-2 border-[#afdddd] text-[#7fbfbf] rounded-t-lg active">
                                 All Doctors (245)
-                            </a>
-                        </li>
-                        <li class="mr-2">
-                            <a href="#" class="inline-block py-2 px-4 text-sm font-medium text-center text-gray-500 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">
-                                Pending Approval (12)
-                            </a>
-                        </li>
-                        <li class="mr-2">
-                            <a href="#" class="inline-block py-2 px-4 text-sm font-medium text-center text-gray-500 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">
-                                Active (228)
-                            </a>
-                        </li>
-                        <li class="mr-2">
-                            <a href="#" class="inline-block py-2 px-4 text-sm font-medium text-center text-gray-500 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">
-                                Suspended (5)
                             </a>
                         </li>
                     </ul>
@@ -202,6 +179,7 @@
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialty</th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">License</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Documents</th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                         <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
@@ -225,6 +203,11 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">LIC-12345-MD</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <button class="view-document bg-white text-primary px-3 py-1 rounded-md text-xs font-medium hover:bg-primary hover:text-white" data-doctor="Dr. John Doe" data-id="doc1">
+                                                <i class="fas fa-file-medical mr-1"></i> View Certificate
+                                            </button>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">Mar 18, 2025</div>
@@ -260,6 +243,11 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">LIC-67890-MD</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <button class="view-document bg-white text-primary px-3 py-1 rounded-md text-xs font-medium hover:bg-primary hover:text-white" data-doctor="Dr. John Doe" data-id="doc1">
+                                                <i class="fas fa-file-medical mr-1"></i> View Certificate
+                                            </button>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">Mar 17, 2025</div>
@@ -330,9 +318,6 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
                                             <button class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-ban"></i>
                                             </button>
@@ -365,12 +350,6 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
                                             <button class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-ban"></i>
                                             </button>
@@ -403,12 +382,6 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
                                             <button class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-ban"></i>
                                             </button>
@@ -441,12 +414,6 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
                                             <button class="text-green-500 hover:text-green-700">
                                                 <i class="fas fa-check-circle"></i>
                                             </button>
@@ -479,12 +446,6 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
                                             <button class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-ban"></i>
                                             </button>
@@ -526,6 +487,53 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Document Viewer Modal -->
+            <div id="documentModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 hidden flex items-center justify-center">
+                <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-hidden">
+                    <div class="p-5 border-b border-gray-200 flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-gray-800" id="documentModalTitle">Doctor Certificate</h3>
+                        <button class="text-gray-400 hover:text-gray-600" id="closeDocumentModal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="p-5 flex flex-col">
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <p class="text-sm text-gray-500">Document Type: <span class="font-medium text-gray-700">Medical License Certificate</span></p>
+                                <p class="text-sm text-gray-500">Uploaded: <span class="font-medium text-gray-700">Mar 18, 2025</span></p>
+                            </div>
+                            <div>
+                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm flex items-center">
+                                    <i class="fas fa-download mr-1"></i> Download
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-2 bg-gray-50 h-96 overflow-auto">
+                            <!-- Document preview area -->
+                            <div id="documentPreview" class="flex items-center justify-center h-full">
+                                <!-- This will be populated with the document preview -->
+                                <img src="https://via.placeholder.com/800x1100?text=Medical+Certificate+Preview" alt="Certificate Preview" class="max-w-full h-auto" id="previewImage">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 border-t pt-4">
+                            <h4 class="font-medium text-gray-800 mb-2">Verification Notes</h4>
+                            <textarea class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#afdddd]" rows="3" placeholder="Add verification notes here..."></textarea>
+                            
+                            <div class="flex justify-end space-x-3 mt-4">
+                                <button class="bg-white border border-red-300 text-red-500 px-4 py-2 rounded hover:bg-red-50">
+                                    <i class="fas fa-times mr-1"></i> Reject
+                                </button>
+                                <button class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-4 py-2 rounded">
+                                    <i class="fas fa-check mr-1"></i> Approve
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <!-- Footer -->
             <div class="bg-white p-4 border-t mt-6">
@@ -540,4 +548,64 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Document viewer modal
+            const documentModal = document.getElementById('documentModal');
+            const closeDocumentModal = document.getElementById('closeDocumentModal');
+            const documentModalTitle = document.getElementById('documentModalTitle');
+            const previewImage = document.getElementById('previewImage');
+            const viewDocumentButtons = document.querySelectorAll('.view-document');
+            
+            // Sample document data (in a real app, this would come from the server)
+            const documentData = {
+                'doc1': {
+                    title: 'Dr. John Doe - Medical License Certificate',
+                    image: 'https://via.placeholder.com/800x1100?text=John+Doe+Medical+Certificate',
+                    type: 'Medical License Certificate',
+                    date: 'Mar 18, 2025'
+                },
+                'doc2': {
+                    title: 'Dr. Maria Smith - Medical License Certificate',
+                    image: 'https://via.placeholder.com/800x1100?text=Maria+Smith+Medical+Certificate',
+                    type: 'Medical License Certificate',
+                    date: 'Mar 17, 2025'
+                },
+                'doc3': {
+                    title: 'Dr. Robert Johnson - Medical License Certificate',
+                    image: 'https://via.placeholder.com/800x1100?text=Robert+Johnson+Medical+Certificate',
+                    type: 'Medical License Certificate',
+                    date: 'Mar 16, 2025'
+                }
+            };
+            
+            viewDocumentButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const doctorName = this.getAttribute('data-doctor');
+                    const docId = this.getAttribute('data-id');
+                    const docData = documentData[docId];
+                    
+                    documentModalTitle.textContent = docData.title;
+                    previewImage.src = docData.image;
+                    previewImage.alt = docData.title;
+                    
+                    documentModal.classList.remove('hidden');
+                });
+            });
+            
+            if (closeDocumentModal) {
+                closeDocumentModal.addEventListener('click', function() {
+                    documentModal.classList.add('hidden');
+                });
+            }
+            
+            // Close modal when clicking outside
+            documentModal.addEventListener('click', function(e) {
+                if (e.target === documentModal) {
+                    documentModal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 @endsection

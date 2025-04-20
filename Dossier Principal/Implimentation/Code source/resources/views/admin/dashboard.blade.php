@@ -1,5 +1,5 @@
 @extends('layouts.private_space')
-@section('title', 'admin-dashboard')
+@section('title', 'Admin Dashboard')
 
 @section('content')
     <div class="flex min-h-screen">
@@ -22,29 +22,25 @@
                     </div>
                 </div>
                 <div class="mt-5">
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
+                    <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
                         <i class="fas fa-tachometer-alt mr-3 text-[#7fbfbf]"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('admin.doctors' )}}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-user-md mr-3 text-gray-400"></i>
                         <span>Doctors</span>
                     </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('admin.patients') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-users mr-3 text-gray-400"></i>
                         <span>Patients</span>
                     </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('admin.contents') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-newspaper mr-3 text-gray-400"></i>
                         <span>Content</span>
                     </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('admin.statistics') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-chart-bar mr-3 text-gray-400"></i>
                         <span>Statistics</span>
-                    </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
-                        <i class="fas fa-cog mr-3 text-gray-400"></i>
-                        <span>Settings</span>
                     </a>
                 </div>
             </div>
@@ -88,29 +84,25 @@
                         </div>
                     </div>
                     <div class="mt-5">
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 text-gray-600 bg-gray-100 border-l-4 border-[#afdddd]">
                             <i class="fas fa-tachometer-alt mr-3 text-[#7fbfbf]"></i>
                             <span>Dashboard</span>
                         </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('admin.doctors') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-user-md mr-3 text-gray-400"></i>
                             <span>Doctors</span>
                         </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('admin.patients') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-users mr-3 text-gray-400"></i>
                             <span>Patients</span>
                         </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('admin.contents') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-newspaper mr-3 text-gray-400"></i>
                             <span>Content</span>
                         </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('admin.statistics') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-chart-bar mr-3 text-gray-400"></i>
                             <span>Statistics</span>
-                        </a>
-                        <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
-                            <i class="fas fa-cog mr-3 text-gray-400"></i>
-                            <span>Settings</span>
                         </a>
                     </div>
                 </div>
@@ -233,7 +225,7 @@
                         <div class="p-5 border-b border-gray-100">
                             <div class="flex justify-between items-center">
                                 <h3 class="font-semibold text-gray-800">Doctor Registration Requests</h3>
-                                <a href="" class="text-sm text-[#7fbfbf] hover:text-[#afdddd]">View All</a>
+                                <a href="{{ route('admin.doctors') }}" class="text-sm text-[#7fbfbf] hover:text-[#afdddd]">View All</a>
                             </div>
                         </div>
                         <div class="p-5">
