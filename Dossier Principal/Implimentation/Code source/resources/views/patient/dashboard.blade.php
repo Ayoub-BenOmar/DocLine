@@ -5,7 +5,7 @@
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <div class="bg-white shadow-lg w-64 flex-shrink-0 hidden md:block">
-            <div class="p-4 bg-[#afdddd] text-white">
+            <div class="p-4 bg-[#afdddd] text-white bg-cover bg-center" style="background-image: url('{{ asset('images/health-still-life-with-copy-space.jpg') }}');">
                 <h2 class="text-2xl font-bold">DocLine</h2>
                 <p class="text-white text-opacity-80 text-sm">Patient Portal</p>
             </div>
@@ -13,11 +13,11 @@
                 <div class="px-4 py-3">
                     <div class="flex items-center">
                         <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                            JP
+                            {{ substr(Auth::user()->name, 0 , 1) }}{{ substr(Auth::user()->last_name, 0 , 1) }}
                         </div>
                         <div class="ml-3">
-                            <p class="font-medium">John Patient</p>
-                            <p class="text-xs text-gray-500">ID: 12345678</p>
+                            <p class="font-medium">{{ Auth::user()->name }} {{Auth::user()->last_name }}</p>
+                            <p class="text-xs text-gray-500">ID: {{ Auth::user()->id }}</p>
                         </div>
                     </div>
                 </div>
@@ -30,11 +30,11 @@
                         <i class="fas fa-calendar-alt mr-3 text-gray-400"></i>
                         <span>Appointments</span>
                     </a>
-                    <a href="patient_medical_file.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('patient.certificate') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-file-medical mr-3 text-gray-400"></i>
                         <span>Medical Certificates</span>
                     </a>
-                    <a href="patient_certificate.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('patient.medical-file') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-notes-medical mr-3 text-gray-400"></i>
                         <span>Medical File</span>
                     </a>
@@ -71,11 +71,11 @@
                     <div class="px-4 py-3">
                         <div class="flex items-center">
                             <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                JP
+                                {{ substr(Auth::user()->name, 0, 2) }}
                             </div>
                             <div class="ml-3">
-                                <p class="font-medium">John Patient</p>
-                                <p class="text-xs text-gray-500">ID: 12345678</p>
+                                <p class="font-medium">{{ Auth::user()->name}}</p>
+                                <p class="text-xs text-gray-500">ID: {{ Auth::user()->id}}</p>
                             </div>
                         </div>
                     </div>
@@ -88,11 +88,11 @@
                             <i class="fas fa-calendar-alt mr-3 text-gray-400"></i>
                             <span>Appointments</span>
                         </a>
-                        <a href="patient_certificate.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('patient.certificate') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-file-medical mr-3 text-gray-400"></i>
                             <span>Medical Certificates</span>
                         </a>
-                        <a href="patient_medical_file.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('patient.medical-file') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-notes-medical mr-3 text-gray-400"></i>
                             <span>Medical File</span>
                         </a>
@@ -130,7 +130,7 @@
                                 <i class="fas fa-user-md text-xl"></i>
                             </div>
                             <div>
-                                <h2 class="text-lg font-semibold">Welcome back, John!</h2>
+                                <h2 class="text-lg font-semibold">Welcome back, {{ Auth::user()->name}}!</h2>
                                 <p class="text-white text-opacity-80">Your next appointment is in 2 days</p>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <a href="#" class="text-[#7fbfbf] text-sm hover:underline">View all appointments</a>
+                            <a href="{{ route('patient.appointments') }}" class="text-[#7fbfbf] text-sm hover:underline">View all appointments</a>
                         </div>
                     </div>
                     
@@ -165,7 +165,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <a href="#" class="text-[#7fbfbf] text-sm hover:underline">Request new certificate</a>
+                            <a href="{{ route('patient.certificate') }}" class="text-[#7fbfbf] text-sm hover:underline">Request new certificate</a>
                         </div>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                     <div class="bg-white rounded-lg shadow-md p-4">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-semibold text-gray-700">Upcoming Appointments</h3>
-                            <a href="#" class="text-[#7fbfbf] hover:underline text-sm">View all</a>
+                            <a href="{{ route('patient.appointments') }}" class="text-[#7fbfbf] hover:underline text-sm">View all</a>
                         </div>
                         <div class="space-y-4">
                             <div class="border-l-4 border-[#afdddd] pl-4 py-2">
@@ -226,7 +226,7 @@
                     <div class="bg-white rounded-lg shadow-md p-4">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-semibold text-gray-700">Recent Medical Records</h3>
-                            <a href="#" class="text-[#7fbfbf] hover:underline text-sm">View all</a>
+                            <a href="" class="text-[#7fbfbf] hover:underline text-sm">View all</a>
                         </div>
                         <div class="space-y-4">
                             <div class="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">

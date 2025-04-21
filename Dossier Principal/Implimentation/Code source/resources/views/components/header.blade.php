@@ -23,7 +23,7 @@
                         <a href="{{ route('articles') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Articles</a>
                         <a href="" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">About</a>
                         <a href="" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Contact</a>
-                        <a href="" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">My Space</a>
+                        <a href="{{ route('patient.dashboard') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">My Space</a>
                         
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf

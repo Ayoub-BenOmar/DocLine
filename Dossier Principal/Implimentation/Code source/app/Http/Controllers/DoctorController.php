@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,7 +15,8 @@ class DoctorController extends Controller
 {
     public function create(){
         $specialties = Speciality::all();
-        return view('doctor_form', compact('specialties'));
+        $cities = City::all();
+        return view('doctor_form', compact('specialties', 'cities'));
     }
     
     public function storeProfile(Request $request)
@@ -24,7 +26,7 @@ class DoctorController extends Controller
             'medical_licence' => 'required|string|unique:users,medical_licence',
             'medical_document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'speciality_id' => 'required|exists:speciality,id',
-            'city' => 'required|string|max:255',
+            'city_d' => 'required|exists:cities,id',
             'office_address' => 'required|string|max:255',
             'education' => 'required|string',
             'experience' => 'required|integer|min:0|max:70',

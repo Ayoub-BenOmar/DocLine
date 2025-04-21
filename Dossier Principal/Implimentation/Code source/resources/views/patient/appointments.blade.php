@@ -30,11 +30,11 @@
                         <i class="fas fa-calendar-alt mr-3 text-[#7fbfbf]"></i>
                         <span>Appointments</span>
                     </a>
-                    <a href="patient_certificate.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('patient.certificate') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-file-medical mr-3 text-gray-400"></i>
                         <span>Medical Certificates</span>
                     </a>
-                    <a href="patient_medical_file.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('patient.medical-file') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-notes-medical mr-3 text-gray-400"></i>
                         <span>Medical File</span>
                     </a>
@@ -88,11 +88,11 @@
                             <i class="fas fa-calendar-alt mr-3 text-gray-400"></i>
                             <span>Appointments</span>
                         </a>
-                        <a href="patient_certificate.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('patient.certificate') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-file-medical mr-3 text-gray-400"></i>
                             <span>Medical Certificates</span>
                         </a>
-                        <a href="patient_medical_file.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('patient.medical-file') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-notes-medical mr-3 text-gray-400"></i>
                             <span>Medical File</span>
                         </a>

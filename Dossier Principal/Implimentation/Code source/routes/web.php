@@ -98,5 +98,9 @@ Route::prefix('patient')
             return view('patient.certificate');
         })->name('certificate');
 
+        Route::get('/medical_file', function() {
+            return view('patient.medical_file');
+        })->name('medical-file');
+
 });
 

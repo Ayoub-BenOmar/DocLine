@@ -42,6 +42,31 @@
           <form action="{{route('doctor.store-profile')}}" method="POST" enctype="multipart/form-data" class="space-y-8">
             @csrf
             
+            <!-- Profile Picture Upload -->
+            <div>
+              <label for="profile_pic" class="block text-sm font-medium text-gray-700">Profile Picture</label>
+              <p class="text-xs text-gray-500 mb-2">Upload a professional photo of yourself (JPG, PNG)</p>
+              <div class="mt-1 flex items-center">
+                <div class="flex-1">
+                  <div class="flex justify-center px-6 pt-5 pb-6 border-2 border-[#afdddd]/30 border-dashed rounded-md hover:border-[#afdddd] transition-colors duration-200">
+                    <div class="space-y-1 text-center">
+                      <svg class="mx-auto h-12 w-12 text-[#8acaca]" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                        <path d="M24 8c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 20c8.8 0 16 3.6 16 8v4H8v-4c0-4.4 7.2-8 16-8z" 
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      <div class="flex text-sm text-gray-600">
+                        <label for="profile_pic" class="relative cursor-pointer bg-white rounded-md font-medium text-[#2a7f7f] hover:text-[#afdddd] focus-within:outline-none">
+                          <span>Upload a photo</span>
+                          <input id="profile_pic" name="profile_pic" type="file" class="sr-only" accept=".jpg,.jpeg,.png">
+                        </label>
+                      </div>
+                      <p class="text-xs text-gray-500">JPG or PNG up to 5MB</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
             <!-- Medical License -->
             <div>
               <label for="medical_licence" class="block text-sm font-medium text-gray-700">Medical License Number <span class="text-red-500">*</span></label>
@@ -50,7 +75,7 @@
                   class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] py-1.5 px-1.5 block w-full sm:text-sm border-gray-300 rounded-md">
               </div>
             </div>
-
+          
             <!-- Medical Document Upload -->
             <div>
               <label for="medical_document" class="block text-sm font-medium text-gray-700">Medical License Document <span class="text-red-500">*</span></label>
@@ -75,7 +100,7 @@
                 </div>
               </div>
             </div>
-
+          
             <!-- Specialty -->
             <div>
               <label for="speciality_id" class="block text-sm font-medium text-gray-700">Medical Specialty <span class="text-red-500">*</span></label>
@@ -88,17 +113,21 @@
                 </select>
               </div>
             </div>
-
+          
             <!-- Location Information -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label for="city" class="block text-sm font-medium text-gray-700">City <span class="text-red-500">*</span></label>
+                <label for="city_id" class="block text-sm font-medium text-gray-700">City <span class="text-red-500">*</span></label>
                 <div class="mt-1">
-                  <input type="text" name="city" id="city" value="{{ old('city') }}" required
-                    class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] py-1.5 px-1.5 block w-full sm:text-sm border-gray-300 rounded-md">
+                  <select id="city_id" name="city_id" required class="shadow-sm py-1.5 px-1.5 focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md">
+                    <option value="" selected disabled>Select your city</option>
+                    @foreach($cities as $city)
+                      <option value="{{ $city->id }}" {{ old('city_id') == $city->id ? 'selected' : '' }}>{{ $city->city }}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div>
-
+          
               <div>
                 <label for="office_address" class="block text-sm font-medium text-gray-700">Office Address <span class="text-red-500">*</span></label>
                 <div class="mt-1">
@@ -107,7 +136,7 @@
                 </div>
               </div>
             </div>
-
+          
             <!-- Education -->
             <div>
               <label for="education" class="block text-sm font-medium text-gray-700">Education & Qualifications <span class="text-red-500">*</span></label>
@@ -118,7 +147,7 @@
               </div>
               <p class="mt-2 text-sm text-gray-500">Example: MD from Harvard Medical School (2015), Residency at Johns Hopkins Hospital (2015-2018)</p>
             </div>
-
+          
             <!-- Experience -->
             <div>
               <label for="experience" class="block text-sm font-medium text-gray-700">Years of Experience <span class="text-red-500">*</span></label>
@@ -127,7 +156,7 @@
                   class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] py-1.5 px-1.5 block w-full sm:text-sm border-gray-300 rounded-md">
               </div>
             </div>
-
+          
             <!-- Consultation Fees -->
             <div>
               <label for="fees" class="block text-sm font-medium text-gray-700">Consultation Fees ($) <span class="text-red-500">*</span></label>
@@ -142,7 +171,7 @@
                 </div>
               </div>
             </div>
-
+          
             <!-- Submit Button -->
             <div class="pt-5">
               <div class="flex justify-end">
