@@ -282,6 +282,10 @@
                     <div class="bg-white rounded-lg shadow-md p-4">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-semibold text-gray-700">Health Metrics</h3>
+                            <!-- Add Medical Info Button -->
+                            <button id="updateMedicalInfoBtn" class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-3 py-1 rounded-md text-sm flex items-center">
+                                <i class="fas fa-user-edit mr-2"></i> Update Medical Info
+                            </button>
                         </div>
                         
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -354,4 +358,169 @@
             </div>
         </div>
     </div>
+
+    <!-- Medical Information Modal -->
+    <div id="medicalInfoModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-screen overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold text-gray-800">Update Medical Information</h2>
+                    <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form action="" method="POST" class="space-y-6">
+                    @csrf
+                    
+                    <!-- Basic Information -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Birthdate -->
+                        <div>
+                            <label for="birthdate" class="block text-sm font-medium text-gray-700">Date of Birth</label>
+                            <div class="mt-1">
+                                <input type="date" name="birthdate" id="birthdate" value="" 
+                                    class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                        
+                        <!-- Gender -->
+                        <div>
+                            <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                            <div class="mt-1">
+                                <select id="gender" name="gender" class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md">
+                                    <option value="" disabled >Select gender</option>
+                                    <option value="male" >Male</option>
+                                    <option value="female" >Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Blood Type -->
+                    <div>
+                        <label for="blood_type" class="block text-sm font-medium text-gray-700">Blood Type</label>
+                        <div class="mt-1">
+                            <select id="blood_type" name="blood_type" class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md">
+                                <option value="" disabled >Select blood type</option>
+                                <option value="A+" >A+</option>
+                                <option value="A-" >A-</option>
+                                <option value="B+" >B+</option>
+                                <option value="B-" >B-</option>
+                                <option value="AB+" >AB+</option>
+                                <option value="AB-" >AB-</option>
+                                <option value="O+" >O+</option>
+                                <option value="O-" >O-</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Medical History -->
+                    <div>
+                        <label for="past_illnesses" class="block text-sm font-medium text-gray-700">Past Illnesses</label>
+                        <p class="text-xs text-gray-500 mb-1">List any significant past illnesses with years (e.g., Pneumonia (2020))</p>
+                        <div class="mt-1">
+                            <textarea id="past_illnesses" name="past_illnesses" rows="3" 
+                                class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Surgeries -->
+                    <div>
+                        <label for="surgeries" class="block text-sm font-medium text-gray-700">Surgeries</label>
+                        <p class="text-xs text-gray-500 mb-1">List any surgeries with years (e.g., Appendectomy (2015))</p>
+                        <div class="mt-1">
+                            <textarea id="surgeries" name="surgeries" rows="3" 
+                                class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Allergies -->
+                    <div>
+                        <label for="allergies" class="block text-sm font-medium text-gray-700">Allergies</label>
+                        <p class="text-xs text-gray-500 mb-1">List any allergies and their severity (e.g., Penicillin - Severe)</p>
+                        <div class="mt-1">
+                            <textarea id="allergies" name="allergies" rows="3" 
+                                class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Chronic Conditions -->
+                    <div>
+                        <label for="chronic" class="block text-sm font-medium text-gray-700">Chronic Conditions</label>
+                        <p class="text-xs text-gray-500 mb-1">List any chronic conditions with diagnosis year (e.g., Hypertension (diagnosed 2019))</p>
+                        <div class="mt-1">
+                            <textarea id="chronic" name="chronic" rows="3" 
+                                class="shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="flex justify-end pt-4">
+                        <button type="button" id="cancelBtn" class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 mr-3">
+                            Cancel
+                        </button>
+                        <button type="submit" class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-4 py-2 rounded-md">
+                            Save Information
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add JavaScript for Modal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle for mobile
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const mobileSidebar = document.getElementById('mobileSidebar');
+            const closeSidebar = document.getElementById('closeSidebar');
+            
+            if (sidebarToggle && mobileSidebar && closeSidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    mobileSidebar.classList.toggle('hidden');
+                });
+                
+                closeSidebar.addEventListener('click', function() {
+                    mobileSidebar.classList.add('hidden');
+                });
+            }
+            
+            // Medical Info Modal
+            const updateMedicalInfoBtn = document.getElementById('updateMedicalInfoBtn');
+            const medicalInfoModal = document.getElementById('medicalInfoModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            
+            if (updateMedicalInfoBtn && medicalInfoModal && closeModalBtn && cancelBtn) {
+                // Open modal
+                updateMedicalInfoBtn.addEventListener('click', function() {
+                    medicalInfoModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+                });
+                
+                // Close modal functions
+                const closeModal = function() {
+                    medicalInfoModal.classList.add('hidden');
+                    document.body.style.overflow = ''; // Re-enable scrolling
+                };
+                
+                closeModalBtn.addEventListener('click', closeModal);
+                cancelBtn.addEventListener('click', closeModal);
+                
+                // Close modal when clicking outside
+                medicalInfoModal.addEventListener('click', function(e) {
+                    if (e.target === medicalInfoModal) {
+                        closeModal();
+                    }
+                });
+                
+                // Prevent closing when clicking inside the modal content
+                medicalInfoModal.querySelector('.bg-white').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+    </script>
 @endsection
