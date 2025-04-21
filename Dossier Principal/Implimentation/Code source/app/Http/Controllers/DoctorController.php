@@ -23,6 +23,7 @@ class DoctorController extends Controller
     {
         // validate  data
         $request->validate([
+            'profile_pic' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5120',
             'medical_licence' => 'required|string|unique:users,medical_licence',
             'medical_document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'speciality_id' => 'required|exists:speciality,id',
@@ -36,10 +37,12 @@ class DoctorController extends Controller
         try {
             // handle file upload
             $documentPath = $request->file('medical_document')->store('medical_documents', 'public');
+            $picturePath = $request->file('profile_pic')->store('profile_pics', 'public');
 
             // update user profile with doctor details
             $user = Auth::user();
             $user->update([
+                'profile_pic' => $picturePath,
                 'medical_licence' => $request->medical_licence,
                 'medical_document' => $documentPath,
                 'speciality_id' => $request->speciality_id,
@@ -58,6 +61,10 @@ class DoctorController extends Controller
             // delete the uploaded file if it exists in error case
             if (isset($documentPath) && Storage::disk('public')->exists($documentPath)) {
                 Storage::disk('public')->delete($documentPath);
+            }
+
+            if (isset($picturePath) && Storage::disk('public')->exists($picturePath)) {
+                Storage::disk('public')->delete($picturePath);
             }
 
             return back()
