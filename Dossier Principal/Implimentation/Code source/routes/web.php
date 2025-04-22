@@ -63,9 +63,7 @@ Route::prefix('admin')
             return view('admin.dashboard');
         })->name('dashboard');
 
-        Route::get('/doctors', function() {
-            return view('admin.doctors');
-        })->name('doctors');
+        Route::get('/doctors', [DoctorController::class, 'show'])->name('doctors');
 
         Route::get('/patients', function() {
             return view('admin.patients');
@@ -78,6 +76,8 @@ Route::prefix('admin')
         Route::get('/statistics', function() {
             return view('admin.statistics');
         })->name('statistics');
+
+        Route::get('/doctors/accept/{doctor}', [DoctorController::class, 'accept'])->name('accept.doctor');
 
 });
 

@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'last_name', 'password', 'role', 'phone', 'profile_pic', 
         'medical_licence', 'medical_document', 'speciality_id',
-        'city', 'office_address', 'education', 'fees', 'experience',
+        'city_id', 'office_address', 'education', 'fees', 'experience',
         'birthdate', 'gender', 'blood_type', 'past_illnesses',
         'surgeries', 'allergies', 'chronic', 'is_activated', 'is_approved'
     ];
@@ -60,5 +60,9 @@ class User extends Authenticatable
     public function patient()
     {
         return $this->hasOne(Patient::class);
+    }
+
+    public function speciality(){
+        return $this->belongsTo(Speciality::class);
     }
 }

@@ -18,6 +18,11 @@ class DoctorController extends Controller
         $cities = City::all();
         return view('doctor_form', compact('specialties', 'cities'));
     }
+
+    public function show(){
+        $doctors = User::with('speciality')->where('is_activated', false)->where('role', 'doctor')->get();
+        return view('admin.doctors', compact('doctors'));
+    }
     
     public function storeProfile(Request $request)
     {
@@ -27,7 +32,7 @@ class DoctorController extends Controller
             'medical_licence' => 'required|string|unique:users,medical_licence',
             'medical_document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'speciality_id' => 'required|exists:speciality,id',
-            'city_d' => 'required|exists:cities,id',
+            'city_id' => 'required|exists:cities,id',
             'office_address' => 'required|string|max:255',
             'education' => 'required|string',
             'experience' => 'required|integer|min:0|max:70',
@@ -46,7 +51,7 @@ class DoctorController extends Controller
                 'medical_licence' => $request->medical_licence,
                 'medical_document' => $documentPath,
                 'speciality_id' => $request->speciality_id,
-                'city' => $request->city,
+                'city_id' => $request->city_id,
                 'office_address' => $request->office_address,
                 'education' => $request->education,
                 'experience' => $request->experience,
@@ -71,5 +76,13 @@ class DoctorController extends Controller
                 ->withInput()
                 ->withErrors(['error' => 'There was an error submitting your profile. Please try again.']);
         }
+    }
+
+    public function accept(User $doctor)
+    {
+        $doctor->is_activated = true;
+        $doctor->save();
+
+        return redirect()->back()->with('success', 'Doctor accepted successfully.');
     }
 }

@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="absolute bottom-0 w-64 p-4 border-t">
-                <a href="" class="flex items-center text-gray-600 hover:text-[#7fbfbf]">
+                <a href="{{ route('logout') }}" class="flex items-center text-gray-600 hover:text-[#7fbfbf]">
                     <i class="fas fa-sign-out-alt mr-3"></i>
                     <span>Logout</span>
                 </a>
@@ -185,88 +185,56 @@
                                         <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                                     </tr>
                                 </thead>
+                                @foreach ($doctors as $doctor)
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                                    JD
+                                                    {{ substr($doctor->name, 0, 1) }}{{ substr($doctor->last_name, 0, 1) }}
                                                 </div>
                                                 <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. John Doe</div>
-                                                    <div class="text-sm text-gray-500">john.doe@example.com</div>
+                                                    <div class="text-sm font-medium text-gray-900">Dr. {{ $doctor->name }} {{ $doctor->last_name }}</div>
+                                                    <div class="text-sm text-gray-500">{{ $doctor->email }}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Cardiology</div>
+                                            <div class="text-sm text-gray-900">{{ $doctor->speciality->speciality_name ?? 'N/A' }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">LIC-12345-MD</div>
+                                            <div class="text-sm text-gray-900">{{ $doctor->medical_licence }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <button class="view-document bg-white text-primary px-3 py-1 rounded-md text-xs font-medium hover:bg-primary hover:text-white" data-doctor="Dr. John Doe" data-id="doc1">
+                                            <button class="view-document bg-white text-primary px-3 py-1 rounded-md text-xs font-medium hover:bg-primary hover:text-white" data-doctor="{{ $doctor->name }}" data-file="{{ Storage::url($doctor->medical_document) }}">
                                                 <i class="fas fa-file-medical mr-1"></i> View Certificate
                                             </button>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Mar 18, 2025</div>
+                                            <div class="text-sm text-gray-900">{{ $doctor->created_at->format('Y-m-d')}}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                                 Pending
                                             </span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                            <button class="text-red-500 hover:text-red-700">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                                    MS
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. Maria Smith</div>
-                                                    <div class="text-sm text-gray-500">maria.smith@example.com</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Neurology</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">LIC-67890-MD</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <button class="view-document bg-white text-primary px-3 py-1 rounded-md text-xs font-medium hover:bg-primary hover:text-white" data-doctor="Dr. John Doe" data-id="doc1">
-                                                <i class="fas fa-file-medical mr-1"></i> View Certificate
-                                            </button>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Mar 17, 2025</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                Pending
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                            <button class="text-red-500 hover:text-red-700">
-                                                <i class="fas fa-times"></i>
-                                            </button>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex">
+                                            <form action="{{ route('admin.accept.doctor', ['doctor' => $doctor->id]) }}" method="get">
+                                             
+                                                @csrf
+                                                <button type="submit" class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </form>
+                                            <form action="">
+                                                <button class="text-red-500 hover:text-red-700">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </tbody>
+                                @endforeach
                             </table>
                         </div>
                     </div>
@@ -517,20 +485,6 @@
                                 <img src="https://via.placeholder.com/800x1100?text=Medical+Certificate+Preview" alt="Certificate Preview" class="max-w-full h-auto" id="previewImage">
                             </div>
                         </div>
-                        
-                        <div class="mt-4 border-t pt-4">
-                            <h4 class="font-medium text-gray-800 mb-2">Verification Notes</h4>
-                            <textarea class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#afdddd]" rows="3" placeholder="Add verification notes here..."></textarea>
-                            
-                            <div class="flex justify-end space-x-3 mt-4">
-                                <button class="bg-white border border-red-300 text-red-500 px-4 py-2 rounded hover:bg-red-50">
-                                    <i class="fas fa-times mr-1"></i> Reject
-                                </button>
-                                <button class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-4 py-2 rounded">
-                                    <i class="fas fa-check mr-1"></i> Approve
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -558,38 +512,38 @@
             const previewImage = document.getElementById('previewImage');
             const viewDocumentButtons = document.querySelectorAll('.view-document');
             
-            // Sample document data (in a real app, this would come from the server)
-            const documentData = {
-                'doc1': {
-                    title: 'Dr. John Doe - Medical License Certificate',
-                    image: 'https://via.placeholder.com/800x1100?text=John+Doe+Medical+Certificate',
-                    type: 'Medical License Certificate',
-                    date: 'Mar 18, 2025'
-                },
-                'doc2': {
-                    title: 'Dr. Maria Smith - Medical License Certificate',
-                    image: 'https://via.placeholder.com/800x1100?text=Maria+Smith+Medical+Certificate',
-                    type: 'Medical License Certificate',
-                    date: 'Mar 17, 2025'
-                },
-                'doc3': {
-                    title: 'Dr. Robert Johnson - Medical License Certificate',
-                    image: 'https://via.placeholder.com/800x1100?text=Robert+Johnson+Medical+Certificate',
-                    type: 'Medical License Certificate',
-                    date: 'Mar 16, 2025'
-                }
-            };
-            
             viewDocumentButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const doctorName = this.getAttribute('data-doctor');
-                    const docId = this.getAttribute('data-id');
-                    const docData = documentData[docId];
+                    const filePath = this.getAttribute('data-file');
                     
-                    documentModalTitle.textContent = docData.title;
-                    previewImage.src = docData.image;
-                    previewImage.alt = docData.title;
+                    // Set the modal title
+                    documentModalTitle.textContent = `Medical Document - Dr. ${doctorName}`;
                     
+                    // Check if the file is an image or PDF
+                    const fileExtension = filePath.split('.').pop().toLowerCase();
+                    const isImage = ['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension);
+                    
+                    if (isImage) {
+                        // For images, show directly
+                        previewImage.src = filePath;
+                        previewImage.style.display = 'block';
+                    } else {
+                        // For PDFs, use an iframe
+                        previewImage.style.display = 'none';
+                        const pdfViewer = document.createElement('iframe');
+                        pdfViewer.src = filePath;
+                        pdfViewer.style.width = '100%';
+                        pdfViewer.style.height = '100%';
+                        pdfViewer.style.border = 'none';
+                        
+                        // Clear previous content and add the PDF viewer
+                        const previewContainer = document.getElementById('documentPreview');
+                        previewContainer.innerHTML = '';
+                        previewContainer.appendChild(pdfViewer);
+                    }
+                    
+                    // Show the modal
                     documentModal.classList.remove('hidden');
                 });
             });

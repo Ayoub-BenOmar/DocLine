@@ -8,8 +8,8 @@ class Speciality extends Model
 {
     protected $table = 'speciality';
 
-    public function doctors()
+    public function user()
     {
-        return $this->hasMany(Doctor::class);
+        return $this->hasMany(User::class);
     }
 }
