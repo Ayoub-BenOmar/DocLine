@@ -55,52 +55,65 @@
           Comprehensive Healthcare Solutions
         </p>
       </div>
-
-      <div class="mt-16 grid gap-8 md:grid-cols-3">
-        <!-- Service Cards -->
-        {{-- @foreach($services ?? [] as $service)
-          <div class="bg-white rounded-xl shadow-xl p-8 transition-all duration-300 hover:-translate-y-2">
+  
+      <!-- First Service: Image Right, Description Left -->
+      <div class="mt-16 flex flex-col md:flex-row items-center gap-8">
+        <div class="w-full md:w-1/2 order-2 md:order-1">
+          <div class="p-6">
             <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-5">
-              {!! $service->icon_svg ?? '<svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>' !!}
+              <img src="{{ asset('images/calendar.png') }}" alt="Ophthalmology icon" class="w-14 h-14 object-contain">
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $service->title ?? 'Online Appointment' }}</h3>
-            <p class="text-gray-600">{{ $service->description ?? 'Book appointments with your preferred doctors anytime, anywhere.' }}</p>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Online Appointment</h3>
+            <p class="text-gray-600 text-lg">
+              Book appointments with your preferred doctors anytime, anywhere. Our intuitive scheduling system allows you to select the perfect time slot that fits your busy schedule. Receive instant confirmations and reminders to ensure you never miss an important healthcare visit.
+            </p>
           </div>
-        @endforeach --}}
-        
-        {{-- @empty($services) --}}
-          <div class="bg-white rounded-xl shadow-xl p-8 transition-all duration-300 hover:-translate-y-2">
+        </div>
+        <div class="w-full md:w-1/2 order-1 md:order-2">
+          <div class="rounded-xl overflow-hidden shadow-lg">
+            <img src="{{ asset('images/appointment-online.jpg') }}" alt="Online Appointment" class="w-full h-80 object-cover" onerror="this.src='https://via.placeholder.com/600x400/e6f5f5/2a7f7f?text=Online+Appointment'">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Second Service: Image Left, Description Right -->
+      <div class="mt-24 flex flex-col md:flex-row items-center gap-8">
+        <div class="w-full md:w-1/2">
+          <div class="rounded-xl overflow-hidden shadow-lg">
+            <img src="{{ asset('images/digital-prescription.jpg') }}" alt="Digital Prescriptions" class="w-full h-80 object-cover" onerror="this.src='https://via.placeholder.com/600x400/e6f5f5/2a7f7f?text=Digital+Prescriptions'">
+          </div>
+        </div>
+        <div class="w-full md:w-1/2">
+          <div class="p-6">
             <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-5">
-              <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+              <img src="{{ asset('images/prescription.png') }}" alt="Ophthalmology icon" class="w-14 h-14 object-contain">
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Online Appointment</h3>
-            <p class="text-gray-600">Book appointments with your preferred doctors anytime, anywhere.</p>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Digital Prescriptions</h3>
+            <p class="text-gray-600 text-lg">
+              Receive and manage your prescriptions digitally. No more paper prescriptions to lose or forget. Access your medication details anytime, set reminders for refills, and easily share information with your healthcare providers for better coordination of your care.
+            </p>
           </div>
-
-          <div class="bg-white rounded-xl shadow-xl p-8 transition-all duration-300 hover:-translate-y-2">
+        </div>
+      </div>
+  
+      <!-- Third Service: Image Right, Description Left -->
+      <div class="mt-24 flex flex-col md:flex-row items-center gap-8">
+        <div class="w-full md:w-1/2 order-2 md:order-1">
+          <div class="p-6">
             <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-5">
-              <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
+              <img src="{{ asset('images/medical-record.png') }}" alt="Ophthalmology icon" class="w-14 h-14 object-contain">
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Digital Prescriptions</h3>
-            <p class="text-gray-600">Receive and manage your prescriptions digitally.</p>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Medical Records</h3>
+            <p class="text-gray-600 text-lg">
+              Access your complete medical history securely. Our platform keeps all your health information in one place, from test results to treatment plans. Easily share your records with new healthcare providers, ensuring continuity of care wherever you go.
+            </p>
           </div>
-
-          <div class="bg-white rounded-xl shadow-xl p-8 transition-all duration-300 hover:-translate-y-2">
-            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-5">
-              <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Medical Records</h3>
-            <p class="text-gray-600">Access your complete medical history securely.</p>
+        </div>
+        <div class="w-full md:w-1/2 order-1 md:order-2">
+          <div class="rounded-xl overflow-hidden shadow-lg">
+            <img src="{{ asset('images/medical-record.jpg') }}" alt="Medical Records" class="w-full h-80 object-cover" onerror="this.src='https://via.placeholder.com/600x400/e6f5f5/2a7f7f?text=Medical+Records'">
           </div>
-        {{-- @endempty --}}
+        </div>
       </div>
     </div>
   </section>
@@ -119,43 +132,12 @@
       </div>
 
       <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <!-- Specialty Cards -->
-        {{-- @foreach($medicalSpecialties ?? [] as $specialty)
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2">
-            <div class="p-6">
-              <div class="flex items-center">
-                <div class="flex-shrink-0">
-                  <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
-                    {!! $specialty->icon_svg ?? '<svg class="h-8 w-8 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    </svg>' !!}
-                  </div>
-                </div>
-                <div class="ml-4">
-                  <h3 class="text-xl font-bold text-gray-900">{{ $specialty->name ?? 'Cardiology' }}</h3>
-                  <p class="text-gray-600 mt-1">{{ $specialty->short_description ?? 'Heart and cardiovascular system specialists' }}</p>
-                </div>
-              </div>
-              <p class="mt-4 text-gray-600">{{ $specialty->description ?? 'Our cardiologists diagnose and treat conditions affecting the heart and blood vessels, from hypertension to heart failure.' }}</p>
-              <div class="mt-5">
-                <a href="{{ route('specialists.by-specialty', $specialty->slug ?? 'cardiology') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300 transition-colors duration-200">
-                  Find a {{ $specialty->specialist_title ?? 'Specialist' }}
-                </a>
-              </div>
-            </div>
-          </div>
-        @endforeach --}}
-
-        {{-- @empty($medicalSpecialties)
-          @for($i = 0; $i < 3; $i++) --}}
             <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2">
               <div class="p-6">
                 <div class="flex items-center">
                   <div class="flex-shrink-0">
-                    <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
-                      <svg class="h-8 w-8 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                      </svg>
+                    <div class="w-14 h-14 rounded-full flex items-center justify-center">
+                      <img src="{{ asset('images/cardiology.png') }}" alt="Ophthalmology icon" class="w-14 h-14 object-contain">
                     </div>
                   </div>
                   <div class="ml-4">
@@ -171,8 +153,51 @@
                 </div>
               </div>
             </div>
-          {{-- @endfor
-        @endempty --}}
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2">
+              <div class="p-6">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <div class="w-14 h-14 rounded-full flex items-center justify-center">
+                      <img src="{{ asset('images/skin.png') }}" alt="Ophthalmology icon" class="w-14 h-14 object-contain">
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-xl font-bold text-gray-900">Dermatology</h3>
+                    <p class="text-gray-600 mt-1">Skin and Hair Specialists</p>
+                  </div>
+                </div>
+                <p class="mt-4 text-gray-600">Our dermatologists are experts in diagnosing and treating conditions affecting the skin, hair, and nails — from acne and eczema to skin cancer and hair loss.</p>
+                <div class="mt-5">
+                  <a href="" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300 transition-colors duration-200">
+                    Find a Dermatology
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2">
+              <div class="p-6">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <div class="w-14 h-14 rounded-full flex items-center justify-center overflow-hidden">
+                      <img src="{{ asset('images/ophthalmology.png') }}" alt="Ophthalmology icon" class="w-14 h-14 object-contain">
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-xl font-bold text-gray-900">Ophthalmology</h3>
+                    <p class="text-gray-600 mt-1">Eye and Vision Care Specialists</p>
+                  </div>
+                </div>
+                <p class="mt-4 text-gray-600">Our ophthalmologists provide comprehensive eye care — from vision correction and eye exams to the treatment of conditions like cataracts, glaucoma, and retinal disorders.</p>
+                <div class="mt-5">
+                  <a href="" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300 transition-colors duration-200">
+                    Find a Cardiologist
+                  </a>
+                </div>
+              </div>
+            </div>
+            
       </div>
     </div>
   </section>
