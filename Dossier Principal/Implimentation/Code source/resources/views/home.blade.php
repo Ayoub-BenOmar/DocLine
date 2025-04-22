@@ -192,69 +192,12 @@
 
       <div class="mt-16 grid gap-8 md:grid-cols-3">
         <!-- Doctor Cards -->
-        {{-- @forelse($topDoctors ?? [] as $doctor) --}}
-          {{-- <div class="bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-2">
-            <div class="relative">
-              <div class="overflow-hidden h-64">
-                <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" 
-                     src="{{ $doctor->profile_image ? asset('storage/' . $doctor->profile_image) : 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' }}" 
-                     alt="Dr. {{ $doctor->name }}">
-              </div>
-              @if($doctor->is_top_rated)
-                <div class="absolute top-4 right-4 bg-green-300 text-white text-xs font-bold px-3 py-1 rounded-full">
-                  Top Rated
-                </div>
-              @endif
-            </div>
-            <div class="p-6">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="text-xl font-bold text-gray-900">Dr. {{ $doctor->name }}</h3>
-                  <p class="text-green-300 font-medium">{{ $doctor->specialty->name ?? 'Specialist' }}</p>
-                </div>
-                <div class="flex items-center">
-                  <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span class="ml-1 text-gray-700 font-medium">{{ number_format($doctor->rating ?? 4.9, 1) }}</span>
-                </div>
-              </div>
-              <div class="mt-4 flex flex-wrap gap-2">
-                @foreach($doctor->specializations ?? [] as $specialization)
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    {{ $specialization->name }}
-                  </span>
-                @endforeach
-                @empty($doctor->specializations)
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    Heart Disease
-                  </span>
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    Hypertension
-                  </span>
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    Cardiac Surgery
-                  </span>
-                @endempty
-              </div>
-              <p class="mt-4 text-gray-600">
-                {{ $doctor->bio ?? 'Dr. ' . $doctor->name . ' is a board-certified specialist with experience in treating complex conditions.' }}
-              </p>
-              <div class="mt-6 flex items-center justify-between">
-                <span class="text-gray-700 font-medium">Next available: {{ $doctor->next_available ?? 'Today' }}</span>
-                <a href="{{ route('appointments.book', ['doctor' => $doctor->id]) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-green-{{ $loop->index === 1 ? '400' : '300' }} hover:bg-green-{{ $loop->index === 1 ? '500' : '400' }} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300 transition-colors duration-200">
-                  Book Now
-                </a>
-              </div>
-            </div>
-          </div> --}}
-        {{-- @empty
-          @for($i = 0; $i < 3; $i++) --}}
+          @foreach ($doctors as $doctor)
             <div class="bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-2">
               <div class="relative">
                 <div class="overflow-hidden h-64">
                   <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" 
-                      src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                      src="{{ asset('storage/' . $doctor->profile_pic) }}" 
                       alt="Dr. Sarah Johnson">
                 </div>
                 <div class="absolute top-4 right-4 bg-green-300 text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -264,8 +207,8 @@
               <div class="p-6">
                 <div class="flex items-center justify-between">
                   <div>
-                    <h3 class="text-xl font-bold text-gray-900">Dr. Sarah Johnson</h3>
-                    <p class="text-green-300 font-medium">Cardiologist</p>
+                    <h3 class="text-xl font-bold text-gray-900">Dr. {{ $doctor->name }} {{ $doctor->last_name }}</h3>
+                    <p class="text-green-300 font-medium">{{ $doctor->speciality->speciality_name }}</p>
                   </div>
                   <div class="flex items-center">
                     <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -286,7 +229,7 @@
                   </span>
                 </div>
                 <p class="mt-4 text-gray-600">
-                  Dr. Johnson is a board-certified cardiologist with over 15 years of experience in treating complex heart conditions.
+                  Dr. {{ $doctor->name }} is a board-certified {{ $doctor->speciality->speciality_name }} specialist with over {{ $doctor->experience }} years of experience in treating conditions related to {{ strtolower($doctor->speciality->speciality_name) }}.
                 </p>
                 <div class="mt-6 flex items-center justify-between">
                   <span class="text-gray-700 font-medium">Next available: Today</span>
@@ -296,8 +239,7 @@
                 </div>
               </div>
             </div>
-          {{-- @endfor
-        @endforelse --}}
+          @endforeach
       </div>
 
       <div class="mt-12 text-center">
@@ -324,10 +266,10 @@
             Browse our comprehensive library of medical articles written by healthcare professionals. Find answers to common questions and gain valuable insights about your health concerns.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row gap-4">
-            <a href="" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-full text-green-700 bg-white hover:bg-gray-50 transition-colors duration-200">
+            <a href="{{ route('articles') }}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-full text-green-700 bg-white hover:bg-gray-50 transition-colors duration-200">
               Read Articles
             </a>
-            <a href="" class="inline-flex items-center justify-center px-5 py-3 border border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-green-700 transition-colors duration-200">
+            <a href="{{ route('articles') }}" class="inline-flex items-center justify-center px-5 py-3 border border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-green-700 transition-colors duration-200">
               View FAQs
               <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -387,6 +329,40 @@
                         </div>
                         <p class="text-gray-600 italic">"DocLine has transformed how I manage my healthcare. The booking process is incredibly simple, and I love having all my medical records in one secure place."</p>
                     </div>
+                    <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100 hover:border-green-200 transition-all duration-300">
+                      <div class="flex items-center mb-6">
+                          <div class="h-12 w-12 rounded-full overflow-hidden bg-gray-200">
+                              <img src="{{ asset('images/Me.jpg') }}" 
+                                  alt="Client" class="h-full w-full object-cover">
+                          </div>
+                          <div class="ml-4">
+                              <h4 class="text-lg font-bold text-gray-900">Ayoub</h4>
+                              <div class="flex text-yellow-400">
+                                      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                      </svg>
+                              </div>
+                          </div>
+                      </div>
+                      <p class="text-gray-600 italic">"DocLine has transformed how I manage my healthcare. The booking process is incredibly simple, and I love having all my medical records in one secure place."</p>
+                  </div>
+                  <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100 hover:border-green-200 transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="h-12 w-12 rounded-full overflow-hidden bg-gray-200">
+                            <img src="{{ asset('images/Me.jpg') }}" 
+                                alt="Client" class="h-full w-full object-cover">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-bold text-gray-900">Ayoub</h4>
+                            <div class="flex text-yellow-400">
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"DocLine has transformed how I manage my healthcare. The booking process is incredibly simple, and I love having all my medical records in one secure place."</p>
+                </div>
             </div>
         </div>
   </section>

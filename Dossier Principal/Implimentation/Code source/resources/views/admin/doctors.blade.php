@@ -211,7 +211,7 @@
                                             </button>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $doctor->created_at->format('Y-m-d')}}</div>
+                                            <div class="text-sm text-gray-900">{{ $doctor->created_at->format('d M Y')}}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
@@ -220,7 +220,6 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex">
                                             <form action="{{ route('admin.accept.doctor', ['doctor' => $doctor->id]) }}" method="get">
-                                             
                                                 @csrf
                                                 <button type="submit" class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
                                                     <i class="fas fa-check"></i>
@@ -258,6 +257,7 @@
                                         <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                                     </tr>
                                 </thead>
+                                @foreach ($activeDoctors as $activeDoctor)
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -266,147 +266,19 @@
                                                     SM
                                                 </div>
                                                 <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. Sarah Miller</div>
-                                                    <div class="text-sm text-gray-500">sarah.miller@example.com</div>
+                                                    <div class="text-sm font-medium text-gray-900">Dr. {{ $activeDoctor->name }} {{ $activeDoctor->last_name }}</div>
+                                                    <div class="text-sm text-gray-500">{{ $activeDoctor->email }}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">General Medicine</div>
+                                            <div class="text-sm text-gray-900">{{ $activeDoctor->speciality->speciality_name }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">142</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Jan 15, 2024</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                Active
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-red-500 hover:text-red-700">
-                                                <i class="fas fa-ban"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                                    MC
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. Michael Chen</div>
-                                                    <div class="text-sm text-gray-500">michael.chen@example.com</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Cardiology</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">98</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Feb 22, 2024</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                Active
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-red-500 hover:text-red-700">
-                                                <i class="fas fa-ban"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                                    AJ
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. Amanda Johnson</div>
-                                                    <div class="text-sm text-gray-500">amanda.j@example.com</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Pediatrics</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">127</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Mar 10, 2024</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                Active
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-red-500 hover:text-red-700">
-                                                <i class="fas fa-ban"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                                    RM
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. Robert Miller</div>
-                                                    <div class="text-sm text-gray-500">robert.m@example.com</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Orthopedics</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">85</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Dec 05, 2023</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                                Suspended
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-green-500 hover:text-green-700">
-                                                <i class="fas fa-check-circle"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                                    EW
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. Emily Wilson</div>
-                                                    <div class="text-sm text-gray-500">emily.w@example.com</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Dermatology</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">112</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">Jan 28, 2024</div>
+                                            <div class="text-sm text-gray-900">{{ $activeDoctor->created_at->format('d M Y') }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -420,6 +292,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                @endforeach
                             </table>
                         </div>
                         

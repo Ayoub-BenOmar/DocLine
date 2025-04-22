@@ -29,17 +29,25 @@
                 Email address
               </label>
               <div class="mt-1">
-                <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                <input id="email" name="email" type="email" autocomplete="email" required
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
               </div>
-            </div>
+              @error('email')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+              @enderror
+            </div>            
   
             <div>
               <label for="password" class="block text-sm font-medium text-gray-700">
                 Password
               </label>
               <div class="mt-1">
-                <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                <input id="password" name="password" type="password" autocomplete="current-password" required
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
               </div>
+              @error('password')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+              @enderror
             </div>
   
             <div>

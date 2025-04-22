@@ -138,7 +138,7 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">Total Users</p>
-                                <h3 class="text-2xl font-bold text-gray-800">1,248</h3>
+                                <h3 class="text-2xl font-bold text-gray-800">{{ $allUsers->count() }}</h3>
                             </div>
                             <div class="bg-[#e6f5f5] h-12 w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-users text-[#7fbfbf] text-xl"></i>
@@ -159,7 +159,7 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">Doctors</p>
-                                <h3 class="text-2xl font-bold text-gray-800">245</h3>
+                                <h3 class="text-2xl font-bold text-gray-800">{{ $allDoctors->count() }}</h3>
                             </div>
                             <div class="bg-[#e6f5f5] h-12 w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-user-md text-[#7fbfbf] text-xl"></i>
@@ -180,7 +180,7 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">Patients</p>
-                                <h3 class="text-2xl font-bold text-gray-800">1,003</h3>
+                                <h3 class="text-2xl font-bold text-gray-800">{{ $allPatients->count() }}</h3>
                             </div>
                             <div class="bg-[#e6f5f5] h-12 w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-hospital-user text-[#7fbfbf] text-xl"></i>
@@ -240,7 +240,48 @@
                                             <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                                         </tr>
                                     </thead>
+                                    @foreach ($doctors as $doctor)
                                     <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
+                                                        {{ substr($doctor->name, 0 , 1) }}{{ substr($doctor->last_name, 0 , 1) }}
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">Dr. {{ $doctor->name }} {{ $doctor->last_name }}</div>
+                                                        <div class="text-sm text-gray-500">{{ $doctor->email }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{ $doctor->speciality->speciality_name }}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{$doctor->created_at->format('d M Y')}}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                    Pending
+                                                </span>
+                                            </td>
+                                            <td class="px-6 flex py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <form action="{{ route('admin.accept.doctor', ['doctor' => $doctor->id]) }}" method="get">
+                                                    @csrf
+                                                    <button class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </form>
+                                                <form action="">
+                                                    <button class="text-red-500 hover:text-red-700">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                            </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    @endforeach
+                                    {{-- <tbody class="bg-white divide-y divide-gray-200">
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
@@ -337,7 +378,7 @@
                                                 </button>
                                             </td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> --}}
                                 </table>
                             </div>
                         </div>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Middleware\CheckDoctorActivation;
 
@@ -59,9 +60,7 @@ Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth', CheckRole::class . ':admin'])
     ->group(function(){
-        Route::get('/dashboard', function() {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard',[DoctorController::class, 'dashboard'])->name('dashboard');
 
         Route::get('/doctors', [DoctorController::class, 'show'])->name('doctors');
 
@@ -89,6 +88,8 @@ Route::prefix('patient')
         Route::get('/dashboard', function() {
             return view('patient.dashboard');
         })->name('dashboard');
+
+        Route::post('/dashboard', [PatientController::class, 'store'])->name('store');
 
         Route::get('/appointments', function() {
             return view('patient.appointments');
