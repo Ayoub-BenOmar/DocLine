@@ -31,8 +31,6 @@ return new class extends Migration
             $table->text('allergies')->nullable();
             $table->text('chronic')->nullable();
             
-            // Account status
-            $table->boolean('is_activated')->default(false);
         });
         
         Schema::dropIfExists('doctors');
