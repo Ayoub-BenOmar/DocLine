@@ -13,7 +13,7 @@ use App\Http\Middleware\CheckDoctorActivation;
 //Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/find-doctor', [HomeController::class, 'find_doctor'])->name('find-doctor');
-Route::post('/find-doctor', AppointmentController::class, 'store')->name('store');
+Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
 Route::get('/articles', function() {
     return view('articles');
 })->name('articles');
@@ -105,5 +105,5 @@ Route::prefix('patient')
 
 });
 
-Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+
 

@@ -11,19 +11,22 @@ class AppointmentController extends Controller
 {
     public function store(Request $request){
         $request->validate([
-            'appointment-date' => [
+            'appointment_date' => [
                 'required',
                 'date',
                 'after_or_equal:today',
-                function ($value, $fail) {
+                function ($attribute, $value, $fail) {
                     $date = Carbon::parse($value);
                     if ($date->isWeekend()) {
                         $fail('Appointments are not available on weekends.');
                     }
                 }
             ],
-            'appointment-time' => 'required'|'in:09:00,09:30,10:00,10:30,11:00,11:30,13:00,13:30,14:00,14:30,15:00,15:30,16:00,16:30',
-            'visit-type' => [
+            'appointment_time' => [
+                'required',
+                'in:09:00,09:30,10:00,10:30,11:00,11:30,13:00,13:30,14:00,14:30,15:00,15:30,16:00,16:30'
+            ],
+            'visit_type' => [
                 'required',
                 'in:new-patient,follow-up,annual-checkup,urgent'
             ],
@@ -42,13 +45,16 @@ class AppointmentController extends Controller
         $appointment = Appointment::create([
             'patient_id' => Auth::id(),
             'doctor_id' => $request->doctor_id,
-            'appointment_date' => $request->input('appointment-date'),
-            'appointment_time' => $request->input('appointment-time'),
-            'visit_type' => $request->input('visit-type'),
+            'appointment_date' => $request->input('appointment_date'),
+            'appointment_time' => $request->input('appointment_time'),
+            'visit_type' => $request->input('visit_type'),
             'insurance_provider' => $request->input('insurance'),
             'medical_documents' => $medicalDocument,
             'status' => 'scheduled'
         ]);
+
+        // Load the doctor and speciality relationships
+        $appointment->load(['doctor', 'doctor.speciality']);
 
         // Send notification to doctor
         // TODO: Implement notification system

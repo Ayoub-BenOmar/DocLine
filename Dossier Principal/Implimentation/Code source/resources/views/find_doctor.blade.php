@@ -152,14 +152,16 @@
                 <a href="#" class="text-[#7fbfbf] hover:text-[#afdddd] text-sm font-medium">
                   View Profile
                 </a>
-                <button type="button" id="open-modal" class="book-now-btn inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-[#afdddd] hover:bg-[#8acaca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] transition-colors duration-200" data-doctor="Dr. Sarah Johnson" data-specialty="Cardiologist">
+                <button type="button" class="book-now-btn inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-[#afdddd] hover:bg-[#8acaca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] transition-colors duration-200" 
+                    data-doctor-id="{{ $doctor->id }}"
+                    data-doctor="Dr. {{ $doctor->name }} {{ $doctor->last_name }}"
+                    data-specialty="{{ $doctor->speciality->speciality_name }}">
                   Book Now
                 </button>
               </div>
             </div>
           </div>
           @endforeach
-          <!-- Additional doctor cards would go here in a real implementation -->
         </div>
       @else
         <p>No doctors found matching your criteria.</p>
@@ -206,6 +208,14 @@
     </div>
   </section>
 
+  @if ($errors->any())
+      <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+      </ul>
+  @endif
+
   <!-- Booking Modal -->
   <div id="booking-modal" class="modal hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -236,16 +246,16 @@
           <div class="mt-6">
             <form id="booking-form" class="space-y-4" action="{{ route('appointments.store') }}" method="POST" enctype="multipart/form-data">
               @csrf
-              <input type="hidden" name="doctor_id" id="doctor-id">
+              <input type="hidden" name="doctor_id" id="doctor_id">
               
               <div>
-                <label for="appointment-date" class="block text-sm font-medium text-gray-700">Preferred Date</label>
-                <input type="date" name="appointment-date" id="appointment-date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
+                <label for="appointment_date" class="block text-sm font-medium text-gray-700">Preferred Date</label>
+                <input type="date" name="appointment_date" id="appointment_date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
               </div>
 
               <div>
-                <label for="appointment-time" class="block text-sm font-medium text-gray-700">Preferred Time</label>
-                <select id="appointment-time" name="appointment-time" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
+                <label for="appointment_time" class="block text-sm font-medium text-gray-700">Preferred Time</label>
+                <select id="appointment_time" name="appointment_time" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
                   <option value="">Select a time</option>
                   <option value="09:00">9:00 AM</option>
                   <option value="09:30">9:30 AM</option>
@@ -265,8 +275,8 @@
               </div>
 
               <div>
-                <label for="visit-type" class="block text-sm font-medium text-gray-700">Visit Type</label>
-                <select id="visit-type" name="visit-type" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
+                <label for="visit_type" class="block text-sm font-medium text-gray-700">Visit Type</label>
+                <select id="visit_type" name="visit_type" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
                   <option value="">Select visit type</option>
                   <option value="new-patient">New Patient Consultation</option>
                   <option value="follow-up">Follow-up Visit</option>
@@ -323,13 +333,13 @@
                   <label for="terms" class="font-medium text-gray-700">I agree to the <a href="#" class="text-[#afdddd] hover:text-[#7fbfbf]">terms and conditions</a></label>
                 </div>
               </div>
+              <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#afdddd] text-base font-medium text-white hover:bg-[#8acaca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] sm:ml-3 sm:w-auto sm:text-sm">
+                Confirm Booking
+              </button>
             </form>
           </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-          <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#afdddd] text-base font-medium text-white hover:bg-[#8acaca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] sm:ml-3 sm:w-auto sm:text-sm">
-            Confirm Booking
-          </button>
           <button type="button" id="close-modal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
             Cancel
           </button>
@@ -338,53 +348,71 @@
     </div>
   </div>
 
-  <!-- Success Modal -->
-  <div id="success-modal" class="modal hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-      <!-- Background overlay -->
-      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Booking modal functionality
+        const bookingModal = document.getElementById('booking-modal');
+        const bookNowButtons = document.querySelectorAll('.book-now-btn');
+        const closeModalButton = document.getElementById('close-modal');
+        const bookingForm = document.getElementById('booking-form');
 
-      <!-- Modal panel -->
-      <div class="modal-content inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-          <div class="sm:flex sm:items-start">
-            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-[#e6f5f5] sm:mx-0 sm:h-10 sm:w-10">
-              <svg class="h-6 w-6 text-[#afdddd]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 class="text-lg leading-6 font-medium text-gray-900" id="success-modal-title">
-                Appointment Booked Successfully!
-              </h3>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500">
-                  Your appointment has been confirmed. You will receive a confirmation email shortly with all the details.
-                </p>
-              </div>
-            </div>
-          </div>
+        // Open booking modal when "Book Now" is clicked
+        bookNowButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const doctorId = this.getAttribute('data-doctor-id');
+                document.getElementById('doctor_id').value = doctorId;
+                
+                bookingModal.classList.remove('hidden');
+            });
+        });
 
-          <div class="mt-6 bg-gray-50 p-4 rounded-lg">
-            <h4 class="text-sm font-medium text-gray-900">Appointment Details:</h4>
-            <div class="mt-2 space-y-2">
-              <p class="text-sm text-gray-600">Doctor: <span id="success-doctor" class="font-medium">Dr. Sarah Johnson</span></p>
-              <p class="text-sm text-gray-600">Specialty: <span id="success-specialty" class="font-medium">Cardiologist</span></p>
-              <p class="text-sm text-gray-600">Date: <span id="success-date" class="font-medium">March 15, 2025</span></p>
-              <p class="text-sm text-gray-600">Time: <span id="success-time" class="font-medium">10:00 AM</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-          <button type="button" id="close-success-modal" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#afdddd] text-base font-medium text-white hover:bg-[#8acaca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] sm:ml-3 sm:w-auto sm:text-sm">
-            Done
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+        // Handle form submission
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            console.log('Form Data:', Object.fromEntries(formData));
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            })
+            .then(response => {
+                console.log('Response:', response);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response Data:', data);
+                if (data.success) {
+                    // Close booking modal
+                    bookingModal.classList.add('hidden');
+                    // Reload the page to show updated data
+                    window.location.reload();
+                } else {
+                    alert('Failed to book appointment: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while booking the appointment. Please try again.');
+            });
+        });
+
+        // Close booking modal
+        closeModalButton.addEventListener('click', function() {
+            bookingModal.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === bookingModal) {
+                bookingModal.classList.add('hidden');
+            }
+        });
+    }); 
+  </script>
 @endsection
-
-@push('scripts')
-  <script src="{{ asset('js/doctors.js') }}"></script>
-@endpush
