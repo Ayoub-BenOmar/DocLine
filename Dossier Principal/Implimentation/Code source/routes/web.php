@@ -11,9 +11,7 @@ use App\Http\Middleware\CheckDoctorActivation;
 
 //Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/find-doctor', function () {
-    return view('find_doctor');
-})->name('find-doctor');
+Route::get('/find-doctor', [HomeController::class, 'find_doctor'])->name('find-doctor');
 Route::get('/articles', function() {
     return view('articles');
 })->name('articles');

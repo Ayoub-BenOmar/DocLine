@@ -65,4 +65,8 @@ class User extends Authenticatable
     public function speciality(){
         return $this->belongsTo(Speciality::class);
     }
+
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
 }
