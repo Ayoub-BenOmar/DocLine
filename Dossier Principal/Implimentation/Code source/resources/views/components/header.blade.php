@@ -72,7 +72,7 @@
         <a href="{{ route('articles') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Articles</a>
         <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">About</a>
         <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Contact</a>
-        <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Space</a>
+        <a href="{{ route('patient.dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Space</a>
         
         <!-- Mobile Authentication Links -->
         @guest

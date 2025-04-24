@@ -201,7 +201,7 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">Appointments</p>
-                                <h3 class="text-2xl font-bold text-gray-800">528</h3>
+                                <h3 class="text-2xl font-bold text-gray-800">{{ $allAppointments->count() }}</h3>
                             </div>
                             <div class="bg-[#e6f5f5] h-12 w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-calendar-check text-[#7fbfbf] text-xl"></i>

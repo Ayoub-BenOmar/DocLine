@@ -224,7 +224,7 @@
 
       <!-- Modal panel -->
       <div class="modal-content inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="bg-gray-100 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
           <div class="sm:flex sm:items-start">
             <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-[#e6f5f5] sm:mx-0 sm:h-10 sm:w-10">
               <svg class="h-6 w-6 text-[#afdddd]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -243,6 +243,10 @@
             </div>
           </div>
 
+          <div id="success-message" class="hidden p-4 bg-green-100 text-green-800 rounded mb-4">
+              Appointment booked successfully!
+          </div>
+
           <div class="mt-6">
             <form id="booking-form" class="space-y-4" action="{{ route('appointments.store') }}" method="POST" enctype="multipart/form-data">
               @csrf
@@ -250,12 +254,12 @@
               
               <div>
                 <label for="appointment_date" class="block text-sm font-medium text-gray-700">Preferred Date</label>
-                <input type="date" name="appointment_date" id="appointment_date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
+                <input type="date" name="appointment_date" id="appointment_date" class="mt-1 py-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
               </div>
 
               <div>
                 <label for="appointment_time" class="block text-sm font-medium text-gray-700">Preferred Time</label>
-                <select id="appointment_time" name="appointment_time" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
+                <select id="appointment_time" name="appointment_time" class="mt-1 py-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
                   <option value="">Select a time</option>
                   <option value="09:00">9:00 AM</option>
                   <option value="09:30">9:30 AM</option>
@@ -276,7 +280,7 @@
 
               <div>
                 <label for="visit_type" class="block text-sm font-medium text-gray-700">Visit Type</label>
-                <select id="visit_type" name="visit_type" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
+                <select id="visit_type" name="visit_type" class="mt-1 py-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
                   <option value="">Select visit type</option>
                   <option value="new-patient">New Patient Consultation</option>
                   <option value="follow-up">Follow-up Visit</option>
@@ -287,7 +291,7 @@
 
               <div>
                 <label for="insurance" class="block text-sm font-medium text-gray-700">Insurance Provider</label>
-                <select id="insurance" name="insurance" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm">
+                <select id="insurance" name="insurance" class="mt-1 py-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm">
                   <option value="">Select insurance (optional)</option>
                   <option value="blue-cross">Blue Cross Blue Shield</option>
                   <option value="aetna">Aetna</option>

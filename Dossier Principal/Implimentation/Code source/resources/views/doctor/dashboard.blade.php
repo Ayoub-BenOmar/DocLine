@@ -14,11 +14,11 @@
                 <div class="px-4 py-3">
                     <div class="flex items-center">
                         <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                            DS
+                            {{ substr(Auth::user()->name, 0 , 1)}}{{ substr(Auth::user()->last_name, 0 , 1)}}
                         </div>
                         <div class="ml-3">
-                            <p class="font-medium">Dr. Sarah Miller</p>
-                            <p class="text-xs text-gray-500">ID: 87654321</p>
+                            <p class="font-medium">Dr. {{ Auth::user()->name}} {{ Auth::user()->last_name}}</p>
+                            <p class="text-xs text-gray-500">ID:  {{ Auth::user()->id}}</p>
                         </div>
                     </div>
                 </div>
@@ -76,11 +76,11 @@
                     <div class="px-4 py-3">
                         <div class="flex items-center">
                             <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                DS
+                                {{ substr(Auth::user()->name, 0 , 1)}}{{ substr(Auth::user()->last_name, 0 , 1)}}
                             </div>
                             <div class="ml-3">
-                                <p class="font-medium">Dr. Sarah Miller</p>
-                                <p class="text-xs text-gray-500">ID: 87654321</p>
+                                <p class="font-medium">Dr. {{ Auth::user()->name}} {{ Auth::user()->last_name}}</p>
+                                <p class="text-xs text-gray-500">ID: {{ Auth::user()->id}}</p>
                             </div>
                         </div>
                     </div>
@@ -125,10 +125,7 @@
                         <h1 class="text-xl font-semibold text-gray-700">Doctor Dashboard</h1>
                     </div>
                     <div class="flex items-center">
-                        <span class="text-sm text-gray-500 mr-4">Today: March 18, 2025</span>
-                        <button class="text-gray-500 hover:text-gray-600 mr-4">
-                            <i class="fas fa-bell"></i>
-                        </button>
+                        <span class="text-sm text-gray-500 mr-4">Today: {{ date('d M, Y') }}</span>
                         <button class="text-[#7fbfbf] hover:text-[#afdddd]">
                             <i class="fas fa-question-circle"></i>
                         </button>
@@ -145,7 +142,7 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">Today's Appointments</p>
-                                <h3 class="text-2xl font-bold text-gray-800">8</h3>
+                                <h3 class="text-2xl font-bold text-gray-800">{{ $appointments->count()}}</h3>
                             </div>
                             <div class="bg-gray-100 h-12 w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-calendar-day text-gray-500 text-xl"></i>
@@ -187,7 +184,7 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">Total Patients</p>
-                                <h3 class="text-2xl font-bold text-gray-800">142</h3>
+                                <h3 class="text-2xl font-bold text-gray-800">{{$patients->count()}}</h3>
                             </div>
                             <div class="bg-gray-100 h-12 w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-users text-gray-500 text-xl"></i>
@@ -216,53 +213,22 @@
                         </div>
                         <div class="p-5">
                             <div class="space-y-5">
-                                <!-- Appointment 1 -->
-                                <div class="flex items-start">
-                                    <div class="bg-[#e6f5f5] rounded-lg p-3 flex-shrink-0">
-                                        <span class="text-[#7fbfbf] font-bold">09:00</span>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h4 class="font-medium text-gray-800">Emily Johnson</h4>
-                                        <p class="text-sm text-gray-600">Annual check-up</p>
-                                        <div class="flex mt-2">
-                                            <button class="text-xs bg-[#e6f5f5] text-[#7fbfbf] px-2 py-1 rounded mr-2">
-                                                <i class="fas fa-check mr-1"></i> Completed
-                                            </button>
+                                @foreach ($appointments as $appointment)
+                                    <div class="flex items-start">
+                                        <div class="bg-[#e6f5f5] rounded-lg p-3 flex-shrink-0">
+                                            <span class="text-[#7fbfbf] font-bold">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('H:i') }}</span>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="font-medium text-gray-800">{{ $appointment->patient->name }} {{ $appointment->patient->last_name }}</h4>
+                                            <p class="text-sm text-gray-600">{{ $appointment->visit_type }}</p>
+                                            <div class="flex mt-2">
+                                                <button class="text-xs bg-[#e6f5f5] text-[#7fbfbf] px-2 py-1 rounded mr-2">
+                                                    <i class="fas fa-check mr-1"></i> Completed
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <!-- Appointment 2 -->
-                                <div class="flex items-start">
-                                    <div class="bg-[#e6f5f5] rounded-lg p-3 flex-shrink-0">
-                                        <span class="text-[#7fbfbf] font-bold">10:30</span>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h4 class="font-medium text-gray-800">John Patient</h4>
-                                        <p class="text-sm text-gray-600">Follow-up consultation</p>
-                                        <div class="flex mt-2">
-                                            <button class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded mr-2">
-                                                <i class="fas fa-clock mr-1"></i> Upcoming
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Appointment 3 -->
-                                <div class="flex items-start">
-                                    <div class="bg-[#e6f5f5] rounded-lg p-3 flex-shrink-0">
-                                        <span class="text-[#7fbfbf] font-bold">13:15</span>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h4 class="font-medium text-gray-800">Robert Williams</h4>
-                                        <p class="text-sm text-gray-600">Blood test results review</p>
-                                        <div class="flex mt-2">
-                                            <button class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded mr-2">
-                                                <i class="fas fa-clock mr-1"></i> Upcoming
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

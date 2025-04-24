@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\City;
 use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Speciality;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,14 +25,6 @@ class DoctorController extends Controller
         $doctors = User::with('speciality')->where('is_activated', false)->where('role', 'doctor')->get();
         $activeDoctors = User::with('speciality')->where('is_activated', true)->where('role', 'doctor')->get();
         return view('admin.doctors', compact('doctors', 'activeDoctors'));
-    }
-
-    public function dashboard(){
-            $doctors = User::with('speciality')->where('is_activated', false)->where('role', 'doctor')->latest()->take(3)->get();
-            $allDoctors = User::all()->where('is_activated', true)->where('role', 'doctor');
-            $allPatients = User::all()->where('role', 'patient');
-            $allUsers = User::all()->where('is_activated', true);
-            return view('admin.dashboard', compact('doctors', 'allDoctors', 'allPatients', 'allUsers'));
     }
     
     public function storeProfile(Request $request)
@@ -93,5 +87,15 @@ class DoctorController extends Controller
         $doctor->save();
 
         return redirect()->back()->with('success', 'Doctor accepted successfully.');
+    }
+
+    public function dashboard(){
+        $doctorId = Auth::user()->id;
+        $appointments = Appointment::with('patient')->whereDate('appointment_date', Carbon::today())->get();
+        $patients =  User::whereHas('appointmentsAsPatient', function ($query) use ($doctorId) {
+            $query->where('doctor_id', $doctorId);
+        })->get();
+
+        return view('doctor.dashboard', compact('doctorId', 'appointments', 'patients'));
     }
 }

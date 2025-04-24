@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
@@ -50,9 +51,7 @@ Route::prefix('doctor')
     ->name('doctor.')
     ->middleware(['auth', CheckRole::class . ':doctor', CheckDoctorActivation::class])
     ->group(function(){
-        Route::get('/dashboard', function() {
-            return view('doctor.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [DoctorController::class, ('dashboard')])->name('dashboard');
 });
 
 //admin routes
@@ -60,7 +59,7 @@ Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth', CheckRole::class . ':admin'])
     ->group(function(){
-        Route::get('/dashboard',[DoctorController::class, 'dashboard'])->name('dashboard');
+        Route::get('/dashboard',[AdminController::class, 'dashboard'])->name('dashboard');
 
         Route::get('/doctors', [DoctorController::class, 'show'])->name('doctors');
 
