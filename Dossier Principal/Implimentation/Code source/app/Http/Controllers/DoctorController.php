@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Speciality;
 use App\Models\Appointment;
+use App\Models\Treatment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -112,5 +113,43 @@ class DoctorController extends Controller
             ->where('status', 'completed')
             ->paginate(6);
         return view('doctor.appointments', compact('appointments', 'completedAppointments'));
+    }
+
+    public function storeTreatment(Request $request)
+    {
+        $request->validate([
+            'appointment_id' => 'required|exists:appointments,id',
+            'medicament' => 'required|string|max:255',
+            'dosage' => 'required|integer|min:1',
+            'frequency' => 'required|string|max:255',
+            'duration' => 'required|integer|min:1',
+        ]);
+
+        try {
+            $appointment = Appointment::findOrFail($request->appointment_id);
+            
+            $treatment = new Treatment([
+                'medicament' => $request->medicament,
+                'dosage' => $request->dosage,
+                'frequency' => $request->frequency,
+                'duration' => $request->duration,
+                'doctor_id' => Auth::id(),
+                'patient_id' => $appointment->patient_id,
+                'appointment_id' => $request->appointment_id,
+            ]);
+
+            $treatment->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Treatment plan added successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error adding treatment plan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

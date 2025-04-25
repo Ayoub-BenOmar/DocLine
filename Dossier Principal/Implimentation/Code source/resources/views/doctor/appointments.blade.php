@@ -248,7 +248,7 @@
       <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
           <div class="mt-3">
               <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Add Treatment Plan</h3>
-              <form id="treatmentForm" action="" method="POST">
+              <form id="treatmentForm" action="{{ route('doctor.treatments.store') }}" method="POST">
                   @csrf
                   <input type="hidden" name="appointment_id" id="appointment_id">
                   <div class="mb-4">
@@ -304,5 +304,38 @@
               closeTreatmentModal();
           }
       }
+
+      // Handle form submission
+      document.getElementById('treatmentForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const formData = new FormData(this);
+          
+          fetch(this.action, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                  'X-Requested-With': 'XMLHttpRequest',
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+              }
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  // Show success message
+                  alert(data.message);
+                  closeTreatmentModal();
+                  // Optionally refresh the page or update the UI
+                  window.location.reload();
+              } else {
+                  // Show error message
+                  alert(data.message);
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred while saving the treatment plan.');
+          });
+      });
   </script>
 @endsection

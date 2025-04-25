@@ -53,6 +53,7 @@ Route::prefix('doctor')
     ->group(function(){
         Route::get('/dashboard', [DoctorController::class, 'dashboard'])->name('dashboard');
         Route::get('/appointments', [DoctorController::class, 'appointments'])->name('appointments');
+        Route::post('/treatments', [DoctorController::class, 'storeTreatment'])->name('treatments.store');
 });
 
 //admin routes
