@@ -101,6 +101,7 @@ class DoctorController extends Controller
             $query->where('doctor_id', $doctorId);
         })->get();
 
+
         return view('doctor.dashboard', compact('appointments', 'patients'));
     }
 
@@ -108,6 +109,7 @@ class DoctorController extends Controller
         $doctorId = Auth::id();
         $appointments = Appointment::with('patient')
             ->where('doctor_id', $doctorId)
+            ->whereRaw("(appointment_date::text || ' ' || appointment_time::text)::timestamp >= ?", [now()])
             ->paginate(5);
         $completedAppointments = Appointment::with('patient')
             ->where('doctor_id', $doctorId)
