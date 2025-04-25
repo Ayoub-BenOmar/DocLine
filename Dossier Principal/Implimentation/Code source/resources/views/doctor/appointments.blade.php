@@ -227,7 +227,7 @@
                                 <p class="font-medium">{{ $completedAppointment->visit_type }}</p>
                             </div>
                             <div class="flex space-x-2 pt-2 border-t">
-                                <button class="flex-1 bg-[#afdddd] hover:bg-[#8acaca] text-white px-3 py-2 rounded text-sm">
+                                <button class="flex-1 bg-[#afdddd] hover:bg-[#8acaca] text-white px-3 py-2 rounded text-sm" onclick="openConsultationModal({{ $completedAppointment->id }})">
                                     <i class="fas fa-file-medical mr-1"></i> Add Medical File
                                 </button>
                                 <button class="flex-1 bg-[#afdddd] hover:bg-[#8acaca] text-white px-3 py-2 rounded text-sm" onclick="openTreatmentModal({{ $completedAppointment->id }})">
@@ -286,6 +286,59 @@
       </div>
   </div>
 
+  <!-- Medical Consultation Modal -->
+  <div id="consultationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+          <div class="mt-3">
+              <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Add Medical Consultation</h3>
+              <form id="consultationForm" action="{{ route('doctor.consultations.store') }}" method="POST">
+                  @csrf
+                  <input type="hidden" name="appointment_id" id="consultation_appointment_id">
+                  <div class="mb-4">
+                      <label for="raison_consultation" class="block text-sm font-medium text-gray-700">Reason for Consultation</label>
+                      <textarea name="raison_consultation" id="raison_consultation" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#afdddd] focus:ring focus:ring-[#afdddd] focus:ring-opacity-50" required></textarea>
+                  </div>
+                  <div class="mb-4">
+                      <label for="weight" class="block text-sm font-medium text-gray-700">Weight (kg)</label>
+                      <input type="number" name="weight" id="weight" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#afdddd] focus:ring focus:ring-[#afdddd] focus:ring-opacity-50" required>
+                  </div>
+                  <div class="mb-4">
+                      <label for="bpm" class="block text-sm font-medium text-gray-700">Heart Rate (BPM)</label>
+                      <input type="number" name="bpm" id="bpm" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#afdddd] focus:ring focus:ring-[#afdddd] focus:ring-opacity-50" required>
+                  </div>
+                  <div class="mb-4">
+                      <label for="blood_pressure" class="block text-sm font-medium text-gray-700">Blood Pressure (mmHg)</label>
+                      <input type="number" name="blood_pressure" id="blood_pressure" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#afdddd] focus:ring focus:ring-[#afdddd] focus:ring-opacity-50" required>
+                  </div>
+                  <div class="mb-4">
+                      <label for="blood_sugar" class="block text-sm font-medium text-gray-700">Blood Sugar (mg/dL)</label>
+                      <input type="number" name="blood_sugar" id="blood_sugar" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#afdddd] focus:ring focus:ring-[#afdddd] focus:ring-opacity-50" required>
+                  </div>
+                  <div class="mb-4">
+                      <label for="current_diagnosis" class="block text-sm font-medium text-gray-700">Current Diagnosis</label>
+                      <textarea name="current_diagnosis" id="current_diagnosis" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#afdddd] focus:ring focus:ring-[#afdddd] focus:ring-opacity-50" required></textarea>
+                  </div>
+                  <div class="mb-4">
+                      <label for="symptoms" class="block text-sm font-medium text-gray-700">Symptoms</label>
+                      <textarea name="symptoms" id="symptoms" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#afdddd] focus:ring focus:ring-[#afdddd] focus:ring-opacity-50" required></textarea>
+                  </div>
+                  <div class="mb-4">
+                      <label for="doctor_note" class="block text-sm font-medium text-gray-700">Doctor's Notes</label>
+                      <textarea name="doctor_note" id="doctor_note" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#afdddd] focus:ring focus:ring-[#afdddd] focus:ring-opacity-50" required></textarea>
+                  </div>
+                  <div class="flex justify-end space-x-3 mt-4">
+                      <button type="button" onclick="closeConsultationModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                          Cancel
+                      </button>
+                      <button type="submit" class="px-4 py-2 bg-[#afdddd] text-white rounded-md hover:bg-[#8acaca] focus:outline-none focus:ring-2 focus:ring-[#afdddd] focus:ring-opacity-50">
+                          Save Consultation
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+
   <script>
       function openTreatmentModal(appointmentId) {
           document.getElementById('appointment_id').value = appointmentId;
@@ -297,11 +350,25 @@
           document.getElementById('treatmentForm').reset();
       }
 
+      function openConsultationModal(appointmentId) {
+          document.getElementById('consultation_appointment_id').value = appointmentId;
+          document.getElementById('consultationModal').classList.remove('hidden');
+      }
+
+      function closeConsultationModal() {
+          document.getElementById('consultationModal').classList.add('hidden');
+          document.getElementById('consultationForm').reset();
+      }
+
       // Close modal when clicking outside
       window.onclick = function(event) {
           const modal = document.getElementById('treatmentModal');
           if (event.target == modal) {
               closeTreatmentModal();
+          }
+          const consultationModal = document.getElementById('consultationModal');
+          if (event.target == consultationModal) {
+              closeConsultationModal();
           }
       }
 
@@ -335,6 +402,36 @@
           .catch(error => {
               console.error('Error:', error);
               alert('An error occurred while saving the treatment plan.');
+          });
+      });
+
+      // Handle consultation form submission
+      document.getElementById('consultationForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const formData = new FormData(this);
+          
+          fetch(this.action, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                  'X-Requested-With': 'XMLHttpRequest',
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+              }
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  alert(data.message);
+                  closeConsultationModal();
+                  window.location.reload();
+              } else {
+                  alert(data.message);
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred while saving the consultation.');
           });
       });
   </script>

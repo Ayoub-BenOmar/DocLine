@@ -9,6 +9,7 @@ use App\Models\Doctor;
 use App\Models\Speciality;
 use App\Models\Appointment;
 use App\Models\Treatment;
+use App\Models\MedicalConsultation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -133,8 +134,6 @@ class DoctorController extends Controller
                 'dosage' => $request->dosage,
                 'frequency' => $request->frequency,
                 'duration' => $request->duration,
-                'doctor_id' => Auth::id(),
-                'patient_id' => $appointment->patient_id,
                 'appointment_id' => $request->appointment_id,
             ]);
 
@@ -149,6 +148,51 @@ class DoctorController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error adding treatment plan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function storeConsultation(Request $request)
+    {
+        $request->validate([
+            'appointment_id' => 'required|exists:appointments,id',
+            'raison_consultation' => 'required|string|max:1000',
+            'weight' => 'required|integer|min:1',
+            'bpm' => 'required|integer|min:1',
+            'blood_pressure' => 'required|integer|min:1',
+            'blood_sugar' => 'required|integer|min:1',
+            'current_diagnosis' => 'required|string|max:1000',
+            'symptoms' => 'required|string|max:1000',
+            'doctor_note' => 'required|string|max:2000',
+        ]);
+
+        try {
+            $appointment = Appointment::findOrFail($request->appointment_id);
+            
+            $consultation = new MedicalConsultation([
+                'raison_consultation' => $request->raison_consultation,
+                'weight' => $request->weight,
+                'bpm' => $request->bpm,
+                'blood_pressure' => $request->blood_pressure,
+                'blood_sugar' => $request->blood_sugar,
+                'current_diagnosis' => $request->current_diagnosis,
+                'symptoms' => $request->symptoms,
+                'doctor_note' => $request->doctor_note,
+                'date' => now(),
+                'appointment_id' => $request->appointment_id,
+            ]);
+
+            $consultation->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Medical consultation added successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error adding medical consultation: ' . $e->getMessage()
             ], 500);
         }
     }
