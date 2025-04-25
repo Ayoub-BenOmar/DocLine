@@ -90,12 +90,27 @@ class DoctorController extends Controller
     }
 
     public function dashboard(){
-        $doctorId = Auth::user()->id;
-        $appointments = Appointment::with('patient')->whereDate('appointment_date', Carbon::today())->get();
+        $doctorId = Auth::id();
+        $appointments = Appointment::with('patient')
+            ->where('doctor_id', $doctorId)
+            ->whereDate('appointment_date', Carbon::today())
+            ->get();
         $patients =  User::whereHas('appointmentsAsPatient', function ($query) use ($doctorId) {
             $query->where('doctor_id', $doctorId);
         })->get();
 
-        return view('doctor.dashboard', compact('doctorId', 'appointments', 'patients'));
+        return view('doctor.dashboard', compact('appointments', 'patients'));
+    }
+
+    public function appointments(){
+        $doctorId = Auth::id();
+        $appointments = Appointment::with('patient')
+            ->where('doctor_id', $doctorId)
+            ->paginate(5);
+        $completedAppointments = Appointment::with('patient')
+            ->where('doctor_id', $doctorId)
+            ->where('status', 'completed')
+            ->paginate(6);
+        return view('doctor.appointments', compact('appointments', 'completedAppointments'));
     }
 }

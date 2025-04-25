@@ -51,7 +51,8 @@ Route::prefix('doctor')
     ->name('doctor.')
     ->middleware(['auth', CheckRole::class . ':doctor', CheckDoctorActivation::class])
     ->group(function(){
-        Route::get('/dashboard', [DoctorController::class, ('dashboard')])->name('dashboard');
+        Route::get('/dashboard', [DoctorController::class, 'dashboard'])->name('dashboard');
+        Route::get('/appointments', [DoctorController::class, 'appointments'])->name('appointments');
 });
 
 //admin routes

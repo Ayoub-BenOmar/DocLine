@@ -27,8 +27,8 @@
         <form action="{{ route('find-doctor') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-6">
           <!-- Specialty Filter -->
           <div>
-            <label for="specialty_id" class="block text-sm font-medium text-gray-700 mb-1">Specialty</label>
-            <select id="specialty_id" name="specialty_id"
+            <label for="speciality_id" class="block text-sm font-medium text-gray-700 mb-1">Specialty</label>
+            <select id="speciality_id" name="speciality_id"
               class="block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm rounded-lg">
               <option value="">All Specialties</option>
               @foreach ($specialties as $speciality)

@@ -53,6 +53,12 @@ class AppointmentController extends Controller
             'status' => 'scheduled'
         ]);
 
+        $appointmentDateTime = Carbon::parse($appointment->appointment_date->format('Y-m-d') . ' ' . $appointment->appointment_time);
+
+        if ($appointmentDateTime->isPast()) {
+            $appointment->update(['status' => 'completed']);
+        }        
+
         // Load the doctor and speciality relationships
         $appointment->load(['doctor', 'doctor.speciality']);
 

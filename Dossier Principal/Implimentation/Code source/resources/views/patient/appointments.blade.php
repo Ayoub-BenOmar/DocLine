@@ -161,15 +161,6 @@
                                             <p class="text-[#7fbfbf] font-semibold">Mar 19, 2025</p>
                                             <p class="text-sm text-gray-500">10:00 AM</p>
                                             <div class="mt-3 flex flex-wrap gap-2 justify-center md:justify-end">
-                                                <!-- <button class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-3 py-1 rounded text-sm">
-                                                    Join Video
-                                                </button>
-                                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                                    Reschedule
-                                                </button>
-                                                <button class="bg-white border border-red-300 text-red-500 px-3 py-1 rounded text-sm hover:bg-red-50">
-                                                    Cancel
-                                                </button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -199,15 +190,6 @@
                                             <p class="text-[#7fbfbf] font-semibold">Mar 25, 2025</p>
                                             <p class="text-sm text-gray-500">2:30 PM</p>
                                             <div class="mt-3 flex flex-wrap gap-2 justify-center md:justify-end">
-                                                <!-- <button class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-3 py-1 rounded text-sm">
-                                                    Join Video
-                                                </button>
-                                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                                    Reschedule
-                                                </button>
-                                                <button class="bg-white border border-red-300 text-red-500 px-3 py-1 rounded text-sm hover:bg-red-50">
-                                                    Cancel
-                                                </button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -243,12 +225,6 @@
                                             <p class="text-gray-500 font-semibold">Feb 15, 2025</p>
                                             <p class="text-sm text-gray-500">11:30 AM</p>
                                             <div class="mt-3 flex flex-wrap gap-2 justify-center md:justify-end">
-                                                <!-- <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                                    View Summary
-                                                </button>
-                                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                                    Book Again
-                                                </button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -278,12 +254,6 @@
                                             <p class="text-gray-500 font-semibold">Feb 10, 2025</p>
                                             <p class="text-sm text-gray-500">9:15 AM</p>
                                             <div class="mt-3 flex flex-wrap gap-2 justify-center md:justify-end">
-                                                <!-- <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                                    View Summary
-                                                </button>
-                                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                                    Book Again
-                                                </button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -313,12 +283,6 @@
                                             <p class="text-gray-500 font-semibold">Jan 28, 2025</p>
                                             <p class="text-sm text-gray-500">3:00 PM</p>
                                             <div class="mt-3 flex flex-wrap gap-2 justify-center md:justify-end">
-                                                <!-- <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                                    View Summary
-                                                </button>
-                                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                                    Book Again
-                                                </button> -->
                                             </div>
                                         </div>
                                     </div>

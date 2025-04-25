@@ -23,8 +23,8 @@ class HomeController extends Controller
             $query->where('city_id', $request->city_id);
         }
     
-        if ($request->specialty_id) {
-            $query->where('specialty_id', $request->specialty_id);
+        if ($request->speciality_id) {
+            $query->where('speciality_id', $request->speciality_id);
         }
     
         if ($request->experience) {
