@@ -66,9 +66,7 @@ Route::prefix('admin')
 
         Route::get('/doctors', [DoctorController::class, 'show'])->name('doctors');
 
-        Route::get('/patients', function() {
-            return view('admin.patients');
-        })->name('patients');
+        Route::get('/patients', [AdminController::class, 'patients'])->name('patients');
 
         Route::get('/contents', function() {
             return view('admin.contents');
