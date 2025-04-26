@@ -135,44 +135,67 @@
             <!-- Request Certificate Section -->
             <div class="bg-white rounded-lg shadow-md p-6 mb-6">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4">Request a Medical Certificate</h2>
-                <form action="" method="POST">
+                <form action="{{ route('patient.medical-certificate.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-medium mb-2" for="doctor">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="doctor_id">
                             Select Doctor
                         </label>
-                        <select id="doctor" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#afdddd]">
+                        <select id="doctor_id" name="doctor_id" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#afdddd] @error('doctor_id') border-red-500 @enderror">
                             <option value="" disabled selected>Choose a doctor from your appointments</option>
-                            <option value="dr-johnson">Dr. Sarah Johnson (Last appointment: Mar 19, 2025)</option>
-                            <option value="dr-chen">Dr. Michael Chen (Last appointment: Mar 25, 2025)</option>
-                            <option value="dr-miller">Dr. Robert Miller (Last appointment: Feb 10, 2025)</option>
+                            @foreach($doctors as $doctor)
+                                <option value="{{ $doctor->id }}" {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                                    Dr. {{ $doctor->name }} {{ $doctor->last_name }}
+                                </option>
+                            @endforeach
                         </select>
+                        @error('doctor_id')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
-            
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-gray-700 text-sm font-medium mb-2" for="from_date">
-                                Start Date
+                                From Date
                             </label>
-                            <input type="date" id="from_date" name="from_date" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#afdddd]">
+                            <input type="date" id="from_date" name="from_date" 
+                                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#afdddd] @error('from_date') border-red-500 @enderror"
+                                value="{{ old('from_date') }}"
+                                min="{{ date('Y-m-d') }}">
+                            @error('from_date')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
+
                         <div>
                             <label class="block text-gray-700 text-sm font-medium mb-2" for="to_date">
-                                End Date
+                                To Date
                             </label>
-                            <input type="date" id="to_date" name="to_date" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#afdddd]">
+                            <input type="date" id="to_date" name="to_date" 
+                                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#afdddd] @error('to_date') border-red-500 @enderror"
+                                value="{{ old('to_date') }}"
+                                min="{{ date('Y-m-d') }}">
+                            @error('to_date')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
-                    
+
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-medium mb-2" for="reason">
-                            Purpose of Certificate
+                            Reason for Certificate
                         </label>
-                        <textarea id="reason" rows="3" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#afdddd]" placeholder="Briefly explain why you need this certificate..."></textarea>
+                        <textarea id="reason" name="reason" rows="4" 
+                            class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#afdddd] @error('reason') border-red-500 @enderror"
+                            placeholder="Please provide a reason for requesting the medical certificate...">{{ old('reason') }}</textarea>
+                        @error('reason')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
-                    
+
                     <div class="flex justify-end">
-                        <button type="submit" class="bg-[#afdddd] hover:bg-[#8acaca] text-white px-4 py-2 rounded-md">
+                        <button type="submit" class="bg-[#afdddd] hover:bg-[#7fbfbf] text-white font-medium py-2 px-4 rounded-md transition-colors">
                             Submit Request
                         </button>
                     </div>
@@ -193,32 +216,28 @@
                                 <th class="p-3 text-center text-sm font-medium text-gray-600 border-b">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- Request 1 -->
-                            <tr class="border-b hover:bg-gray-50">
-                                <td class="p-3 text-sm text-gray-700">Dr. Sarah Johnson</td>
-                                <td class="p-3 text-sm text-gray-700">Mar 15, 2025</td>
-                                <td class="p-3 text-sm text-center">
-                                    <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">Pending</span>
-                                </td>
-                            </tr>
-                            <!-- Request 2 -->
-                            <tr class="border-b hover:bg-gray-50">
-                                <td class="p-3 text-sm text-gray-700">Dr. Michael Chen</td>
-                                <td class="p-3 text-sm text-gray-700">Mar 10, 2025</td>
-                                <td class="p-3 text-sm text-center">
-                                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Approved</span>
-                                </td>
-                            </tr>
-                            <!-- Request 3 -->
-                            <tr class="border-b hover:bg-gray-50">
-                                <td class="p-3 text-sm text-gray-700">Dr. Robert Miller</td>
-                                <td class="p-3 text-sm text-gray-700">Mar 5, 2025</td>
-                                <td class="p-3 text-sm text-center">
-                                    <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">Rejected</span>
-                                </td>
-                            </tr>
-                        </tbody>
+                        @foreach ($certificates as $certificate)
+                            <tbody>
+                                <!-- Request 1 -->
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="p-3 text-sm text-gray-700">Dr. Sarah Johnson</td>
+                                    <td class="p-3 text-sm text-gray-700">{{ $certificate->created_at->format('d M, Y') }}</td>
+                                    @if ($certificate->status == 'pending')
+                                        <td class="p-3 text-sm text-center">
+                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">Pending</span>
+                                        </td>
+                                    @elseif ($certificate->status == 'accepted')
+                                        <td class="p-3 text-sm text-center">
+                                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Approved</span>
+                                        </td>
+                                    @else
+                                        <td class="p-3 text-sm text-center">
+                                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">Rejected</span>
+                                        </td>
+                                    @endif
+                            </tbody>
+                        @endforeach
+
                     </table>
                 </div>
             </div>

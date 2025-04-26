@@ -95,9 +95,8 @@ Route::prefix('patient')
             return view('patient.appointments');
         })->name('appointments');
 
-        Route::get('/certificate', function() {
-            return view('patient.certificate');
-        })->name('certificate');
+        Route::get('/certificate', [PatientController::class, 'certificate'])->name('certificate');
+        Route::post('/certificate', [PatientController::class, 'medicalCertificate'])->name('medical-certificate.store');
 
         Route::get('/medical_file', function() {
             return view('patient.medical_file');

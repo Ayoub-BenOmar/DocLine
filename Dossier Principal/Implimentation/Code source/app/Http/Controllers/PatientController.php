@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MedicalCertificate;
+use App\Models\User;
 
 class PatientController extends Controller
 {
@@ -66,5 +67,20 @@ class PatientController extends Controller
                 ->withInput()
                 ->withErrors(['error' => 'There was an error submitting your medical certificate request. Please try again.']);
         }
+    }
+
+    public function certificate()
+    {
+            $patient = Auth::user();
+            $doctors = User::where('role', 'doctor')
+                ->whereHas('appointmentsAsDoctor', function($query) use ($patient) {
+                    $query->where('patient_id', $patient->id)
+                        ->where('status', 'completed');
+                })
+                ->select('id', 'name', 'last_name')
+                ->get();
+            $certificates = MedicalCertificate::all();
+
+            return view('patient.certificate', compact('doctors', 'certificates'));
     }
 }
