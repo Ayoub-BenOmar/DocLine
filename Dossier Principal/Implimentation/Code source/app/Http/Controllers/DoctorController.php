@@ -25,7 +25,7 @@ class DoctorController extends Controller
 
     public function show(){
         $doctors = User::with('speciality')->where('is_activated', false)->where('role', 'doctor')->get();
-        $activeDoctors = User::with('speciality')->where('is_activated', true)->where('role', 'doctor')->get();
+        $activeDoctors = User::with('speciality')->where('is_activated', true)->where('role', 'doctor')->paginate(5);
         return view('admin.doctors', compact('doctors', 'activeDoctors'));
     }
     

@@ -299,30 +299,34 @@
                         <!-- Pagination -->
                         <div class="flex items-center justify-between mt-6">
                             <div class="text-sm text-gray-500">
-                                Showing <span class="font-medium">1</span> to <span class="font-medium">5</span> of <span class="font-medium">245</span> results
+                                Showing <span class="font-medium">{{ $activeDoctors->firstItem() }}</span> to <span class="font-medium">{{ $activeDoctors->lastItem() }}</span> of <span class="font-medium">{{ $activeDoctors->total() }}</span> results
                             </div>
                             <div class="flex space-x-2">
-                                <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50" disabled>
-                                    Previous
-                                </button>
-                                <button class="px-3 py-1 border rounded-md bg-[#afdddd] text-white">
-                                    1
-                                </button>
-                                <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50">
-                                    2
-                                </button>
-                                <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50">
-                                    3
-                                </button>
-                                <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50">
-                                    4
-                                </button>
-                                <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50">
-                                    5
-                                </button>
-                                <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50">
-                                    Next
-                                </button>
+                                @if ($activeDoctors->onFirstPage())
+                                    <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50" disabled>
+                                        Previous
+                                    </button>
+                                @else
+                                    <a href="{{ $activeDoctors->previousPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50">
+                                        Previous
+                                    </a>
+                                @endif
+
+                                @foreach ($activeDoctors->getUrlRange(1, $activeDoctors->lastPage()) as $page => $url)
+                                    <a href="{{ $url }}" class="px-3 py-1 border rounded-md {{ $activeDoctors->currentPage() == $page ? 'bg-[#afdddd] text-white' : 'text-gray-500 bg-white hover:bg-gray-50' }}">
+                                        {{ $page }}
+                                    </a>
+                                @endforeach
+
+                                @if ($activeDoctors->hasMorePages())
+                                    <a href="{{ $activeDoctors->nextPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50">
+                                        Next
+                                    </a>
+                                @else
+                                    <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50" disabled>
+                                        Next
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </div>
