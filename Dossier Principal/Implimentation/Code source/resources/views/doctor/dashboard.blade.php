@@ -243,71 +243,34 @@
                         </div>
                         <div class="p-5">
                             <div class="space-y-4">
-                                <!-- Request 1 -->
-                                <div class="border border-gray-100 rounded-lg p-3">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <p class="font-medium text-gray-800">Maria Garcia</p>
-                                            <p class="text-xs text-gray-500">Sick Leave Certificate</p>
-                                            <p class="text-xs text-gray-400 mt-1">Requested: Today</p>
+                                @foreach ($certificates as $certificate)
+                                    <div class="border border-gray-100 rounded-lg p-3">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <p class="font-medium text-gray-800">{{ $certificate->patient->name }} {{ $certificate->patient->last_name }}</p>
+                                                <p class="text-xs text-gray-500">{{ $certificate->reason }}</p>
+                                                <p class="text-xs text-gray-400 mt-1">Requested: {{ $certificate->created_at->diffForHumans() }}</p>
+                                            </div>
+                                            <div class="bg-yellow-100 px-2 py-1 rounded text-xs text-yellow-600 font-medium">
+                                                Pending
+                                            </div>
                                         </div>
-                                        <div class="bg-yellow-100 px-2 py-1 rounded text-xs text-yellow-600 font-medium">
-                                            Pending
-                                        </div>
-                                    </div>
-                                    <div class="flex mt-3 space-x-2">
-                                        <button class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-3 py-1 rounded text-xs">
-                                            Approve
-                                        </button>
-                                        <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-xs hover:bg-gray-50">
-                                            Reject
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Request 2 -->
-                                <div class="border border-gray-100 rounded-lg p-3">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <p class="font-medium text-gray-800">William Chen</p>
-                                            <p class="text-xs text-gray-500">Fitness Certificate</p>
-                                            <p class="text-xs text-gray-400 mt-1">Requested: Yesterday</p>
-                                        </div>
-                                        <div class="bg-yellow-100 px-2 py-1 rounded text-xs text-yellow-600 font-medium">
-                                            Pending
+                                        <div class="flex mt-3 space-x-2">
+                                            <form action="{{ route('doctor.accept.certificate', $certificate->id) }}" method="GET" class="inline">
+                                                @csrf
+                                                <button type="submit" class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-3 py-1 rounded text-xs">
+                                                    Approve
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('doctor.reject.certificate', $certificate->id) }}" method="GET" class="inline">
+                                                @csrf
+                                                <button type="submit" class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-xs hover:bg-gray-50">
+                                                    Reject
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
-                                    <div class="flex mt-3 space-x-2">
-                                        <button class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-3 py-1 rounded text-xs">
-                                            Approve
-                                        </button>
-                                        <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-xs hover:bg-gray-50">
-                                            Reject
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Request 3 -->
-                                <div class="border border-gray-100 rounded-lg p-3">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <p class="font-medium text-gray-800">Emma Wilson</p>
-                                            <p class="text-xs text-gray-500">Medical Condition Certificate</p>
-                                            <p class="text-xs text-gray-400 mt-1">Requested: Mar 16, 2025</p>
-                                        </div>
-                                        <div class="bg-yellow-100 px-2 py-1 rounded text-xs text-yellow-600 font-medium">
-                                            Pending
-                                        </div>
-                                    </div>
-                                    <div class="flex mt-3 space-x-2">
-                                        <button class="bg-[#afdddd] hover:bg-[#8fcece] text-white px-3 py-1 rounded text-xs">
-                                            Approve
-                                        </button>
-                                        <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-xs hover:bg-gray-50">
-                                            Reject
-                                        </button>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>  

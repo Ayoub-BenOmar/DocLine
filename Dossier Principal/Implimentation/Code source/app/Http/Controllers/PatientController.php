@@ -41,34 +41,6 @@ class PatientController extends Controller
         }
     }
 
-    public function medicalCertificate(Request $request){
-        $request->validate([
-            'doctor_id' => 'required|exists:users,id',
-            'from_date' => 'required|date|after_or_equal:today',
-            'to_date' => 'required|date|after_or_equal:from_date',
-            'reason' => 'required|string|max:500'
-        ]);
-
-        try {
-            $certificate = MedicalCertificate::create([
-                'patient_id' => Auth::id(),
-                'doctor_id' => $request->doctor_id,
-                'from_date' => $request->from_date,
-                'to_date' => $request->to_date,
-                'reason' => $request->reason,
-                'status' => 'pending'
-            ]);
-
-            return redirect()->route('patient.certificate')
-                ->with('success', 'Your medical certificate request has been submitted successfully.');
-
-        } catch (\Throwable $th) {
-            return back()
-                ->withInput()
-                ->withErrors(['error' => 'There was an error submitting your medical certificate request. Please try again.']);
-        }
-    }
-
     public function certificate()
     {
             $patient = Auth::user();
@@ -80,7 +52,8 @@ class PatientController extends Controller
                 ->select('id', 'name', 'last_name')
                 ->get();
             $certificates = MedicalCertificate::all();
+            $acceptedCertificates = MedicalCertificate::all()->where('status', 'accepted');
 
-            return view('patient.certificate', compact('doctors', 'certificates'));
+            return view('patient.certificate', compact('doctors', 'certificates', 'acceptedCertificates'));
     }
 }

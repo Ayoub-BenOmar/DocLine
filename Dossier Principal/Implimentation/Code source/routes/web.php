@@ -5,6 +5,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
@@ -52,6 +53,8 @@ Route::prefix('doctor')
     ->middleware(['auth', CheckRole::class . ':doctor', CheckDoctorActivation::class])
     ->group(function(){
         Route::get('/dashboard', [DoctorController::class, 'dashboard'])->name('dashboard');
+        Route::get('/dashboard/accept/{certificate}', [CertificateController::class, 'accept'])->name('accept.certificate');
+        Route::get('/dashboard/reject/{certificate}', [CertificateController::class, 'reject'])->name('reject.certificate');
         Route::get('/appointments', [DoctorController::class, 'appointments'])->name('appointments');
         Route::post('/treatments', [DoctorController::class, 'storeTreatment'])->name('treatments.store');
         Route::post('/consultations', [DoctorController::class, 'storeConsultation'])->name('consultations.store');
@@ -96,7 +99,7 @@ Route::prefix('patient')
         })->name('appointments');
 
         Route::get('/certificate', [PatientController::class, 'certificate'])->name('certificate');
-        Route::post('/certificate', [PatientController::class, 'medicalCertificate'])->name('medical-certificate.store');
+        Route::post('/certificate', [CertificateController::class, 'store'])->name('medical-certificate.store');
 
         Route::get('/medical_file', function() {
             return view('patient.medical_file');

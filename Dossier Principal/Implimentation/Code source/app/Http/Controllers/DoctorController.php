@@ -12,6 +12,7 @@ use App\Models\Treatment;
 use App\Models\MedicalConsultation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\MedicalCertificate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -100,9 +101,10 @@ class DoctorController extends Controller
         $patients =  User::whereHas('appointmentsAsPatient', function ($query) use ($doctorId) {
             $query->where('doctor_id', $doctorId);
         })->get();
+        $certificates = MedicalCertificate::with('patient')->where('doctor_id', $doctorId)->where('status', 'pending')->latest()->take(3)->get();
 
 
-        return view('doctor.dashboard', compact('appointments', 'patients'));
+        return view('doctor.dashboard', compact('appointments', 'patients', 'certificates'));
     }
 
     public function appointments(){

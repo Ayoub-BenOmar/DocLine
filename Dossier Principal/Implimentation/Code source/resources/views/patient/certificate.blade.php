@@ -246,33 +246,35 @@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4">My Certificates</h2>
                 <div class="space-y-4">
-                    <!-- Certificate 1 -->
-                    <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between">
-                            <div class="flex items-start mb-3 md:mb-0">
-                                <div class="bg-green-100 rounded-full p-3 mr-4 text-green-500">
-                                    <i class="fas fa-file-medical text-xl"></i>
+                    @foreach ($acceptedCertificates as $acceptedCertificate)
+                        <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between">
+                                <div class="flex items-start mb-3 md:mb-0">
+                                    <div class="bg-green-100 rounded-full p-3 mr-4 text-green-500">
+                                        <i class="fas fa-file-medical text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800">Medical Certificate</h3>
+                                        <p class="text-gray-600">Issued by Dr. Sarah Johnson</p>
+                                        <p class="text-sm text-gray-500">Issued on: Feb 16, 2025</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-800">Sick Leave Certificate</h3>
-                                    <p class="text-gray-600">Issued by Dr. Sarah Johnson</p>
-                                    <p class="text-sm text-gray-500">Issued on: Feb 16, 2025</p>
+                                <div class="flex space-x-2">
+                                    <!-- View Button -->
+                                    <button id="view-certificate-btn" class="bg-primary hover:bg-white text-white hover:text-primary px-3 py-1 rounded text-sm">
+                                        <i class="fas fa-eye mr-1"></i> View
+                                    </button>
+                                    <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
+                                        <i class="fas fa-download mr-1"></i> Download
+                                    </button>
+                                    <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
+                                        <i class="fas fa-print mr-1"></i> Print
+                                    </button>
                                 </div>
-                            </div>
-                            <div class="flex space-x-2">
-                                <!-- View Button -->
-                                <button id="view-certificate-btn" class="bg-primary hover:bg-white text-white hover:text-primary px-3 py-1 rounded text-sm">
-                                    <i class="fas fa-eye mr-1"></i> View
-                                </button>
-                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                    <i class="fas fa-download mr-1"></i> Download
-                                </button>
-                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                    <i class="fas fa-print mr-1"></i> Print
-                                </button>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
+
                     
                     <!-- Certificate Preview (initially hidden) -->
                     <div id="certificate-preview" class="border hidden border-gray-200 rounded-lg p-6 bg-white">
