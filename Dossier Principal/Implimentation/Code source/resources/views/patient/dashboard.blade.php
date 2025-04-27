@@ -74,7 +74,7 @@
                                 {{ substr(Auth::user()->name, 0, 2) }}
                             </div>
                             <div class="ml-3">
-                                <p class="font-medium">{{ Auth::user()->name}}</p>
+                                <p class="font-medium">{{ Auth::user()->name}} {{ Auth::user()->last_name}}</p>
                                 <p class="text-xs text-gray-500">ID: {{ Auth::user()->id}}</p>
                             </div>
                         </div>
@@ -114,7 +114,6 @@
                 <div class="flex justify-between items-center px-6 py-4">
                     <div class="flex items-center">
                         <button class="md:hidden mr-4 text-gray-600">
-                            <!-- <i class="fas fa-bars"></i> -->
                         </button>
                         <h1 class="text-xl font-semibold text-gray-700">Dashboard</h1>
                     </div>
@@ -143,7 +142,7 @@
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="text-gray-500 text-sm">Upcoming Appointments</p>
-                                <h3 class="text-2xl font-bold text-gray-700">2</h3>
+                                <h3 class="text-2xl font-bold text-gray-700">{{$appointments->count()}}</h3>
                             </div>
                             <div class="bg-[#e6f5f5] rounded-full p-3 text-[#7fbfbf]">
                                 <i class="fas fa-calendar-check"></i>
@@ -158,7 +157,7 @@
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="text-gray-500 text-sm">Pending Certificates</p>
-                                <h3 class="text-2xl font-bold text-gray-700">1</h3>
+                                <h3 class="text-2xl font-bold text-gray-700">{{$certificates->count()}}</h3>
                             </div>
                             <div class="bg-[#e6f5f5] rounded-full p-3 text-[#7fbfbf]">
                                 <i class="fas fa-file-medical"></i>
@@ -178,47 +177,34 @@
                             <a href="{{ route('patient.appointments') }}" class="text-[#7fbfbf] hover:underline text-sm">View all</a>
                         </div>
                         <div class="space-y-4">
-                            <div class="border-l-4 border-[#afdddd] pl-4 py-2">
-                                <div class="flex justify-between">
-                                    <div>
-                                        <p class="font-medium">Dr. Sarah Johnson</p>
-                                        <p class="text-sm text-gray-500">General Consultation</p>
+                            @if ($appointments && count($appointments) > 0)
+                                @foreach ($appointments as $appointment)
+                                    <div class="border-l-4 border-[#afdddd] pl-4 py-2">
+                                        <div class="flex justify-between">
+                                            <div>
+                                                <p class="font-medium">Dr. {{ $appointment->doctor->name }} {{ $appointment->doctor->last_name }}</p>
+                                                <p class="text-sm text-gray-500">{{ $appointment->visit_type }}</p>
+                                            </div>
+                                            <div class="text-right">
+                                                <p class="text-[#7fbfbf] font-medium">{{ $appointment->appointment_date->format('d M, Y') }}</p>
+                                                <p class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('H:i') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2 flex space-x-2">
+                                        </div>
                                     </div>
-                                    <div class="text-right">
-                                        <p class="text-[#7fbfbf] font-medium">Mar 19, 2025</p>
-                                        <p class="text-sm text-gray-500">10:00 AM</p>
+                                @endforeach
+                            @else
+                                <div class="py-8 flex flex-col items-center justify-center text-center">
+                                    <div class="bg-gray-100 rounded-full p-3 mb-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#7fbfbf]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
                                     </div>
+                                    <p class="text-gray-600 font-medium mb-1">No upcoming appointments</p>
+                                    <p class="text-gray-500 text-sm mb-4">Schedule a new appointment to see it here</p>
                                 </div>
-                                <div class="mt-2 flex space-x-2">
-                                    <!-- <button class="bg-[#afdddd] hover:bg-[#8fcece] text-white text-xs py-1 px-2 rounded">
-                                        Join Video
-                                    </button>
-                                    <button class="bg-white border border-gray-300 text-gray-600 text-xs py-1 px-2 rounded hover:bg-gray-50">
-                                        Reschedule
-                                    </button> -->
-                                </div>
-                            </div>
-                            
-                            <div class="border-l-4 border-[#d0ebeb] pl-4 py-2">
-                                <div class="flex justify-between">
-                                    <div>
-                                        <p class="font-medium">Dr. Michael Chen</p>
-                                        <p class="text-sm text-gray-500">Follow-up</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-[#7fbfbf] font-medium">Mar 25, 2025</p>
-                                        <p class="text-sm text-gray-500">2:30 PM</p>
-                                    </div>
-                                </div>
-                                <div class="mt-2 flex space-x-2">
-                                    <!-- <button class="bg-[#afdddd] hover:bg-[#8fcece] text-white text-xs py-1 px-2 rounded">
-                                        Join Video
-                                    </button>
-                                    <button class="bg-white border border-gray-300 text-gray-600 text-xs py-1 px-2 rounded hover:bg-gray-50">
-                                        Reschedule
-                                    </button> -->
-                                </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                     
@@ -229,50 +215,32 @@
                             <a href="" class="text-[#7fbfbf] hover:underline text-sm">View all</a>
                         </div>
                         <div class="space-y-4">
-                            <div class="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                                <div class="flex items-center">
-                                    <div class="bg-[#e6f5f5] rounded-full p-2 mr-3 text-[#7fbfbf]">
-                                        <i class="fas fa-file-medical"></i>
+                            @if ($consultationFiles && count($consultationFiles) > 0)
+                                @foreach ($consultationFiles as $consultationFile)
+                                    <div class="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                                        <div class="flex items-center">
+                                            <div class="bg-[#e6f5f5] rounded-full p-2 mr-3 text-[#7fbfbf]">
+                                                <i class="fas fa-file-medical"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="font-medium">{{ $consultationFile->raison_consultation }}</p>
+                                                <p class="text-sm text-gray-500">Added by Dr. {{ $consultationFile->doctor->last_name }} • {{ $consultationFile->created_at }}</p>
+                                            </div>
+                                            <button class="text-gray-400 hover:text-[#7fbfbf]">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="flex-1">
-                                        <p class="font-medium">Blood Test Results</p>
-                                        <p class="text-sm text-gray-500">Added by Dr. Johnson • Mar 05, 2025</p>
+                                @endforeach
+                            @else
+                                <div class="py-8 flex flex-col items-center justify-center text-center">
+                                    <div class="bg-gray-100 rounded-full p-3 mb-3">
+                                        <i class="fas fa-file-medical-alt text-2xl text-[#7fbfbf]"></i>
                                     </div>
-                                    <button class="text-gray-400 hover:text-[#7fbfbf]">
-                                        <i class="fas fa-download"></i>
-                                    </button>
+                                    <p class="text-gray-600 font-medium mb-1">No medical consultation files</p>
                                 </div>
-                            </div>
+                            @endif
                             
-                            <div class="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                                <div class="flex items-center">
-                                    <div class="bg-[#e6f5f5] rounded-full p-2 mr-3 text-[#7fbfbf]">
-                                        <i class="fas fa-file-medical"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <p class="font-medium">Prescription</p>
-                                        <p class="text-sm text-gray-500">Added by Dr. Chen • Feb 28, 2025</p>
-                                    </div>
-                                    <button class="text-gray-400 hover:text-[#7fbfbf]">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                                <div class="flex items-center">
-                                    <div class="bg-[#e6f5f5] rounded-full p-2 mr-3 text-[#7fbfbf]">
-                                        <i class="fas fa-file-medical"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <p class="font-medium">X-Ray Report</p>
-                                        <p class="text-sm text-gray-500">Added by Dr. Miller • Feb 12, 2025</p>
-                                    </div>
-                                    <button class="text-gray-400 hover:text-[#7fbfbf]">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -293,7 +261,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="text-sm text-gray-500">Blood Pressure</p>
-                                        <p class="text-lg font-semibold">120/80</p>
+                                        <p class="text-lg font-semibold">{{ $personalInfos->blood_pressure ?? 'N/A'}}</p>
                                     </div>
                                     <div class="text-[#7fbfbf]">
                                         <i class="fas fa-heartbeat"></i>
@@ -306,7 +274,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="text-sm text-gray-500">Heart Rate</p>
-                                        <p class="text-lg font-semibold">72 bpm</p>
+                                        <p class="text-lg font-semibold">{{ $personalInfos->bpm ?? 'N/A'}} bpm</p>
                                     </div>
                                     <div class="text-[#7fbfbf]">
                                         <i class="fas fa-heart"></i>
@@ -319,7 +287,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="text-sm text-gray-500">Weight</p>
-                                        <p class="text-lg font-semibold">75 kg</p>
+                                        <p class="text-lg font-semibold">{{ $personalInfos->weight ?? 'N/A'}} kg</p>
                                     </div>
                                     <div class="text-[#7fbfbf]">
                                         <i class="fas fa-weight"></i>
@@ -332,7 +300,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="text-sm text-gray-500">Blood Sugar</p>
-                                        <p class="text-lg font-semibold">95 mg/dL</p>
+                                        <p class="text-lg font-semibold">{{ $personalInfos->blood_sugar ?? 'N/A'}} mg/dL</p>
                                     </div>
                                     <div class="text-[#7fbfbf]">
                                         <i class="fas fa-tint"></i>

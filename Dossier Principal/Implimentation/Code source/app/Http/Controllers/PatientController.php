@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MedicalCertificate;
+use App\Models\MedicalConsultation;
 use App\Models\User;
 
 class PatientController extends Controller
@@ -41,6 +43,27 @@ class PatientController extends Controller
         }
     }
 
+    public function dashboard(){
+        $patient_id = Auth::id();
+        $appointments = Appointment::with('doctor')->where('patient_id', $patient_id)->where('status', 'scheduled')->get();
+        $certificates = MedicalCertificate::where('patient_id', $patient_id)->where('status', 'pending')->get();
+        $consultationFiles = MedicalConsultation::with('appointment.doctor', 'appointment.patient')->whereHas('appointment', function ($query) use ($patient_id){
+            $query->where('patient_id', $patient_id);
+        })->latest()->take(3)->get();
+        $personalInfos = MedicalConsultation::with('appointment.patient')->whereHas('appointment', function ($query) use ($patient_id){
+            $query->where('patient_id', $patient_id);
+        })->latest()->first();
+        return view('patient.dashboard', compact('appointments', 'certificates', 'consultationFiles', 'personalInfos'));
+    }
+
+    public function appointments(){
+        $patient_id = Auth::id();
+        $comingAppointments = Appointment::with('doctor')->where('patient_id', $patient_id)->where('status', 'scheduled')->get();
+        $completedAppointments = Appointment::with('doctor')->where('patient_id', $patient_id)->where('status', 'completed')->get();
+
+        return view('patient.appointments', compact('comingAppointments', 'completedAppointments'));
+    }
+
     public function certificate()
     {
         $patient = Auth::user();
@@ -75,5 +98,14 @@ class PatientController extends Controller
         ->get();
 
         return view('patient.certificate', compact('doctors', 'certificates', 'acceptedCertificates'));
+    }
+
+    public function medicalFile(){
+        $patient_id = Auth::id();
+        $medicalfiles = MedicalConsultation::with('appointment.doctor', 'appointment.patient')->whereHas('appointment', function ($query) use ($patient_id){
+            $query->where('patient_id', $patient_id);
+        })->get();
+
+        return view('patient.medical_file', compact('medicalfiles'));
     }
 }

@@ -5,7 +5,7 @@
 <div class="flex min-h-screen">
     <!-- Sidebar -->
     <div class="bg-white shadow-lg w-64 flex-shrink-0 hidden md:block">
-        <div class="p-4 bg-primary text-white">
+        <div class="p-4 bg-[#afdddd] text-white bg-cover bg-center" style="background-image: url('{{ asset('images/health-still-life-with-copy-space.jpg') }}');">
             <h2 class="text-2xl font-bold">DocLine</h2>
             <p class="text-white text-opacity-80 text-sm">Patient Portal</p>
         </div>
@@ -16,7 +16,7 @@
                         {{ substr(Auth::user()->name, 0, 2) }}
                     </div>
                     <div class="ml-3">
-                        <p class="font-medium">{{ Auth::user()->name }}</p>
+                        <p class="font-medium">{{ Auth::user()->name }} {{ Auth::user()->last_name }}</p>
                         <p class="text-xs text-gray-500">ID: {{ Auth::user()->id }}</p>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                             {{ substr(Auth::user()->name, 0, 2) }}
                         </div>
                         <div class="ml-3">
-                            <p class="font-medium">{{ Auth::user()->name }}</p>
+                            <p class="font-medium">{{ Auth::user()->name }} {{ Auth::user()->last_name }}</p>
                             <p class="text-xs text-gray-500">ID: {{ Auth::user()->id }}</p>
                         </div>
                     </div>

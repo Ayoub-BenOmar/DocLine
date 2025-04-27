@@ -6,7 +6,7 @@
 <div class="flex min-h-screen">
     <!-- Sidebar -->
     <div class="bg-white shadow-lg w-64 flex-shrink-0 hidden md:block">
-        <div class="p-4 bg-primary text-white">
+        <div class="p-4 bg-[#afdddd] text-white bg-cover bg-center" style="background-image: url('{{ asset('images/health-still-life-with-copy-space.jpg') }}');">
             <h2 class="text-2xl font-bold">DocLine</h2>
             <p class="text-white text-opacity-80 text-sm">Patient Portal</p>
         </div>
@@ -131,87 +131,42 @@
         </div>        
         <!-- Medical Files List -->
         <div class="space-y-4 p-6">
-            <!-- Medical File 1 -->
-            <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 shadow-lg">
-                <div class="flex flex-col md:flex-row md:items-center justify-between">
-                    <div class="flex items-start mb-3 md:mb-0">
-                        <div class="bg-gray-100 rounded-full p-3 mr-4 text-primary">
-                            <i class="fas fa-file-medical-alt text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-gray-800">Complete Blood Count Report</h3>
-                            <p class="text-gray-600">Issued by Dr. Sarah Johnson</p>
-                            <p class="text-sm text-gray-500">Created on: Mar 10, 2025</p>
+            @if ($medicalfiles && count($medicalfiles) > 0)
+                @foreach ($medicalfiles as $medicalfile)
+                    <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 shadow-lg">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between">
+                            <div class="flex items-start mb-3 md:mb-0">
+                                <div class="bg-gray-100 rounded-full p-3 mr-4 text-primary">
+                                    <i class="fas fa-file-medical-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">{{ $medicalfile->raison_consultation }}</h3>
+                                    <p class="text-gray-600">Issued by Dr. {{ $medicalfile->doctor->name }} {{ $medicalfile->doctor->last_name }}</p>
+                                    <p class="text-sm text-gray-500">Created on: {{ $medicalfile->created_at->format('d M, Y') }}</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-primary hover:bg-primary text-white px-3 py-1 rounded text-sm">
+                                    <i class="fas fa-eye mr-1"></i> View
+                                </button>
+                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
+                                    <i class="fas fa-download mr-1"></i> Download
+                                </button>
+                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
+                                    <i class="fas fa-print mr-1"></i> Print
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex space-x-2">
-                        <button class="bg-primary hover:bg-primary text-white px-3 py-1 rounded text-sm">
-                            <i class="fas fa-eye mr-1"></i> View
-                        </button>
-                        <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                            <i class="fas fa-download mr-1"></i> Download
-                        </button>
-                        <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                            <i class="fas fa-print mr-1"></i> Print
-                        </button>
+                @endforeach
+            @else
+                <div class="py-8 flex flex-col items-center justify-center text-center">
+                    <div class="bg-gray-100 rounded-full p-3 mb-3">
+                        <i class="fas fa-file-medical-alt text-2xl text-[#7fbfbf]"></i>
                     </div>
+                    <p class="text-gray-600 font-medium mb-1">No medical consultation files</p>
                 </div>
-            </div>
-            
-            <!-- Medical File 2 -->
-            <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 shadow-lg">
-                <div class="flex flex-col md:flex-row md:items-center justify-between">
-                    <div class="flex items-start mb-3 md:mb-0">
-                        <div class="bg-gray-100 rounded-full p-3 mr-4 text-primary">
-                            <i class="fas fa-file-medical-alt text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-gray-800">Prescription for Antibiotics</h3>
-                            <p class="text-gray-600">Issued by Dr. Michael Chen</p>
-                            <p class="text-sm text-gray-500">Created on: Feb 25, 2025</p>
-                        </div>
-                    </div>
-                    <div class="flex space-x-2">
-                        <button class="bg-primary hover:bg-primary text-white px-3 py-1 rounded text-sm">
-                            <i class="fas fa-eye mr-1"></i> View
-                        </button>
-                        <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                            <i class="fas fa-download mr-1"></i> Download
-                        </button>
-                        <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                            <i class="fas fa-print mr-1"></i> Print
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Medical File 3 -->
-            <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 shadow-lg">
-                <div class="flex flex-col md:flex-row md:items-center justify-between">
-                    <div class="flex items-start mb-3 md:mb-0">
-                        <div class="bg-gray-100 rounded-full p-3 mr-4 text-primary">
-                            <i class="fas fa-file-medical-alt text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-gray-800">Chest X-Ray Results</h3>
-                            <p class="text-gray-600">Issued by Dr. Robert Miller</p>
-                            <p class="text-sm text-gray-500">Created on: Jan 15, 2025</p>
-                        </div>
-                    </div>
-                    <div class="flex space-x-2">
-                        <button class="bg-primary hover:bg-primary text-white px-3 py-1 rounded text-sm">
-                            <i class="fas fa-eye mr-1"></i> View
-                        </button>
-                        <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                            <i class="fas fa-download mr-1"></i> Download
-                        </button>
-                        <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                            <i class="fas fa-print mr-1"></i> Print
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+            @endif
             <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 shadow-lg">
                 <!-- Medical File Header -->
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b">

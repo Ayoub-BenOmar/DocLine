@@ -5,7 +5,7 @@
 <div class="flex min-h-screen">
     <!-- Sidebar -->
     <div class="bg-white shadow-lg w-64 flex-shrink-0 hidden md:block">
-        <div class="p-4 bg-[#afdddd] text-white">
+        <div class="p-4 bg-[#afdddd] text-white bg-cover bg-center" style="background-image: url('{{ asset('images/health-still-life-with-copy-space.jpg') }}');">
             <h2 class="text-2xl font-bold">DocLine</h2>
             <p class="text-white text-opacity-80 text-sm">Admin Portal</p>
         </div>

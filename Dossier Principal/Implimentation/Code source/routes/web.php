@@ -88,22 +88,16 @@ Route::prefix('patient')
     ->name('patient.')
     ->middleware(['auth', CheckRole::class . ':patient'])
     ->group(function(){
-        Route::get('/dashboard', function() {
-            return view('patient.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [PatientController::class, 'dashboard'])->name('dashboard');
 
         Route::post('/dashboard', [PatientController::class, 'store'])->name('store');
 
-        Route::get('/appointments', function() {
-            return view('patient.appointments');
-        })->name('appointments');
+        Route::get('/appointments', [PatientController::class, 'appointments'])->name('appointments');
 
         Route::get('/certificate', [PatientController::class, 'certificate'])->name('certificate');
         Route::post('/certificate', [CertificateController::class, 'store'])->name('medical-certificate.store');
 
-        Route::get('/medical_file', function() {
-            return view('patient.medical_file');
-        })->name('medical-file');
+        Route::get('/medical_file', [PatientController::class, 'medicalFile'])->name('medical-file');
 
 });
 
