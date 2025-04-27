@@ -77,7 +77,7 @@ Route::prefix('admin')
         Route::get('/contents', function() {return view('admin.contents'); })->name('contents');
         Route::post('/city', [CityController::class, 'store'])->name('city.store');
         Route::post('/speciality', [SpecialityController::class, 'store'])->name('speciality.store');
-        Route::post('/speciality', [ArticlesController::class, 'store'])->name('speciality.store');
+        Route::post('/article', [ArticlesController::class, 'store'])->name('article.store');
 
         Route::get('/statistics', function() {
             return view('admin.statistics');

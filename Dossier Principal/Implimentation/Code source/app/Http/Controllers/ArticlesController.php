@@ -13,7 +13,7 @@ class ArticlesController extends Controller
             'category'=>'required|string:max:255',
             'author'=>'required|string',
             'content'=>'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'article_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $imagePath = $request->file('article_image')->store('article_images', 'public');

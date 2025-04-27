@@ -744,7 +744,8 @@
             </button>
         </div>
         <div class="p-5">
-            <form>
+            <form method="post" action="{{ route('admin.article.store') }}" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-4">
                     <label for="articleTitle" class="block text-sm font-medium text-gray-700 mb-1">Article Title</label>
                     <input type="text" id="articleTitle" name="title" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#afdddd]" placeholder="Enter article title">
@@ -770,8 +771,8 @@
                 <div class="mb-4">
                     <label for="articleImage" class="block text-sm font-medium text-gray-700 mb-1">Featured Image</label>
                     <div class="border-2 border-dashed border-gray-300 rounded-md p-6 text-center">
-                        <input type="file" id="articleImage" name="image" class="hidden">
-                        <label for="articleImage" class="cursor-pointer">
+                        <input type="file" id="article_image" name="article_image" class="hidden">
+                        <label for="article_image" class="cursor-pointer">
                             <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-2"></i>
                             <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
                             <p class="text-xs text-gray-400 mt-1">PNG, JPG, GIF up to 2MB</p>
