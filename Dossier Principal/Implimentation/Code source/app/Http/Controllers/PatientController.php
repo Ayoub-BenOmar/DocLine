@@ -43,17 +43,37 @@ class PatientController extends Controller
 
     public function certificate()
     {
-            $patient = Auth::user();
-            $doctors = User::where('role', 'doctor')
-                ->whereHas('appointmentsAsDoctor', function($query) use ($patient) {
-                    $query->where('patient_id', $patient->id)
-                        ->where('status', 'completed');
-                })
-                ->select('id', 'name', 'last_name')
-                ->get();
-            $certificates = MedicalCertificate::all();
-            $acceptedCertificates = MedicalCertificate::all()->where('status', 'accepted');
+        $patient = Auth::user();
 
-            return view('patient.certificate', compact('doctors', 'certificates', 'acceptedCertificates'));
+        // Get all doctors the patient has had appointments with
+        $doctors = User::where('role', 'doctor')
+            ->whereHas('appointmentsAsDoctor', function($query) use ($patient) {
+                $query->where('patient_id', $patient->id)
+                    ->where('status', 'completed');
+            })
+            ->select('id', 'name', 'last_name')
+            ->get();
+
+        // Get all medical certificates for the patient
+        $certificates = MedicalCertificate::with([
+            'doctor:id,name,last_name,medical_licence',
+            'patient:id,name,last_name,birthdate,gender'
+        ])
+        ->where('patient_id', $patient->id)
+        ->where('status', 'accepted')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        // Get accepted certificates with all related information
+        $acceptedCertificates = MedicalCertificate::with([
+            'doctor:id,name,last_name,medical_licence',
+            'patient:id,name,last_name,birthdate,gender'
+        ])
+        ->where('patient_id', $patient->id)
+        ->where('status', 'accepted')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('patient.certificate', compact('doctors', 'certificates', 'acceptedCertificates'));
     }
 }

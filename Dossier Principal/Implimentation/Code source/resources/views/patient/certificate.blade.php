@@ -220,7 +220,7 @@
                             <tbody>
                                 <!-- Request 1 -->
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td class="p-3 text-sm text-gray-700">Dr. Sarah Johnson</td>
+                                    <td class="p-3 text-sm text-gray-700">Dr. {{ $certificate->doctor->name }} {{ $certificate->doctor->last_name }}</td>
                                     <td class="p-3 text-sm text-gray-700">{{ $certificate->created_at->format('d M, Y') }}</td>
                                     @if ($certificate->status == 'pending')
                                         <td class="p-3 text-sm text-center">
@@ -246,93 +246,8 @@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4">My Certificates</h2>
                 <div class="space-y-4">
-                    @foreach ($acceptedCertificates as $acceptedCertificate)
-                        <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
-                            <div class="flex flex-col md:flex-row md:items-center justify-between">
-                                <div class="flex items-start mb-3 md:mb-0">
-                                    <div class="bg-green-100 rounded-full p-3 mr-4 text-green-500">
-                                        <i class="fas fa-file-medical text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold text-gray-800">Medical Certificate</h3>
-                                        <p class="text-gray-600">Issued by Dr. Sarah Johnson</p>
-                                        <p class="text-sm text-gray-500">Issued on: Feb 16, 2025</p>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <!-- View Button -->
-                                    <button id="view-certificate-btn" class="bg-primary hover:bg-white text-white hover:text-primary px-3 py-1 rounded text-sm">
-                                        <i class="fas fa-eye mr-1"></i> View
-                                    </button>
-                                    <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                        <i class="fas fa-download mr-1"></i> Download
-                                    </button>
-                                    <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                        <i class="fas fa-print mr-1"></i> Print
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-
-                    
-                    <!-- Certificate Preview (initially hidden) -->
-                    <div id="certificate-preview" class="border hidden border-gray-200 rounded-lg p-6 bg-white">
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-lg font-semibold text-gray-800">Certificate Preview</h3>
-                            <!-- Close Button -->
-                            <button id="close-certificate-btn" class="text-gray-500 hover:text-gray-700">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        
-                        <!-- Certificate Document -->
-                        <div class="border border-gray-300 rounded-lg p-6 bg-gray-50">
-                            <div class="text-center mb-6">
-                                <h2 class="text-xl font-bold text-gray-800">MEDICAL CERTIFICATE</h2>
-                                <p class="text-gray-600">MediConsult Medical Center</p>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <p class="text-gray-800">This is to certify that <span class="font-semibold">John Patient</span> has been examined by me on <span class="font-semibold">February 15, 2025</span> and found to be suffering from <span class="font-semibold">Acute Bronchitis</span>.</p>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <p class="text-gray-800">The patient is advised to rest and abstain from work/school for a period of <span class="font-semibold">7 days</span> from <span class="font-semibold">February 15, 2025</span> to <span class="font-semibold">February 22, 2025</span>.</p>
-                            </div>
-                            
-                            <div class="mb-6">
-                                <p class="text-gray-800">This certificate is issued upon the request of the patient for whatever legal purpose it may serve.</p>
-                            </div>
-                            
-                            <div class="flex justify-between items-end">
-                                <div>
-                                    <p class="font-semibold text-gray-800">Dr. Sarah Johnson, MD</p>
-                                    <p class="text-gray-600">License No: 12345678</p>
-                                    <p class="text-gray-600">MediConsult Medical Center</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-gray-600">Issued on: February 16, 2025</p>
-                                    <p class="text-gray-600">Valid until: February 23, 2025</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Certificate Actions -->
-                        <div class="flex justify-end mt-4 space-x-2">
-                            <button class="bg-white border border-gray-300 text-gray-600 px-4 py-2 rounded-md hover:bg-gray-50">
-                                <i class="fas fa-download mr-1"></i> Download
-                            </button>
-                            <button class="bg-white border border-gray-300 text-gray-600 px-4 py-2 rounded-md hover:bg-gray-50">
-                                <i class="fas fa-print mr-1"></i> Print
-                            </button>
-                            <button class="bg-white border border-gray-300 text-gray-600 px-4 py-2 rounded-md hover:bg-gray-50">
-                                <i class="fas fa-share-alt mr-1"></i> Share
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Certificate 2 -->
+                    @foreach($certificates as $certificate)
+                    <!-- Certificate Card -->
                     <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
                         <div class="flex flex-col md:flex-row md:items-center justify-between">
                             <div class="flex items-start mb-3 md:mb-0">
@@ -340,91 +255,91 @@
                                     <i class="fas fa-file-medical text-xl"></i>
                                 </div>
                                 <div>
-                                    <h3 class="font-semibold text-gray-800">Fitness Certificate</h3>
-                                    <p class="text-gray-600">Issued by Dr. Michael Chen</p>
-                                    <p class="text-sm text-gray-500">Issued on: Jan 30, 2025</p>
+                                    <h3 class="font-semibold text-gray-800">Medical Certificate</h3>
+                                    <p class="text-gray-600">Issued by Dr. {{ $certificate->doctor->name }} {{ $certificate->doctor->last_name }}</p>
+                                    <p class="text-sm text-gray-500">Issued on: {{ \Carbon\Carbon::parse($certificate->created_at)->format('d F, Y') }}</p>
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <button class="bg-primary hover:bg-white text-white hover:text-primary px-3 py-1 rounded text-sm">
+                                @if($certificate->status === 'accepted')
+                                <button onclick="toggleCertificatePreview({{ $certificate->id }})" class="bg-primary hover:bg-white text-white hover:text-primary px-3 py-1 rounded text-sm">
                                     <i class="fas fa-eye mr-1"></i> View
                                 </button>
-                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
+                                <button onclick="downloadCertificate({{ $certificate->id }})" class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
                                     <i class="fas fa-download mr-1"></i> Download
                                 </button>
-                                <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
-                                    <i class="fas fa-print mr-1"></i> Print
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Certificate Preview (initially hidden) -->
+                        <div id="certificate-preview-{{ $certificate->id }}" class="border hidden border-gray-200 rounded-lg p-6 bg-white mt-4">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-lg font-semibold text-gray-800">Certificate Preview</h3>
+                                <button onclick="toggleCertificatePreview({{ $certificate->id }})" class="text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Certificate Document -->
+                            <div class="border border-gray-300 rounded-lg p-6 bg-gray-50">
+                                <div class="text-center mb-6">
+                                    <h2 class="text-xl font-bold text-gray-800">MEDICAL CERTIFICATE</h2>
+                                    <p class="text-gray-600">DocLine Medical Platform</p>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <p class="text-gray-800">This is to certify that <span class="font-semibold">{{ $certificate->patient->name }} {{ $certificate->patient->last_name }}</span> has been examined by me on <span class="font-semibold">{{ \Carbon\Carbon::parse($certificate->created_at)->format('d F, Y') }}</span> and found to be suffering from <span class="font-semibold">{{ $certificate->reason }}</span>.</p>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <p class="text-gray-800">The patient is advised to rest and abstain from work/school for a period of <span class="font-semibold">{{ \Carbon\Carbon::parse($certificate->from_date)->diffInDays($certificate->to_date) + 1 }} days</span> from <span class="font-semibold">{{ \Carbon\Carbon::parse($certificate->from_date)->format('d F, Y') }}</span> to <span class="font-semibold">{{ \Carbon\Carbon::parse($certificate->to_date)->format('d F, Y') }}</span>.</p>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <p class="text-gray-800">This certificate is issued upon the request of the patient for whatever legal purpose it may serve.</p>
+                                </div>
+                                
+                                <div class="flex justify-between items-end">
+                                    <div>
+                                        <p class="font-semibold text-gray-800">Dr. {{ $certificate->doctor->name }} {{ $certificate->doctor->last_name }}, MD</p>
+                                        <p class="text-gray-600">License No: {{ $certificate->doctor->medical_licence }}</p>
+                                        <p class="text-gray-600">DocLine Medical Platform</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-gray-600">Issued on: {{ \Carbon\Carbon::parse($certificate->created_at)->format('d F, Y') }}</p>
+                                        <p class="text-gray-600">Valid until: {{ \Carbon\Carbon::parse($certificate->to_date)->format('d F, Y') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Certificate Actions -->
+                            <div class="flex justify-end mt-4 space-x-2">
+                                <button onclick="downloadCertificate({{ $certificate->id }})" class="bg-white border border-gray-300 text-gray-600 px-4 py-2 rounded-md hover:bg-gray-50">
+                                    <i class="fas fa-download mr-1"></i> Download
                                 </button>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
 
-@section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Certificate preview functionality
+        // Toggle certificate preview
         const certificatePreview = document.getElementById('certificate-preview');
         const closeCertificateBtn = document.getElementById('close-certificate-btn');
         const viewCertificateBtns = document.querySelectorAll('.view-certificate-btn');
-        const certificateContent = document.getElementById('certificate-content');
-        const downloadCertificateLink = document.getElementById('download-certificate-link');
-        const printCertificateBtn = document.getElementById('print-certificate-btn');
         
         viewCertificateBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 const certificateId = this.getAttribute('data-certificate-id');
-                
-                // Fetch certificate data with AJAX
-                fetch(`/patient/certificates/${certificateId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Populate certificate content
-                        certificateContent.innerHTML = `
-                            <div class="mb-4">
-                                <p class="text-gray-800">This is to certify that <span class="font-semibold">${data.patient_name}</span> has been examined by me on <span class="font-semibold">${data.examination_date}</span> and found to be suffering from <span class="font-semibold">${data.diagnosis}</span>.</p>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <p class="text-gray-800">The patient is advised to rest and abstain from work/school for a period of <span class="font-semibold">${data.days} days</span> from <span class="font-semibold">${data.start_date}</span> to <span class="font-semibold">${data.end_date}</span>.</p>
-                            </div>
-                            
-                            <div class="mb-6">
-                                <p class="text-gray-800">This certificate is issued upon the request of the patient for whatever legal purpose it may serve.</p>
-                            </div>
-                            
-                            <div class="flex justify-between items-end">
-                                <div>
-                                    <p class="font-semibold text-gray-800">${data.doctor_name}</p>
-                                    <p class="text-gray-600">License No: ${data.license_number}</p>
-                                    <p class="text-gray-600">DocLine Medical Center</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-gray-600">Issued on: ${data.issued_date}</p>
-                                    <p class="text-gray-600">Valid until: ${data.valid_until}</p>
-                                </div>
-                            </div>
-                        `;
-                        
-                        // Update download link
-                        downloadCertificateLink.href = `/patient/certificates/${certificateId}/download`;
-                        
-                        // Update print button
-                        printCertificateBtn.onclick = function() {
-                            window.open(`/patient/certificates/${certificateId}/print`, '_blank');
-                        };
-                        
-                        // Show certificate preview
-                        certificatePreview.classList.remove('hidden');
-                    })
-                    .catch(error => {
-                        console.error('Error fetching certificate:', error);
-                    });
+                // Show certificate preview
+                certificatePreview.classList.remove('hidden');
             });
         });
         
@@ -436,9 +351,26 @@
         }
     });
     
+    // Toggle certificate preview
+    function toggleCertificatePreview(certificateId) {
+        const preview = document.getElementById(`certificate-preview-${certificateId}`);
+        preview.classList.toggle('hidden');
+    }
+    
+    // Download certificate function
+    function downloadCertificate(certificateId) {
+        window.location.href = `/patient/certificates/${certificateId}/download`;
+    }
+    
     // Print certificate function
     function printCertificate(certificateId) {
         window.open(`/patient/certificates/${certificateId}/print`, '_blank');
     }
+    
+    // Share certificate function
+    function shareCertificate(certificateId) {
+        // Implement sharing functionality
+        alert('Sharing functionality will be implemented soon');
+    }
 </script>
-@endsection
+@endsection 
