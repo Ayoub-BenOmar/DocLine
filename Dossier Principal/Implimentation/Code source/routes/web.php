@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ArticlesController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -76,6 +77,7 @@ Route::prefix('admin')
         Route::get('/contents', function() {return view('admin.contents'); })->name('contents');
         Route::post('/city', [CityController::class, 'store'])->name('city.store');
         Route::post('/speciality', [SpecialityController::class, 'store'])->name('speciality.store');
+        Route::post('/speciality', [ArticlesController::class, 'store'])->name('speciality.store');
 
         Route::get('/statistics', function() {
             return view('admin.statistics');
