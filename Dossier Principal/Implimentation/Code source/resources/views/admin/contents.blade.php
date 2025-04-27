@@ -796,10 +796,11 @@
             </button>
         </div>
         <div class="p-5">
-            <form>
+            <form method="post" action="{{ route('admin.speciality.store') }}">
+                @csrf
                 <div class="mb-4">
                     <label for="specialtyName" class="block text-sm font-medium text-gray-700 mb-1">Specialty Name</label>
-                    <input type="text" id="specialtyName" name="name" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#afdddd]" placeholder="Enter specialty name">
+                    <input type="text" id="specialtyName" name="speciality" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#afdddd]" placeholder="Enter specialty name">
                 </div>
                 
                 <div class="flex justify-end space-x-3 mt-6">
@@ -821,10 +822,11 @@
             </button>
         </div>
         <div class="p-5">
-            <form>
+            <form method="post" action="{{ route('admin.city.store') }}">
+                @csrf
                 <div class="mb-4">
                     <label for="cityName" class="block text-sm font-medium text-gray-700 mb-1">City Name</label>
-                    <input type="text" id="cityName" name="name" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#afdddd]" placeholder="Enter city name">
+                    <input type="text" id="cityName" name="city" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#afdddd]" placeholder="Enter city name">
                 </div>
                 
                 <div class="flex justify-end space-x-3 mt-6">

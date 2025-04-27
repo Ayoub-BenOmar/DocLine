@@ -6,6 +6,7 @@ use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
@@ -72,9 +73,9 @@ Route::prefix('admin')
 
         Route::get('/patients', [AdminController::class, 'patients'])->name('patients');
 
-        Route::get('/contents', function() {
-            return view('admin.contents');
-        })->name('contents');
+        Route::get('/contents', function() {return view('admin.contents'); })->name('contents');
+        Route::post('/city', [CityController::class, 'store'])->name('city.store');
+        Route::post('/speciality', [SpecialityController::class, 'store'])->name('speciality.store');
 
         Route::get('/statistics', function() {
             return view('admin.statistics');
