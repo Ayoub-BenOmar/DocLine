@@ -160,13 +160,15 @@
                     </div>
                 @endforeach
             @else
-                <div class="py-8 flex flex-col items-center justify-center text-center">
-                    <div class="bg-gray-100 rounded-full p-3 mb-3">
-                        <i class="fas fa-file-medical-alt text-2xl text-[#7fbfbf]"></i>
+                <div class="py-8 text-center border border-dashed border-gray-300 rounded-lg">
+                    <div class="text-primary mb-2">
+                        <i class="fas fa-folder-open text-4xl"></i>
                     </div>
-                    <p class="text-gray-600 font-medium mb-1">No medical consultation files</p>
+                    <h3 class="text-gray-500 font-medium">No medical files available</h3>
+                    <p class="text-gray-400 text-sm">Your medical files will appear here once uploaded by your doctor</p>
                 </div>
             @endif
+            
             <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 shadow-lg">
                 <!-- Medical File Header -->
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b">
@@ -387,13 +389,6 @@
         </div>
         
         <!-- No Files Message (hidden by default) -->
-        <div class="hidden py-8 text-center border border-dashed border-gray-300 rounded-lg">
-            <div class="text-gray-400 mb-2">
-                <i class="fas fa-folder-open text-4xl"></i>
-            </div>
-            <h3 class="text-gray-500 font-medium">No medical files available</h3>
-            <p class="text-gray-400 text-sm">Your medical files will appear here once uploaded by your doctor</p>
-        </div>
     </div>
 </div>
 @endsection

@@ -83,7 +83,6 @@ class PatientController extends Controller
             'patient:id,name,last_name,birthdate,gender'
         ])
         ->where('patient_id', $patient->id)
-        ->where('status', 'accepted')
         ->orderBy('created_at', 'desc')
         ->get();
 

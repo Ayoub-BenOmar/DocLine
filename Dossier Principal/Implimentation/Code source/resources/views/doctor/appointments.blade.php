@@ -30,17 +30,13 @@
                       <i class="fas fa-calendar-alt mr-3 text-[#7fbfbf]"></i>
                       <span>Appointments</span>
                   </a>
-                  <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                  <a href="{{ route('doctor.certificates') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                       <i class="fas fa-file-medical mr-3 text-gray-400"></i>
                       <span>Certificate Requests</span>
                   </a>
                   <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                       <i class="fas fa-users mr-3 text-gray-400"></i>
                       <span>My Patients</span>
-                  </a>
-                  <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
-                      <i class="fas fa-user-md mr-3 text-gray-400"></i>
-                      <span>Personal Information</span>
                   </a>
               </div>
           </div>
@@ -92,17 +88,13 @@
                           <i class="fas fa-calendar-alt mr-3 text-[#7fbfbf]"></i>
                           <span>Appointments</span>
                       </a>
-                      <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                      <a href="{{ route('doctor.certificates') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                           <i class="fas fa-file-medical mr-3 text-gray-400"></i>
                           <span>Certificate Requests</span>
                       </a>
                       <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                           <i class="fas fa-users mr-3 text-gray-400"></i>
                           <span>My Patients</span>
-                      </a>
-                      <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
-                          <i class="fas fa-user-md mr-3 text-gray-400"></i>
-                          <span>Personal Information</span>
                       </a>
                   </div>
               </div>

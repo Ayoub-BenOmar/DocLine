@@ -246,7 +246,7 @@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4">My Certificates</h2>
                 <div class="space-y-4">
-                    @foreach($certificates as $certificate)
+                    @foreach($acceptedCertificates as $certificate)
                     <!-- Certificate Card -->
                     <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
                         <div class="flex flex-col md:flex-row md:items-center justify-between">

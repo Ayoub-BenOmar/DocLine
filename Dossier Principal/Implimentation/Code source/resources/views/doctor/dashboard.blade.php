@@ -39,10 +39,6 @@
                         <i class="fas fa-users mr-3 text-gray-400"></i>
                         <span>My Patients</span>
                     </a>
-                    <a href="doctor_profile.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
-                        <i class="fas fa-user-md mr-3 text-gray-400"></i>
-                        <span>Personal Information</span>
-                    </a>
                 </div>
             </div>
             <div class="absolute bottom-0 w-64 p-4 border-t">
@@ -100,10 +96,6 @@
                         <a href="doctor_patients.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-users mr-3 text-gray-400"></i>
                             <span>My Patients</span>
-                        </a>
-                        <a href="doctor_profile.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
-                            <i class="fas fa-user-md mr-3 text-gray-400"></i>
-                            <span>Personal Information</span>
                         </a>
                     </div>
                 </div>

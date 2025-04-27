@@ -18,6 +18,11 @@ class MedicalCertificate extends Model
         'reason',
     ];
 
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
+
     public function patient(){
         return $this->belongsTo(User::class, 'patient_id');
     }

@@ -58,6 +58,7 @@ Route::prefix('doctor')
         Route::get('/appointments', [DoctorController::class, 'appointments'])->name('appointments');
         Route::post('/treatments', [DoctorController::class, 'storeTreatment'])->name('treatments.store');
         Route::post('/consultations', [DoctorController::class, 'storeConsultation'])->name('consultations.store');
+        Route::get('/certificates', [DoctorController::class, 'certificate'])->name('certificates');
 });
 
 //admin routes

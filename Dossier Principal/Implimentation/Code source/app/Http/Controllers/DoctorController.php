@@ -200,4 +200,13 @@ class DoctorController extends Controller
             ], 500);
         }
     }
+
+    public function certificate(){
+        $doctor_id = Auth::id();
+        $pendingCertificates = MedicalCertificate::with('patient')->where('doctor_id', $doctor_id)->where('status', 'pending')->get();
+        $approvedCertificates = MedicalCertificate::with('patient')->where('doctor_id', $doctor_id)->where('status', 'accepeted')->get();
+        $rejectedCertificates = MedicalCertificate::with('patient')->where('doctor_id', $doctor_id)->where('status', 'rejected')->get();
+
+        return view('doctor.certificate', compact('pendingCertificates', 'approvedCertificates', 'rejectedCertificates'));
+    }
 }
