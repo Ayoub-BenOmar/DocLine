@@ -101,7 +101,7 @@ class PatientController extends Controller
 
     public function medicalFile(){
         $patient_id = Auth::id();
-        $medicalfiles = MedicalConsultation::with('appointment.doctor', 'appointment.patient')->whereHas('appointment', function ($query) use ($patient_id){
+        $medicalfiles = MedicalConsultation::with('appointment.doctor', 'appointment.patient', 'appointment.treatment')->whereHas('appointment', function ($query) use ($patient_id){
             $query->where('patient_id', $patient_id);
         })->get();
 
