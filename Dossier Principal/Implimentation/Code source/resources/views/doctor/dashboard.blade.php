@@ -205,22 +205,33 @@
                         </div>
                         <div class="p-5">
                             <div class="space-y-5">
-                                @foreach ($appointments as $appointment)
-                                    <div class="flex items-start">
-                                        <div class="bg-[#e6f5f5] rounded-lg p-3 flex-shrink-0">
-                                            <span class="text-[#7fbfbf] font-bold">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('H:i') }}</span>
-                                        </div>
-                                        <div class="ml-4">
-                                            <h4 class="font-medium text-gray-800">{{ $appointment->patient->name }} {{ $appointment->patient->last_name }}</h4>
-                                            <p class="text-sm text-gray-600">{{ $appointment->visit_type }}</p>
-                                            <div class="flex mt-2">
-                                                <button class="text-xs bg-[#e6f5f5] text-[#7fbfbf] px-2 py-1 rounded mr-2">
-                                                    <i class="fas fa-check mr-1"></i> Completed
-                                                </button>
+                                @if ($appointments && count($appointments) > 0)
+                                    @foreach ($appointments as $appointment)
+                                        <div class="flex items-start">
+                                            <div class="bg-[#e6f5f5] rounded-lg p-3 flex-shrink-0">
+                                                <span class="text-[#7fbfbf] font-bold">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('H:i') }}</span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <h4 class="font-medium text-gray-800">{{ $appointment->patient->name }} {{ $appointment->patient->last_name }}</h4>
+                                                <p class="text-sm text-gray-600">{{ $appointment->visit_type }}</p>
+                                                <div class="flex mt-2">
+                                                    <button class="text-xs bg-[#e6f5f5] text-[#7fbfbf] px-2 py-1 rounded mr-2">
+                                                        <i class="fas fa-check mr-1"></i> Completed
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
+                                    @endforeach
+                                @else
+                                    <div class="py-8 flex flex-col items-center justify-center text-center">
+                                        <div class="bg-gray-100 rounded-full p-3 mb-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#7fbfbf]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                        </div>
+                                        <p class="text-gray-600 font-medium mb-1">No upcoming appointments</p>
                                     </div>
-                                @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>

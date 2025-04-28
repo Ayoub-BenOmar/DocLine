@@ -229,12 +229,6 @@
                     <!-- Approved Certificates Tab Content -->
                     <div id="content-approved" class="tab-content p-6 hidden">
                         <div class="mb-4">
-                            <div class="relative">
-                                <input type="text" placeholder="Search by patient name..." class="w-full md:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#afdddd]">
-                                <div class="absolute left-3 top-2.5 text-gray-400">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                            </div>
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -258,7 +252,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <p class="text-sm text-gray-600 mb-1">Period:</p>
-                                            <p class="font-medium text-sm">{{ $certificate->start_date->format('d M, Y') }} - {{ $certificate->end_date->format('d M, Y') }}</p>
+                                            <p class="font-medium text-sm">{{ $certificate->from_date }} - {{ $certificate->to_date}}</p>
                                         </div>
                                         <div class="mb-3">
                                             <p class="text-sm text-gray-600 mb-1">Approved Date:</p>
@@ -267,12 +261,7 @@
                                         <div class="mb-4">
                                             <p class="text-sm text-gray-600 mb-1">Purpose:</p>
                                             <p class="text-sm">{{ $certificate->reason }}</p>
-                                        </div>
-                                        <div class="flex space-x-2 pt-2 border-t">
-                                            <a href="" class="w-full bg-[#afdddd] hover:bg-[#8acaca] text-white px-3 py-2 rounded text-sm text-center">
-                                                <i class="fas fa-eye mr-1"></i> View Certificate
-                                            </a>
-                                        </div>
+                                        </div>  
                                     </div>
                                 </div>
                             @empty
@@ -286,70 +275,6 @@
                             @endforelse
                         </div>
                     </div>
-                    
-                    {{-- <!-- Rejected Certificates Tab Content -->
-                    <div id="content-rejected" class="tab-content p-6 hidden">
-                        <div class="mb-4">
-                            <div class="relative">
-                                <input type="text" placeholder="Search by patient name..." class="w-full md:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#afdddd]">
-                                <div class="absolute left-3 top-2.5 text-gray-400">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            @forelse ($rejectedCertificates as $certificate)
-                                <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-                                    <div class="p-4 border-b border-gray-100">
-                                        <div class="flex justify-between items-start">
-                                            <div>
-                                                <p class="font-medium text-gray-800">{{ $certificate->patient->name }} {{ $certificate->patient->last_name }}</p>
-                                                <p class="text-xs text-gray-500">ID: {{ $certificate->patient->id }}</p>
-                                            </div>
-                                            <div class="bg-red-100 px-2 py-1 rounded text-xs text-red-600 font-medium">
-                                                Rejected
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="p-4">
-                                        <div class="mb-3">
-                                            <p class="text-sm text-gray-600 mb-1">Request Date:</p>
-                                            <p class="font-medium text-sm">{{ $certificate->created_at->format('d M, Y') }}</p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <p class="text-sm text-gray-600 mb-1">Period:</p>
-                                            <p class="font-medium text-sm">{{ $certificate->start_date->format('d M, Y') }} - {{ $certificate->end_date->format('d M, Y') }}</p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <p class="text-sm text-gray-600 mb-1">Rejected Date:</p>
-                                            <p class="font-medium text-sm">{{ $certificate->updated_at->format('d M, Y') }}</p>
-                                        </div>
-                                        <div class="mb-4">
-                                            <p class="text-sm text-gray-600 mb-1">Purpose:</p>
-                                            <p class="text-sm">{{ $certificate->reason }}</p>
-                                        </div>
-                                        <div class="flex space-x-2 pt-2 border-t">
-                                            <form action="{{ route('doctor.accept.certificate', $certificate->id) }}" method="GET" class="inline w-full">
-                                                @csrf
-                                                <button type="submit" class="w-full bg-[#afdddd] hover:bg-[#8acaca] text-white px-3 py-2 rounded text-sm">
-                                                    <i class="fas fa-check mr-1"></i> Reconsider & Approve
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            @empty
-                                <div class="col-span-3 py-8 flex flex-col items-center justify-center text-center">
-                                    <div class="bg-gray-100 rounded-full p-3 mb-3">
-                                        <i class="fas fa-file-medical-alt text-2xl text-[#7fbfbf]"></i>
-                                    </div>
-                                    <p class="text-gray-600 font-medium mb-1">No rejected certificates</p>
-                                    <p class="text-gray-500 text-sm">You haven't rejected any certificate requests</p>
-                                </div>
-                            @endforelse
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>
