@@ -31,7 +31,7 @@
                         <i class="fas fa-calendar-alt mr-3 text-gray-400"></i>
                         <span>Appointments</span>
                     </a>
-                    <a href="" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                    <a href="{{ route('doctor.certificates') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                         <i class="fas fa-file-medical mr-3 text-gray-400"></i>
                         <span>Certificate Requests</span>
                     </a>
@@ -89,7 +89,7 @@
                             <i class="fas fa-calendar-alt mr-3 text-gray-400"></i>
                             <span>Appointments</span>
                         </a>
-                        <a href="doctor_certificate.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
+                        <a href="{{ route('doctor.certificates') }}" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:border-l-4 hover:border-[#afdddd] transition-all">
                             <i class="fas fa-file-medical mr-3 text-gray-400"></i>
                             <span>Certificate Requests</span>
                         </a>

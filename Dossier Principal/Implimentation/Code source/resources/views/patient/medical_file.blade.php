@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <button class="bg-primary hover:bg-primary text-white px-3 py-1 rounded text-sm">
+                                <button class="view-file-btn bg-primary hover:bg-primary text-white px-3 py-1 rounded text-sm" data-file-id="{{ $medicalfile->id }}">
                                     <i class="fas fa-eye mr-1"></i> View
                                 </button>
                                 <button class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-50">
@@ -157,7 +157,7 @@
                     </div>
 
                     <!--Medical consultation file preview-->
-                    <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 shadow-lg">
+                    <div id="file-preview-{{ $medicalfile->id }}" class="border border-gray-200 rounded-lg p-4 bg-white shadow-lg hidden mt-2">
                         <!-- Medical File Header -->
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b">
                             <div class="flex items-center">
@@ -338,7 +338,7 @@
                             <div class="bg-gray-50 p-4 rounded-lg">
                                 <div class="mb-2 flex items-start">
                                     <div class="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white font-bold mr-2 flex-shrink-0 mt-1">
-                                        SM
+                                        {{ substr($medicalfile->doctor->name, 0, 1) }}{{ substr($medicalfile->doctor->last_name, 0, 1) }}
                                     </div>
                                     <div>
                                         <div class="flex items-center">
@@ -364,11 +364,62 @@
                     <p class="text-gray-400 text-sm">Your medical files will appear here once uploaded by your doctor</p>
                 </div>
             @endif
-            
-
         </div>
-        
-        <!-- No Files Message (hidden by default) -->
     </div>
 </div>
+
+<!-- JavaScript for toggling file preview -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        if (sidebarToggle && mobileSidebar && closeSidebar) {
+            sidebarToggle.addEventListener('click', () => {
+                mobileSidebar.classList.toggle('hidden');
+            });
+
+            closeSidebar.addEventListener('click', () => {
+                mobileSidebar.classList.add('hidden');
+            });
+        }
+
+        // File Preview Toggle
+        const viewButtons = document.querySelectorAll('.view-file-btn');
+        
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const fileId = this.getAttribute('data-file-id');
+                const filePreview = document.getElementById('file-preview-' + fileId);
+                
+                // Toggle the clicked preview
+                if (filePreview.classList.contains('hidden')) {
+                    // Hide all other previews first
+                    document.querySelectorAll('[id^="file-preview-"]').forEach(preview => {
+                        preview.classList.add('hidden');
+                    });
+                    
+                    // Show this preview
+                    filePreview.classList.remove('hidden');
+                    
+                    // Change button text to "Hide"
+                    this.innerHTML = '<i class="fas fa-eye-slash mr-1"></i> Hide';
+                } else {
+                    // Hide this preview
+                    filePreview.classList.add('hidden');
+                    
+                    // Change button text back to "View"
+                    this.innerHTML = '<i class="fas fa-eye mr-1"></i> View';
+                }
+                
+                // Scroll to the preview
+                if (!filePreview.classList.contains('hidden')) {
+                    filePreview.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    });
+</script>
 @endsection
