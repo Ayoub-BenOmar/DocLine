@@ -18,6 +18,7 @@ use App\Http\Middleware\CheckDoctorActivation;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/find-doctor', [HomeController::class, 'find_doctor'])->name('find-doctor');
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+Route::get('/unavailable-times', [AppointmentController::class, 'unavailableTimes']);
 Route::get('/articles', function() {
     return view('articles');
 })->name('articles');

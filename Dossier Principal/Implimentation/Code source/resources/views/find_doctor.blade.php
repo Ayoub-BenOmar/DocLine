@@ -354,23 +354,46 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Booking modal functionality
         const bookingModal = document.getElementById('booking-modal');
         const bookNowButtons = document.querySelectorAll('.book-now-btn');
         const closeModalButton = document.getElementById('close-modal');
         const bookingForm = document.getElementById('booking-form');
+        const doctorIdInput = document.getElementById('doctor_id');
+        const dateInput = document.getElementById('appointment_date');
+        const timeSelect = document.getElementById('appointment_time');
 
-        // Open booking modal when "Book Now" is clicked
+        async function fetchUnavailableTimes() {
+          const doctorId = doctorIdInput.value;
+          const selectedDate = dateInput.value;
+
+          if (!doctorId || !selectedDate) return;
+
+          try {
+            const res = await fetch(`/unavailable-times?doctor_id=${doctorId}&appointment_date=${selectedDate}`);
+            const rawTimes = await res.json();
+            const takenTimes = rawTimes.map(time => time.slice(0, 5));
+
+            console.log(takenTimes);
+
+            for (const option of timeSelect.options) {
+              if (option.value === "") continue;
+              option.disabled = takenTimes.includes(option.value);
+            }
+          } catch (error) {
+            console.error('Failed to fetch unavailable times:', error);
+          }
+        }
+
         bookNowButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const doctorId = this.getAttribute('data-doctor-id');
                 document.getElementById('doctor_id').value = doctorId;
                 
                 bookingModal.classList.remove('hidden');
+                fetchUnavailableTimes();
             });
         });
 
-        // Handle form submission
         bookingForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -392,9 +415,7 @@
             .then(data => {
                 console.log('Response Data:', data);
                 if (data.success) {
-                    // Close booking modal
                     bookingModal.classList.add('hidden');
-                    // Reload the page to show updated data
                     window.location.reload();
                 } else {
                     alert('Failed to book appointment: ' + (data.message || 'Unknown error'));
@@ -406,17 +427,20 @@
             });
         });
 
-        // Close booking modal
         closeModalButton.addEventListener('click', function() {
             bookingModal.classList.add('hidden');
+            bookingForm.reset();
         });
 
-        // Close modal when clicking outside
         window.addEventListener('click', function(e) {
             if (e.target === bookingModal) {
                 bookingModal.classList.add('hidden');
+                bookingForm.reset();
             }
         });
+
+        dateInput.addEventListener('change', fetchUnavailableTimes);
+        doctorIdInput.addEventListener('change', fetchUnavailableTimes);
     }); 
   </script>
 @endsection

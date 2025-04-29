@@ -71,4 +71,17 @@ class AppointmentController extends Controller
             'appointment' => $appointment
         ]);
     }
+
+    public function unavailableTimes(Request $request)
+    {
+        $doctorId = $request->doctor_id;
+        $date = $request->appointment_date;
+
+        $taken = Appointment::where('doctor_id', $doctorId)
+            ->where('appointment_date', $date)
+            ->pluck('appointment_time');
+
+        return response()->json($taken);
+    }
+
 }
