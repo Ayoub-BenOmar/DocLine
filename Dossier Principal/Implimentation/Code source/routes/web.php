@@ -13,15 +13,14 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Middleware\CheckDoctorActivation;
+use App\Models\Appointment;
 
 //Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/find-doctor', [HomeController::class, 'find_doctor'])->name('find-doctor');
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
 Route::get('/unavailable-times', [AppointmentController::class, 'unavailableTimes']);
-Route::get('/articles', function() {
-    return view('articles');
-})->name('articles');
+Route::get('/articles', [ArticlesController::class, 'show'])->name('articles');
 
 //Doctor submit profile
 Route::get('/doctor-form', [DoctorController::class, 'create'])->name('doctor-form');
@@ -62,6 +61,7 @@ Route::prefix('doctor')
         Route::post('/treatments', [DoctorController::class, 'storeTreatment'])->name('treatments.store');
         Route::post('/consultations', [DoctorController::class, 'storeConsultation'])->name('consultations.store');
         Route::get('/certificates', [DoctorController::class, 'certificate'])->name('certificates');
+        Route::get('/appointment-complete/{appointment}', [AppointmentController::class, 'completed'])->name('appointment.comlpete');
 });
 
 //admin routes
@@ -70,18 +70,13 @@ Route::prefix('admin')
     ->middleware(['auth', CheckRole::class . ':admin'])
     ->group(function(){
         Route::get('/dashboard',[AdminController::class, 'dashboard'])->name('dashboard');
-
         Route::get('/doctors', [DoctorController::class, 'show'])->name('doctors');
-
         Route::get('/patients', [AdminController::class, 'patients'])->name('patients');
-
         Route::get('/contents', function() {return view('admin.contents'); })->name('contents');
         Route::post('/city', [CityController::class, 'store'])->name('city.store');
         Route::post('/speciality', [SpecialityController::class, 'store'])->name('speciality.store');
         Route::post('/article', [ArticlesController::class, 'store'])->name('article.store');
-
         Route::get('/statistics', [AdminController::class, 'statistics'])->name('statistics');
-
         Route::get('/doctors/accept/{doctor}', [DoctorController::class, 'accept'])->name('accept.doctor');
 
 });

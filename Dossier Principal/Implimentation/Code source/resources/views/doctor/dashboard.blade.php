@@ -200,7 +200,7 @@
                         <div class="p-5 border-b border-gray-100">
                             <div class="flex justify-between items-center">
                                 <h3 class="font-semibold text-gray-800">Today's Schedule</h3>
-                                <a href="doctor_appointments.html" class="text-sm text-[#7fbfbf] hover:text-[#afdddd]">View All</a>
+                                <a href="{{ route('doctor.appointments') }}" class="text-sm text-[#7fbfbf] hover:text-[#afdddd]">View All</a>
                             </div>
                         </div>
                         <div class="p-5">
@@ -211,15 +211,21 @@
                                             <div class="bg-[#e6f5f5] rounded-lg p-3 flex-shrink-0">
                                                 <span class="text-[#7fbfbf] font-bold">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('H:i') }}</span>
                                             </div>
-                                            <div class="ml-4">
+                                            <div class="ml-4 flex-grow">
                                                 <h4 class="font-medium text-gray-800">{{ $appointment->patient->name }} {{ $appointment->patient->last_name }}</h4>
                                                 <p class="text-sm text-gray-600">{{ $appointment->visit_type }}</p>
-                                                <div class="flex mt-2">
-                                                    <button class="text-xs bg-[#e6f5f5] text-[#7fbfbf] px-2 py-1 rounded mr-2">
-                                                        <i class="fas fa-check mr-1"></i> Completed
-                                                    </button>
-                                                </div>
                                             </div>
+                                            @if ($appointment->status == 'scheduled')
+                                                <div>
+                                                    <form action="{{ route('doctor.appointment.comlpete', ['appointment' => $appointment->id]) }}" method="get">
+                                                        @csrf
+                                                        <input type="hidden" name="appointment_id" value="{{ $appointment->id }}">
+                                                        <button type="submit" class="text-xs bg-[#e6f5f5] text-[#7fbfbf] px-2 py-1 rounded">
+                                                            <i class="fas fa-check mr-1"></i> Completed
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endif
                                         </div>
                                     @endforeach
                                 @else

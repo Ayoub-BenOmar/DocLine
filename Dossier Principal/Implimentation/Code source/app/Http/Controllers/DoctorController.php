@@ -111,7 +111,7 @@ class DoctorController extends Controller
         $doctorId = Auth::id();
         $appointments = Appointment::with('patient')
             ->where('doctor_id', $doctorId)
-            ->whereRaw("(appointment_date::text || ' ' || appointment_time::text)::timestamp >= ?", [now()])
+            ->where('status', 'scheduled')
             ->paginate(5);
         $completedAppointments = Appointment::with('patient')
             ->where('doctor_id', $doctorId)

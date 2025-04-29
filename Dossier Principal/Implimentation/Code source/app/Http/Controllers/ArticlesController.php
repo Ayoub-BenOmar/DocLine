@@ -28,4 +28,10 @@ class ArticlesController extends Controller
 
         return redirect()->back()->with('success', 'Article created successfully!');
     }
+
+    public function show(){
+        $articles = Articles::all();
+
+        return view('articles', compact('articles'));
+    }
 }

@@ -133,13 +133,13 @@
                     <ul class="flex flex-wrap -mb-px">
                         <li class="mr-2">
                             <a href="#" class="inline-block py-2 px-4 text-sm font-medium text-center border-b-2 border-[#afdddd] text-[#7fbfbf] rounded-t-lg active">
-                                All Doctors (245)
+                                All Doctors ({{ $activeDoctors->count() }})
                             </a>
                         </li>
                     </ul>
                 </div>
                 
-                <!-- Search and Filter -->
+                {{-- <!-- Search and Filter -->
                 <div class="bg-white rounded-lg shadow-md p-4 mb-6">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div class="relative flex-1">
@@ -164,7 +164,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 
                 <!-- Doctor Registration Requests -->
                 <div class="bg-white rounded-lg shadow-md mb-6">

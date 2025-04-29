@@ -25,27 +25,27 @@ class UpdateAppointmentStatus extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
-    {
-        $now = Carbon::now();
+    // public function handle()
+    // {
+    //     $now = Carbon::now();
         
-        // Get all scheduled appointments that have passed their time
-        $appointments = Appointment::where('status', 'scheduled')
-            ->where(function($query) use ($now) {
-                $query->whereDate('appointment_date', '<', $now->format('Y-m-d'))
-                    ->orWhere(function($q) use ($now) {
-                        $q->whereDate('appointment_date', $now->format('Y-m-d'))
-                          ->whereTime('appointment_time', '<', $now->format('H:i:s'));
-                    });
-            })
-            ->get();
+    //     // Get all scheduled appointments that have passed their time
+    //     $appointments = Appointment::where('status', 'scheduled')
+    //         ->where(function($query) use ($now) {
+    //             $query->whereDate('appointment_date', '<', $now->format('Y-m-d'))
+    //                 ->orWhere(function($q) use ($now) {
+    //                     $q->whereDate('appointment_date', $now->format('Y-m-d'))
+    //                       ->whereTime('appointment_time', '<', $now->format('H:i:s'));
+    //                 });
+    //         })
+    //         ->get();
 
-        $count = 0;
-        foreach ($appointments as $appointment) {
-            $appointment->update(['status' => 'completed']);
-            $count++;
-        }
+    //     $count = 0;
+    //     foreach ($appointments as $appointment) {
+    //         $appointment->update(['status' => 'completed']);
+    //         $count++;
+    //     }
 
-        $this->info("Updated {$count} appointments to completed status.");
-    }
+    //     $this->info("Updated {$count} appointments to completed status.");
+    // }
 }

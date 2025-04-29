@@ -139,7 +139,7 @@
                 </ul>
             </div>
             
-            <!-- Search and Filter -->
+            {{-- <!-- Search and Filter -->
             <div class="bg-white rounded-lg shadow-md p-4 mb-6">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div class="relative flex-1">
@@ -164,7 +164,7 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             
             <!-- Patient Statistics -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">

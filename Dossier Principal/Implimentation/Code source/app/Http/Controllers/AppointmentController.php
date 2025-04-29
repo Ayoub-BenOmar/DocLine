@@ -53,14 +53,14 @@ class AppointmentController extends Controller
             'status' => 'scheduled'
         ]);
 
-        $appointmentDateTime = Carbon::parse($appointment->appointment_date->format('Y-m-d') . ' ' . $appointment->appointment_time);
+        // $appointmentDateTime = Carbon::parse($appointment->appointment_date->format('Y-m-d') . ' ' . $appointment->appointment_time);
 
-        // Check if the appointment is in the past
-        if ($appointmentDateTime->isPast()) {
-            $appointment->update(['status' => 'completed']);
-        } else {
-            $appointment->update(['status' => 'scheduled']);
-        }
+        // // Check if the appointment is in the past
+        // if ($appointmentDateTime->isPast()) {
+        //     $appointment->update(['status' => 'completed']);
+        // } else {
+        //     $appointment->update(['status' => 'scheduled']);
+        // }
 
         // Load the doctor and speciality relationships
         $appointment->load(['doctor', 'doctor.speciality']);
@@ -82,6 +82,12 @@ class AppointmentController extends Controller
             ->pluck('appointment_time');
 
         return response()->json($taken);
+    }
+
+    public function completed(Appointment $appointment){
+        $appointment->update(['status' => 'completed']);
+
+        return redirect()->back()->with('sucsess', 'Appointment completed');
     }
 
 }
