@@ -256,12 +256,12 @@
                 <p class="mt-4 text-gray-600">
                   Dr. {{ $doctor->name }} is a board-certified {{ $doctor->speciality->speciality_name }} specialist with over {{ $doctor->experience }} years of experience in treating conditions related to {{ strtolower($doctor->speciality->speciality_name) }}.
                 </p>
-                <div class="mt-6 flex items-center justify-between">
+                {{-- <div class="mt-6 flex items-center justify-between">
                   <span class="text-gray-700 font-medium">Next available: Today</span>
                   <a href="" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300 transition-colors duration-200">
                     Book Now
                   </a>
-                </div>
+                </div> --}}
               </div>
             </div>
           @endforeach

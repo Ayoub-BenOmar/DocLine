@@ -61,7 +61,7 @@ class HomeController extends Controller
             }
         }
     
-        $doctors = $query->get();
+        $doctors = $query->paginate(6);
         $specialties = Speciality::all();
         $cities = City::all();
     
