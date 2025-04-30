@@ -79,6 +79,7 @@ class AppointmentController extends Controller
 
         $taken = Appointment::where('doctor_id', $doctorId)
             ->where('appointment_date', $date)
+            ->whereIn('status', ['scheduled', 'rescheduled']) // Only consider active appointments
             ->pluck('appointment_time');
 
         return response()->json($taken);

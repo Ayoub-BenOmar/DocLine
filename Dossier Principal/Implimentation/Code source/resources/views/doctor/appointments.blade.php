@@ -148,6 +148,9 @@
                                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                       Status
                                   </th>
+                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Reschedule
+                                  </th>
                               </tr>
                           </thead>
                           @foreach ($appointments as $appointment)
@@ -173,8 +176,87 @@
                                             Upcoming
                                         </span>
                                     </td>
+                                    <td>
+                                        <button type="button" 
+                                            class="open-reschedule-modal text-xs bg-[#e6f5f5] text-[#7fbfbf] px-2 py-1 rounded"
+                                            data-modal-target="reschedule-modal-{{ $appointment->id }}"
+                                            data-doctor-id="{{ Auth::user()->id }}">
+                                            <i class="fas fa-calendar-alt mr-1"></i> Reschedule
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
+
+                            <div id="reschedule-modal-{{ $appointment->id }}" class="modal hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                    <!-- Background overlay -->
+                                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+                                    <!-- Modal panel -->
+                                    <div class="modal-content inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                        <div class="bg-gray-100 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                            <div class="sm:flex sm:items-start">
+                                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-[#e6f5f5] sm:mx-0 sm:h-10 sm:w-10">
+                                                    <svg class="h-6 w-6 text-[#afdddd]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                                        Reschedule Appointment with {{ $appointment->patient->name }} {{ $appointment->patient->last_name }}
+                                                    </h3>
+                                                    <div class="mt-2">
+                                                        <p class="text-sm text-gray-500">
+                                                            Please select a new date and time for this appointment.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-6">
+                                                <form action="{{ route('doctor.appointment.reschedule', $appointment) }}" method="POST" class="space-y-4">
+                                                    @csrf
+                                                    
+                                                    <div>
+                                                        <label for="appointment_date_{{ $appointment->id }}" class="block text-sm font-medium text-gray-700">New Date</label>
+                                                        <input type="date" name="appointment_date" id="appointment_date_{{ $appointment->id }}" value="{{ $appointment->appointment_date }}" class="mt-1 py-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
+                                                    </div>
+
+                                                    <div>
+                                                        <label for="appointment_time_{{ $appointment->id }}" class="block text-sm font-medium text-gray-700">New Time</label>
+                                                        <select name="appointment_time" id="appointment_time_{{ $appointment->id }}" class="mt-1 py-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#afdddd] focus:border-[#afdddd] sm:text-sm" required>
+                                                            <option value="">Select a time</option>
+                                                            <option value="09:00" {{ $appointment->appointment_time == '09:00' ? 'selected' : '' }}>9:00 AM</option>
+                                                            <option value="09:30" {{ $appointment->appointment_time == '09:30' ? 'selected' : '' }}>9:30 AM</option>
+                                                            <option value="10:00" {{ $appointment->appointment_time == '10:00' ? 'selected' : '' }}>10:00 AM</option>
+                                                            <option value="10:30" {{ $appointment->appointment_time == '10:30' ? 'selected' : '' }}>10:30 AM</option>
+                                                            <option value="11:00" {{ $appointment->appointment_time == '11:00' ? 'selected' : '' }}>11:00 AM</option>
+                                                            <option value="11:30" {{ $appointment->appointment_time == '11:30' ? 'selected' : '' }}>11:30 AM</option>
+                                                            <option value="13:00" {{ $appointment->appointment_time == '13:00' ? 'selected' : '' }}>1:00 PM</option>
+                                                            <option value="13:30" {{ $appointment->appointment_time == '13:30' ? 'selected' : '' }}>1:30 PM</option>
+                                                            <option value="14:00" {{ $appointment->appointment_time == '14:00' ? 'selected' : '' }}>2:00 PM</option>
+                                                            <option value="14:30" {{ $appointment->appointment_time == '14:30' ? 'selected' : '' }}>2:30 PM</option>
+                                                            <option value="15:00" {{ $appointment->appointment_time == '15:00' ? 'selected' : '' }}>3:00 PM</option>
+                                                            <option value="15:30" {{ $appointment->appointment_time == '15:30' ? 'selected' : '' }}>3:30 PM</option>
+                                                            <option value="16:00" {{ $appointment->appointment_time == '16:00' ? 'selected' : '' }}>4:00 PM</option>
+                                                            <option value="16:30" {{ $appointment->appointment_time == '16:30' ? 'selected' : '' }}>4:30 PM</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="mt-6 flex justify-end space-x-3">
+                                                        <button type="button" class="close-reschedule-modal inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] sm:mt-0 sm:w-auto sm:text-sm">
+                                                            Cancel
+                                                        </button>
+                                                        <button type="submit" class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#afdddd] text-base font-medium text-white hover:bg-[#8acaca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] sm:w-auto sm:text-sm">
+                                                            Reschedule
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                           @endforeach
                       </table>
                   </div>
@@ -332,6 +414,80 @@
   </div>
 
   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const openRescheduleButtons = document.querySelectorAll('.open-reschedule-modal');
+            openRescheduleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const modalId = this.getAttribute('data-modal-target');
+                    const doctorId = this.getAttribute('data-doctor-id');
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        modal.setAttribute('data-doctor-id', doctorId);
+                    }
+                });
+            });
+
+        const closeRescheduleButtons = document.querySelectorAll('.close-reschedule-modal');
+        closeRescheduleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
+
+        const rescheduleModals = document.querySelectorAll('.modal');
+        rescheduleModals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+        });
+
+        const dateInputs = document.querySelectorAll('input[name="appointment_date"]');
+        dateInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const modal = this.closest('.modal');
+                const doctorId = modal.getAttribute('data-doctor-id');
+                const appointmentId = modal.id.split('-').pop();
+                
+                if (doctorId) {
+                    fetchUnavailableTimes(doctorId, this.value, appointmentId);
+                }
+            });
+        });
+
+        async function fetchUnavailableTimes(doctorId, selectedDate, currentAppointmentId) {
+            if (!doctorId || !selectedDate) return;
+
+            try {
+                const res = await fetch(`/unavailable-times?doctor_id=${doctorId}&appointment_date=${selectedDate}`);
+                const rawTimes = await res.json();
+                console.log('Raw response:', rawTimes);
+                
+                const takenTimes = rawTimes.map(time => time.slice(0, 5));
+                console.log('Processed taken times:', takenTimes);
+                
+                const timeSelect = document.querySelector(`#appointment_time_${currentAppointmentId}`);
+                
+                if (timeSelect) {
+                    for (const option of timeSelect.options) {
+                        option.disabled = false;
+                    }
+                    
+                    for (const option of timeSelect.options) {
+                        if (option.value === "") continue;
+                        option.disabled = takenTimes.includes(option.value);
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch unavailable times:', error);
+            }
+        }
+    });
       function openTreatmentModal(appointmentId) {
           document.getElementById('appointment_id').value = appointmentId;
           document.getElementById('treatmentModal').classList.remove('hidden');
@@ -352,7 +508,6 @@
           document.getElementById('consultationForm').reset();
       }
 
-      // Close modal when clicking outside
       window.onclick = function(event) {
           const modal = document.getElementById('treatmentModal');
           if (event.target == modal) {
@@ -364,7 +519,6 @@
           }
       }
 
-      // Handle form submission
       document.getElementById('treatmentForm').addEventListener('submit', function(e) {
           e.preventDefault();
           
@@ -381,13 +535,10 @@
           .then(response => response.json())
           .then(data => {
               if (data.success) {
-                  // Show success message
                   alert(data.message);
                   closeTreatmentModal();
-                  // Optionally refresh the page or update the UI
                   window.location.reload();
               } else {
-                  // Show error message
                   alert(data.message);
               }
           })
@@ -397,7 +548,6 @@
           });
       });
 
-      // Handle consultation form submission
       document.getElementById('consultationForm').addEventListener('submit', function(e) {
           e.preventDefault();
           
