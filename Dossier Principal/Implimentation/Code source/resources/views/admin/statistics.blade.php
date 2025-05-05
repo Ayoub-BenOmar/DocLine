@@ -395,7 +395,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">{{ $doctor->specialty }}</div>
+                                    <div class="text-sm text-gray-900">{{ $doctor->speciality->speciality_name }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-900">{{ $doctor->total_appointments }}</div>
@@ -474,7 +474,7 @@
                 </div>
             </div>
             
-            <!-- System Performance -->
+            {{-- <!-- System Performance -->
             <div class="bg-white rounded-lg shadow-md mb-6">
                 <div class="p-5 border-b border-gray-100">
                     <h3 class="font-semibold text-gray-800">System Performance</h3>
@@ -530,7 +530,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

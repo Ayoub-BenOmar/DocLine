@@ -214,7 +214,8 @@
                                             </div>
 
                                             <div class="mt-6">
-                                                <form action="{{ route('doctor.appointment.reschedule', $appointment) }}" method="POST" class="space-y-4">
+                                                <form action="{{ route('doctor.appointment.reschedule', $appointment) }}" method="post" class="space-y-4">
+                                                    @method("put")
                                                     @csrf
                                                     
                                                     <div>

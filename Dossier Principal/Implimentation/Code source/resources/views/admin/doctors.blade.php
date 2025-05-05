@@ -139,35 +139,8 @@
                     </ul>
                 </div>
                 
-                {{-- <!-- Search and Filter -->
-                <div class="bg-white rounded-lg shadow-md p-4 mb-6">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div class="relative flex-1">
-                            <input type="text" placeholder="Search doctors by name, email, or specialty..." class="pl-10 pr-4 py-2 border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-[#afdddd]">
-                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <select class="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#afdddd]">
-                                <option value="">All Specialties</option>
-                                <option value="cardiology">Cardiology</option>
-                                <option value="neurology">Neurology</option>
-                                <option value="pediatrics">Pediatrics</option>
-                                <option value="dermatology">Dermatology</option>
-                                <option value="orthopedics">Orthopedics</option>
-                            </select>
-                            <select class="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#afdddd]">
-                                <option value="">Sort By</option>
-                                <option value="name_asc">Name (A-Z)</option>
-                                <option value="name_desc">Name (Z-A)</option>
-                                <option value="date_asc">Registration Date (Oldest)</option>
-                                <option value="date_desc">Registration Date (Newest)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div> --}}
-                
                 <!-- Doctor Registration Requests -->
-                <div class="bg-white rounded-lg shadow-md mb-6">
+                <div class="bg-white rounded-lg shadow-md mb-6 lg:col-span-2">
                     <div class="p-5 border-b border-gray-100">
                         <h3 class="font-semibold text-gray-800">Doctor Registration Requests</h3>
                     </div>
@@ -219,13 +192,16 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex">
-                                            <form action="{{ route('admin.accept.doctor', ['doctor' => $doctor->id]) }}" method="get">
+                                            <form action="{{ route('admin.accept.doctor', ['doctor' => $doctor->id]) }}" method="post">
                                                 @csrf
+                                                @method('patch')
                                                 <button type="submit" class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
                                                     <i class="fas fa-check"></i>
                                                 </button>
                                             </form>
-                                            <form action="">
+                                            <form action="{{ route('admin.suspend.user', ['user' => $doctor->id]) }}" method="post">
+                                                @csrf
+                                                @method('patch')
                                                 <button class="text-red-500 hover:text-red-700">
                                                     <i class="fas fa-times"></i>
                                                 </button>
@@ -240,13 +216,13 @@
                 </div>
                 
                 <!-- All Doctors List -->
-                <div class="bg-white rounded-lg shadow-md">
+                <div class="bg-white rounded-lg shadow-md lg:col-span-2">
                     <div class="p-5 border-b border-gray-100">
                         <h3 class="font-semibold text-gray-800">All Doctors</h3>
                     </div>
                     <div class="p-5">
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200 text-sm">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
@@ -272,7 +248,7 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $activeDoctor->speciality->speciality_name }}</div>
+                                            <div class="text-sm text-gray-900">{{ $activeDoctor->speciality->speciality_name ?? 'N/A'}}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">142</div>
@@ -286,9 +262,13 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button class="text-red-500 hover:text-red-700">
-                                                <i class="fas fa-ban"></i>
-                                            </button>
+                                            <form action="{{ route('admin.suspend.user', ['user' => $activeDoctor->id]) }}" method="post">
+                                                @csrf
+                                                @method('patch')
+                                                <button class="text-red-500 hover:text-red-700">
+                                                    <i class="fas fa-ban"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -297,33 +277,33 @@
                         </div>
                         
                         <!-- Pagination -->
-                        <div class="flex items-center justify-between mt-6">
-                            <div class="text-sm text-gray-500">
+                        <div class="flex flex-wrap items-center justify-between mt-6">
+                            <div class="text-sm text-gray-500 mb-2 md:mb-0">
                                 Showing <span class="font-medium">{{ $activeDoctors->firstItem() }}</span> to <span class="font-medium">{{ $activeDoctors->lastItem() }}</span> of <span class="font-medium">{{ $activeDoctors->total() }}</span> results
                             </div>
-                            <div class="flex space-x-2">
+                            <div class="flex flex-wrap">
                                 @if ($activeDoctors->onFirstPage())
-                                    <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50" disabled>
+                                    <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 mr-1 mb-1" disabled>
                                         Previous
                                     </button>
                                 @else
-                                    <a href="{{ $activeDoctors->previousPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50">
+                                    <a href="{{ $activeDoctors->previousPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 mr-1 mb-1">
                                         Previous
                                     </a>
                                 @endif
 
                                 @foreach ($activeDoctors->getUrlRange(1, $activeDoctors->lastPage()) as $page => $url)
-                                    <a href="{{ $url }}" class="px-3 py-1 border rounded-md {{ $activeDoctors->currentPage() == $page ? 'bg-[#afdddd] text-white' : 'text-gray-500 bg-white hover:bg-gray-50' }}">
+                                    <a href="{{ $url }}" class="px-3 py-1 border rounded-md {{ $activeDoctors->currentPage() == $page ? 'bg-[#afdddd] text-white' : 'text-gray-500 bg-white hover:bg-gray-50' }} mr-1 mb-1">
                                         {{ $page }}
                                     </a>
                                 @endforeach
 
                                 @if ($activeDoctors->hasMorePages())
-                                    <a href="{{ $activeDoctors->nextPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50">
+                                    <a href="{{ $activeDoctors->nextPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 mr-1 mb-1">
                                         Next
                                     </a>
                                 @else
-                                    <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50" disabled>
+                                    <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 mr-1 mb-1" disabled>
                                         Next
                                     </button>
                                 @endif
@@ -335,7 +315,7 @@
 
             <!-- Document Viewer Modal -->
             <div id="documentModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 hidden flex items-center justify-center">
-                <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-hidden">
+                <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-hidden mx-4">
                     <div class="p-5 border-b border-gray-200 flex justify-between items-center">
                         <h3 class="text-lg font-semibold text-gray-800" id="documentModalTitle">Doctor Certificate</h3>
                         <button class="text-gray-400 hover:text-gray-600" id="closeDocumentModal">
@@ -343,8 +323,8 @@
                         </button>
                     </div>
                     <div class="p-5 flex flex-col">
-                        <div class="flex justify-between items-center mb-4">
-                            <div>
+                        <div class="flex flex-wrap justify-between items-center mb-4">
+                            <div class="mb-2 md:mb-0">
                                 <p class="text-sm text-gray-500">Document Type: <span class="font-medium text-gray-700">Medical License Certificate</span></p>
                                 <p class="text-sm text-gray-500">Uploaded: <span class="font-medium text-gray-700">Mar 18, 2025</span></p>
                             </div>
@@ -370,10 +350,10 @@
             <div class="bg-white p-4 border-t mt-6">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <p class="text-sm text-gray-500">© 2025 DocLine Admin Portal. All rights reserved.</p>
-                    <div class="flex mt-2 md:mt-0">
-                        <a href="#" class="text-sm text-gray-500 hover:text-[#7fbfbf] mx-2">Privacy Policy</a>
-                        <a href="#" class="text-sm text-gray-500 hover:text-[#7fbfbf] mx-2">Terms of Service</a>
-                        <a href="#" class="text-sm text-gray-500 hover:text-[#7fbfbf] mx-2">Contact Support</a>
+                    <div class="flex flex-wrap mt-2 md:mt-0">
+                        <a href="#" class="text-sm text-gray-500 hover:text-[#7fbfbf] mx-2 mb-1">Privacy Policy</a>
+                        <a href="#" class="text-sm text-gray-500 hover:text-[#7fbfbf] mx-2 mb-1">Terms of Service</a>
+                        <a href="#" class="text-sm text-gray-500 hover:text-[#7fbfbf] mx-2 mb-1">Contact Support</a>
                     </div>
                 </div>
             </div>

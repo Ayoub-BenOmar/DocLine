@@ -196,4 +196,12 @@ class AdminController extends Controller
             'serverResponseTime', 'serverResponseImprovement', 'uptime', 'uptimeImprovement', 'errorRate', 'errorRateImprovement'
         ));
     }
+
+    public function suspend(User $user)
+    {
+        $user->is_suspended = true;
+        $user->save();
+
+        return redirect()->back()->with('success', 'User suspended successfully.');
+    }
 }

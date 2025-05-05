@@ -45,7 +45,7 @@ class PatientController extends Controller
 
     public function dashboard(){
         $patient_id = Auth::id();
-        $appointments = Appointment::with('doctor')->where('patient_id', $patient_id)->where('status', 'scheduled')->get();
+        $appointments = Appointment::with('doctor')->where('patient_id', $patient_id)->whereIn('status', ['scheduled', 'rescheduled'])->get();
         $certificates = MedicalCertificate::where('patient_id', $patient_id)->where('status', 'pending')->get();
         $consultationFiles = MedicalConsultation::with('appointment.doctor', 'appointment.patient')->whereHas('appointment', function ($query) use ($patient_id){
             $query->where('patient_id', $patient_id);
@@ -58,7 +58,7 @@ class PatientController extends Controller
 
     public function appointments(){
         $patient_id = Auth::id();
-        $comingAppointments = Appointment::with('doctor')->where('patient_id', $patient_id)->where('status', 'scheduled')->get();
+        $comingAppointments = Appointment::with('doctor')->where('patient_id', $patient_id)->whereIn('status', ['scheduled', 'rescheduled'])->get();
         $completedAppointments = Appointment::with('doctor')->where('patient_id', $patient_id)->where('status', 'completed')->get();
 
         return view('patient.appointments', compact('comingAppointments', 'completedAppointments'));

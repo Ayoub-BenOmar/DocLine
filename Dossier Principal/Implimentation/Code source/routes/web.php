@@ -62,7 +62,7 @@ Route::prefix('doctor')
         Route::post('/consultations', [DoctorController::class, 'storeConsultation'])->name('consultations.store');
         Route::get('/certificates', [DoctorController::class, 'certificate'])->name('certificates');
         Route::get('/appointment-complete/{appointment}', [AppointmentController::class, 'completed'])->name('appointment.comlpete');
-        Route::post('/doctor/appointments/{appointment}/reschedule', [AppointmentController::class, 'reschedule'])->name('appointment.reschedule');
+        Route::put('/doctor/appointments/{appointment}/reschedule', [AppointmentController::class, 'reschedule'])->name('appointment.reschedule');
 });
 
 //admin routes
@@ -78,8 +78,8 @@ Route::prefix('admin')
         Route::post('/speciality', [SpecialityController::class, 'store'])->name('speciality.store');
         Route::post('/article', [ArticlesController::class, 'store'])->name('article.store');
         Route::get('/statistics', [AdminController::class, 'statistics'])->name('statistics');
-        Route::get('/doctors/accept/{doctor}', [DoctorController::class, 'accept'])->name('accept.doctor');
-
+        Route::patch('/doctors/accept/{doctor}', [DoctorController::class, 'accept'])->name('accept.doctor');
+        Route::patch('/user/suspend/{user}', [AdminController::class, 'suspend'])->name('suspend.user');
 });
 
 //patient routes

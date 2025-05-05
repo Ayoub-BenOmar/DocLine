@@ -22,7 +22,7 @@ class User extends Authenticatable
         'medical_licence', 'medical_document', 'speciality_id',
         'city_id', 'office_address', 'education', 'fees', 'experience',
         'birthdate', 'gender', 'blood_type', 'past_illnesses',
-        'surgeries', 'allergies', 'chronic', 'is_activated', 'is_approved'
+        'surgeries', 'allergies', 'chronic', 'is_activated', 'is_suspended'
     ];
 
     protected $casts = [

@@ -155,7 +155,7 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">Pending Certificates</p>
-                                <h3 class="text-2xl font-bold text-gray-800">3</h3>
+                                <h3 class="text-2xl font-bold text-gray-800">{{$certificates->count()}}</h3>
                             </div>
                             <div class="bg-gray-100 h-12 w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-file-medical text-gray-500 text-xl"></i>
@@ -247,7 +247,7 @@
                         <div class="p-5 border-b border-gray-100">
                             <div class="flex justify-between items-center">
                                 <h3 class="font-semibold text-gray-800">Certificate Requests</h3>
-                                <a href="doctor_certificate.html" class="text-sm text-[#7fbfbf] hover:text-[#afdddd]">View All</a>
+                                <a href="{{ route('doctor.certificates') }}" class="text-sm text-[#7fbfbf] hover:text-[#afdddd]">View All</a>
                             </div>
                         </div>
                         <div class="p-5">
