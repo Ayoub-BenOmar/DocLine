@@ -128,185 +128,194 @@
             
             <!-- Doctor Management Content -->
             <div class="p-6">
-                <!-- Tabs -->
-                <div class="mb-6 border-b border-gray-200">
-                    <ul class="flex flex-wrap -mb-px">
-                        <li class="mr-2">
-                            <a href="#" class="inline-block py-2 px-4 text-sm font-medium text-center border-b-2 border-[#afdddd] text-[#7fbfbf] rounded-t-lg active">
-                                All Doctors ({{ $activeDoctors->count() }})
+                <!-- Tabs Navigation -->
+                <div class="mb-6">
+                    <div class="border-b border-gray-200">
+                        <nav class="-mb-px flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-8" aria-label="Tabs">
+                            <a href="#" class="border-b-2 border-[#afdddd] text-[#7fbfbf] whitespace-nowrap py-4 px-1 text-sm font-medium">
+                                All Doctors
                             </a>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Doctor Registration Requests -->
-                <div class="bg-white rounded-lg shadow-md mb-6 lg:col-span-2">
-                    <div class="p-5 border-b border-gray-100">
-                        <h3 class="font-semibold text-gray-800">Doctor Registration Requests</h3>
-                    </div>
-                    <div class="p-5">
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialty</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">License</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Documents</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                    </tr>
-                                </thead>
-                                @foreach ($doctors as $doctor)
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                                    {{ substr($doctor->name, 0, 1) }}{{ substr($doctor->last_name, 0, 1) }}
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. {{ $doctor->name }} {{ $doctor->last_name }}</div>
-                                                    <div class="text-sm text-gray-500">{{ $doctor->email }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $doctor->speciality->speciality_name ?? 'N/A' }}</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $doctor->medical_licence }}</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <button class="view-document bg-white text-primary px-3 py-1 rounded-md text-xs font-medium hover:bg-primary hover:text-white" data-doctor="{{ $doctor->name }}" data-file="{{ Storage::url($doctor->medical_document) }}">
-                                                <i class="fas fa-file-medical mr-1"></i> View Certificate
-                                            </button>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $doctor->created_at->format('d M Y')}}</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                Pending
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex">
-                                            <form action="{{ route('admin.accept.doctor', ['doctor' => $doctor->id]) }}" method="post">
-                                                @csrf
-                                                @method('patch')
-                                                <button type="submit" class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
-                                                    <i class="fas fa-check"></i>
-                                                </button>
-                                            </form>
-                                            <form action="{{ route('admin.suspend.user', ['user' => $doctor->id]) }}" method="post">
-                                                @csrf
-                                                @method('patch')
-                                                <button class="text-red-500 hover:text-red-700">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                @endforeach
-                            </table>
-                        </div>
+                            {{-- <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 text-sm font-medium">
+                                Active ({{ $activeDoctors->count() }})
+                            </a>
+                            <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 text-sm font-medium">
+                                Suspended ({{ $suspendedDoctors->count() ?? 0 }})
+                            </a> --}}
+                        </nav>
                     </div>
                 </div>
-                
-                <!-- All Doctors List -->
-                <div class="bg-white rounded-lg shadow-md lg:col-span-2">
-                    <div class="p-5 border-b border-gray-100">
-                        <h3 class="font-semibold text-gray-800">All Doctors</h3>
-                    </div>
-                    <div class="p-5">
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 text-sm">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialty</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patients</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                    </tr>
-                                </thead>
-                                @foreach ($activeDoctors as $activeDoctor)
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                                    SM
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. {{ $activeDoctor->name }} {{ $activeDoctor->last_name }}</div>
-                                                    <div class="text-sm text-gray-500">{{ $activeDoctor->email }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $activeDoctor->speciality->speciality_name ?? 'N/A'}}</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">142</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $activeDoctor->created_at->format('d M Y') }}</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                Active
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <form action="{{ route('admin.suspend.user', ['user' => $activeDoctor->id]) }}" method="post">
-                                                @csrf
-                                                @method('patch')
-                                                <button class="text-red-500 hover:text-red-700">
-                                                    <i class="fas fa-ban"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                @endforeach
-                            </table>
+
+                <!-- Grid Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Doctor Registration Requests -->
+                    <div class="bg-white rounded-lg shadow-md lg:col-span-3">
+                        <div class="p-5 border-b border-gray-100">
+                            <h3 class="font-semibold text-gray-800">Doctor Registration Requests</h3>
                         </div>
-                        
-                        <!-- Pagination -->
-                        <div class="flex flex-wrap items-center justify-between mt-6">
-                            <div class="text-sm text-gray-500 mb-2 md:mb-0">
-                                Showing <span class="font-medium">{{ $activeDoctors->firstItem() }}</span> to <span class="font-medium">{{ $activeDoctors->lastItem() }}</span> of <span class="font-medium">{{ $activeDoctors->total() }}</span> results
+                        <div class="p-5">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialty</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">License</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Documents</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach ($doctors as $doctor)
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
+                                                        {{ substr($doctor->name, 0, 1) }}{{ substr($doctor->last_name, 0, 1) }}
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">Dr. {{ $doctor->name }} {{ $doctor->last_name }}</div>
+                                                        <div class="text-sm text-gray-500">{{ $doctor->email }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{ $doctor->speciality->speciality_name ?? 'N/A' }}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{ $doctor->medical_licence }}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <button class="view-document bg-white text-primary px-3 py-1 rounded-md text-xs font-medium hover:bg-primary hover:text-white" data-doctor="{{ $doctor->name }}" data-file="{{ Storage::url($doctor->medical_document) }}">
+                                                    <i class="fas fa-file-medical mr-1"></i> View Certificate
+                                                </button>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{ $doctor->created_at->format('d M Y')}}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                    Pending
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex">
+                                                <form action="{{ route('admin.accept.doctor', ['doctor' => $doctor->id]) }}" method="post">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <button type="submit" class="text-[#7fbfbf] hover:text-[#afdddd] mr-3">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('admin.suspend.user', ['user' => $doctor->id]) }}" method="post">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <button class="text-red-500 hover:text-red-700">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    @endforeach
+                                </table>
                             </div>
-                            <div class="flex flex-wrap">
-                                @if ($activeDoctors->onFirstPage())
-                                    <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 mr-1 mb-1" disabled>
-                                        Previous
-                                    </button>
-                                @else
-                                    <a href="{{ $activeDoctors->previousPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 mr-1 mb-1">
-                                        Previous
-                                    </a>
-                                @endif
+                        </div>
+                    </div>
+                    
+                    <!-- All Doctors List -->
+                    <div class="bg-white rounded-lg shadow-md lg:col-span-3">
+                        <div class="p-5 border-b border-gray-100">
+                            <h3 class="font-semibold text-gray-800">All Doctors</h3>
+                        </div>
+                        <div class="p-5">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialty</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patients</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach ($activeDoctors as $activeDoctor)
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
+                                                        SM
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">Dr. {{ $activeDoctor->name }} {{ $activeDoctor->last_name }}</div>
+                                                        <div class="text-sm text-gray-500">{{ $activeDoctor->email }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{ $activeDoctor->speciality->speciality_name ?? 'N/A'}}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">142</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{ $activeDoctor->created_at->format('d M Y') }}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    Active
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <form action="{{ route('admin.suspend.user', ['user' => $activeDoctor->id]) }}" method="post">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <button class="text-red-500 hover:text-red-700">
+                                                        <i class="fas fa-ban"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    @endforeach
+                                </table>
+                            </div>
+                            
+                            <!-- Pagination -->
+                            <div class="flex flex-wrap items-center justify-between mt-6">
+                                <div class="text-sm text-gray-500 mb-2 md:mb-0">
+                                    Showing <span class="font-medium">{{ $activeDoctors->firstItem() }}</span> to <span class="font-medium">{{ $activeDoctors->lastItem() }}</span> of <span class="font-medium">{{ $activeDoctors->total() }}</span> results
+                                </div>
+                                <div class="flex flex-wrap">
+                                    @if ($activeDoctors->onFirstPage())
+                                        <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 mr-1 mb-1" disabled>
+                                            Previous
+                                        </button>
+                                    @else
+                                        <a href="{{ $activeDoctors->previousPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 mr-1 mb-1">
+                                            Previous
+                                        </a>
+                                    @endif
 
-                                @foreach ($activeDoctors->getUrlRange(1, $activeDoctors->lastPage()) as $page => $url)
-                                    <a href="{{ $url }}" class="px-3 py-1 border rounded-md {{ $activeDoctors->currentPage() == $page ? 'bg-[#afdddd] text-white' : 'text-gray-500 bg-white hover:bg-gray-50' }} mr-1 mb-1">
-                                        {{ $page }}
-                                    </a>
-                                @endforeach
+                                    @foreach ($activeDoctors->getUrlRange(1, $activeDoctors->lastPage()) as $page => $url)
+                                        <a href="{{ $url }}" class="px-3 py-1 border rounded-md {{ $activeDoctors->currentPage() == $page ? 'bg-[#afdddd] text-white' : 'text-gray-500 bg-white hover:bg-gray-50' }} mr-1 mb-1">
+                                            {{ $page }}
+                                        </a>
+                                    @endforeach
 
-                                @if ($activeDoctors->hasMorePages())
-                                    <a href="{{ $activeDoctors->nextPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 mr-1 mb-1">
-                                        Next
-                                    </a>
-                                @else
-                                    <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 mr-1 mb-1" disabled>
-                                        Next
-                                    </button>
-                                @endif
+                                    @if ($activeDoctors->hasMorePages())
+                                        <a href="{{ $activeDoctors->nextPageUrl() }}" class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 mr-1 mb-1">
+                                            Next
+                                        </a>
+                                    @else
+                                        <button class="px-3 py-1 border rounded-md text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 mr-1 mb-1" disabled>
+                                            Next
+                                        </button>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -359,64 +368,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Document viewer modal
-            const documentModal = document.getElementById('documentModal');
-            const closeDocumentModal = document.getElementById('closeDocumentModal');
-            const documentModalTitle = document.getElementById('documentModalTitle');
-            const previewImage = document.getElementById('previewImage');
-            const viewDocumentButtons = document.querySelectorAll('.view-document');
-            
-            viewDocumentButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const doctorName = this.getAttribute('data-doctor');
-                    const filePath = this.getAttribute('data-file');
-                    
-                    // Set the modal title
-                    documentModalTitle.textContent = `Medical Document - Dr. ${doctorName}`;
-                    
-                    // Check if the file is an image or PDF
-                    const fileExtension = filePath.split('.').pop().toLowerCase();
-                    const isImage = ['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension);
-                    
-                    if (isImage) {
-                        // For images, show directly
-                        previewImage.src = filePath;
-                        previewImage.style.display = 'block';
-                    } else {
-                        // For PDFs, use an iframe
-                        previewImage.style.display = 'none';
-                        const pdfViewer = document.createElement('iframe');
-                        pdfViewer.src = filePath;
-                        pdfViewer.style.width = '100%';
-                        pdfViewer.style.height = '100%';
-                        pdfViewer.style.border = 'none';
-                        
-                        // Clear previous content and add the PDF viewer
-                        const previewContainer = document.getElementById('documentPreview');
-                        previewContainer.innerHTML = '';
-                        previewContainer.appendChild(pdfViewer);
-                    }
-                    
-                    // Show the modal
-                    documentModal.classList.remove('hidden');
-                });
-            });
-            
-            if (closeDocumentModal) {
-                closeDocumentModal.addEventListener('click', function() {
-                    documentModal.classList.add('hidden');
-                });
-            }
-            
-            // Close modal when clicking outside
-            documentModal.addEventListener('click', function(e) {
-                if (e.target === documentModal) {
-                    documentModal.classList.add('hidden');
-                }
-            });
-        });
-    </script>
 @endsection

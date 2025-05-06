@@ -13,6 +13,16 @@ class City extends Model
         return $this->hasMany(User::class);
     }
 
+    public function doctor()
+    {
+        return $this->hasMany(User::class)->where('role', 'doctor');
+    }
+    
+    public function patient()
+    {
+        return $this->hasMany(User::class)->where('role', 'patient');
+    }
+
     public function appointment(){
         return $this->hasMany(Appointment::class);
     }

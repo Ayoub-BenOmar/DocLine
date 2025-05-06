@@ -144,14 +144,6 @@
                                 <i class="fas fa-users text-[#7fbfbf] text-xl"></i>
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <div class="flex items-center">
-                                <span class="text-green-500 text-xs font-medium mr-1">
-                                    <i class="fas fa-arrow-up"></i> 12%
-                                </span>
-                                <span class="text-gray-500 text-xs">Since last month</span>
-                            </div>
-                        </div>
                     </div>
                     
                     <!-- Doctors Card -->
@@ -163,14 +155,6 @@
                             </div>
                             <div class="bg-[#e6f5f5] h-12 w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-user-md text-[#7fbfbf] text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <div class="flex items-center">
-                                <span class="text-green-500 text-xs font-medium mr-1">
-                                    <i class="fas fa-arrow-up"></i> 8%
-                                </span>
-                                <span class="text-gray-500 text-xs">Since last month</span>
                             </div>
                         </div>
                     </div>
@@ -186,14 +170,6 @@
                                 <i class="fas fa-hospital-user text-[#7fbfbf] text-xl"></i>
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <div class="flex items-center">
-                                <span class="text-green-500 text-xs font-medium mr-1">
-                                    <i class="fas fa-arrow-up"></i> 15%
-                                </span>
-                                <span class="text-gray-500 text-xs">Since last month</span>
-                            </div>
-                        </div>
                     </div>
                     
                     <!-- Appointments Card -->
@@ -207,19 +183,11 @@
                                 <i class="fas fa-calendar-check text-[#7fbfbf] text-xl"></i>
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <div class="flex items-center">
-                                <span class="text-green-500 text-xs font-medium mr-1">
-                                    <i class="fas fa-arrow-up"></i> 22%
-                                </span>
-                                <span class="text-gray-500 text-xs">Since last month</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 
                 <!-- Middle Row -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <div class="grid grid-cols-1 gap-6 mb-6">
                     <!-- Doctor Registration Requests -->
                     <div class="bg-white rounded-lg shadow lg:col-span-2">
                         <div class="p-5 border-b border-gray-100">
@@ -385,7 +353,7 @@
                     </div>
                     
                     <!-- Recent Activities -->
-                    <div class="bg-white rounded-lg shadow">
+                    {{-- <div class="bg-white rounded-lg shadow">
                         <div class="p-5 border-b border-gray-100">
                             <h3 class="font-semibold text-gray-800">Recent Activities</h3>
                         </div>
@@ -447,7 +415,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             

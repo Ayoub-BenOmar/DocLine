@@ -18,4 +18,9 @@ class Speciality extends Model
     public function appointment(){
         return $this->hasMany(Appointment::class);
     }
+
+    public function doctor()
+    {
+        return $this->hasMany(User::class)->where('role', 'doctor');
+    }
 }

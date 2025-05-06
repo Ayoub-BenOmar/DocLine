@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Appointment;
 use App\Models\City;
+use App\Models\User;
+use App\Models\Articles;
+use App\Models\Speciality;
+use App\Models\Appointment;
 use App\Models\MedicalCertificate;
 use App\Models\MedicalConsultation;
-use App\Models\Speciality;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -203,5 +204,15 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'User suspended successfully.');
+    }
+
+    public function contents()
+    {
+        $articles = Articles::paginate(10);
+
+        $specialties = Speciality::withCount('doctor')->latest()->get();
+
+        $cities = City::withCount(['doctor', 'patient'])->latest()->get();
+        return view('admin.contents', compact('articles', 'specialties', 'cities'));
     }
 }

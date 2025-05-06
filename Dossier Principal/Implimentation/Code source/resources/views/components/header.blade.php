@@ -21,8 +21,8 @@
                         <a href="{{ route('home') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Home</a>
                         <a href="{{ route('find-doctor') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Find Doctors</a>
                         <a href="{{ route('articles') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Articles</a>
-                        <a href="" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">About</a>
-                        <a href="" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Contact</a>
+                        <a href="{{ route('about-us') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">About</a>
+                        <a href="{{ route('contact-us') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Contact</a>
                         <a href="{{ route('patient.dashboard') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">My Space</a>
                         
                         <form method="POST" action="{{ route('logout') }}" class="inline">
@@ -36,8 +36,8 @@
                     <a href="{{ route('home') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Home</a>
                     <a href="{{ route('find-doctor') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Find Doctors</a>
                     <a href="{{ route('articles') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Articles</a>
-                    <a href="" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">About</a>
-                    <a href="" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Contact</a>
+                    <a href="{{ route('about-us') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">About</a>
+                    <a href="{{ route('contact-us') }}" class="text-gray-500 hover:text-primary px-3 py-2 text-sm font-medium">Contact</a>
                     
                     <a href="{{ route('login') }}" class="bg-[#afdddd] hover:bg-[#9acccc] text-gray-800 font-medium px-4 py-2 rounded-md text-sm transition duration-150 ease-in-out">Login</a>
                     <a href="{{ route('register') }}" class="bg-[#afdddd] hover:bg-[#9acccc] text-gray-800 font-medium px-4 py-2 rounded-md text-sm transition duration-150 ease-in-out">Register</a>
@@ -70,8 +70,8 @@
         <a href="{{ route('home') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Home</a>
         <a href="{{ route('find-doctor') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Find Doctors</a>
         <a href="{{ route('articles') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Articles</a>
-        <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">About</a>
-        <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Contact</a>
+        <a href="{{ route('about-us') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">About</a>
+        <a href="{{ route('contact-us') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Contact</a>
         <a href="{{ route('patient.dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Space</a>
         
         <!-- Mobile Authentication Links -->

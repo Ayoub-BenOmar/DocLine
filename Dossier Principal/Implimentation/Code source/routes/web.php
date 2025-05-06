@@ -21,6 +21,12 @@ Route::get('/find-doctor', [HomeController::class, 'find_doctor'])->name('find-d
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
 Route::get('/unavailable-times', [AppointmentController::class, 'unavailableTimes']);
 Route::get('/articles', [ArticlesController::class, 'show'])->name('articles');
+Route::get('/about-us', function(){
+    return view('about');
+})->name('about-us');
+Route::get('/contact-us', function(){
+    return view('contact');
+})->name('contact-us');
 
 //Doctor submit profile
 Route::get('/doctor-form', [DoctorController::class, 'create'])->name('doctor-form');
@@ -80,6 +86,7 @@ Route::prefix('admin')
         Route::get('/statistics', [AdminController::class, 'statistics'])->name('statistics');
         Route::patch('/doctors/accept/{doctor}', [DoctorController::class, 'accept'])->name('accept.doctor');
         Route::patch('/user/suspend/{user}', [AdminController::class, 'suspend'])->name('suspend.user');
+        Route::get('/contents', [AdminController::class, 'contents'])->name('contents');
 });
 
 //patient routes
