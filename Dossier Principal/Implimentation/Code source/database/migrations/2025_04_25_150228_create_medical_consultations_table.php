@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('symptoms');
             $table->text('doctor_note');
             $table->date('date');
-            $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade');
+            $table->foreignId('appointment_id')->unique()->constrained('appointments')->onDelete('cascade');
             $table->timestamps();
         });
     }
