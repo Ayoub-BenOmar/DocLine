@@ -121,14 +121,14 @@
             <!-- Appointments Content -->
             <div class="p-6">
                 <!-- Filter and Search -->
-                <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+                {{-- <div class="bg-white rounded-lg shadow-md p-4 mb-6">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div class="relative">
                             <input type="text" placeholder="Search appointments..." class="pl-10 pr-4 py-2 border rounded-md w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-[#afdddd]">
                             <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 
                 <!-- Upcoming Appointments -->
                 <div class="mb-8">

@@ -223,7 +223,7 @@
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">{{ $doctor->speciality->speciality_name }}</div>
+                                                <div class="text-sm text-gray-900">{{ $doctor->speciality->speciality_name ?? 'N/A' }}</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm text-gray-900">{{$doctor->created_at->format('d M Y')}}</div>

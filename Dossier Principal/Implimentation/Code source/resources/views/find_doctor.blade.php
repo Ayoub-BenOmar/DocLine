@@ -149,15 +149,15 @@
                 </div>
               </div>
               <div class="mt-6 flex items-center justify-between">
-                <a href="#" class="text-[#7fbfbf] hover:text-[#afdddd] text-sm font-medium">
-                  View Profile
-                </a>
-                <button type="button" class="book-now-btn inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-[#afdddd] hover:bg-[#8acaca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] transition-colors duration-200" 
-                    data-doctor-id="{{ $doctor->id }}"
-                    data-doctor="Dr. {{ $doctor->name }} {{ $doctor->last_name }}"
-                    data-specialty="{{ $doctor->speciality->speciality_name }}">
-                  Book Now
-                </button>
+                @auth
+                  <button type="button" class="book-now-btn inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-[#afdddd] hover:bg-[#8acaca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#afdddd] transition-colors duration-200" 
+                      data-doctor-id="{{ $doctor->id }}"
+                      data-doctor="Dr. {{ $doctor->name }} {{ $doctor->last_name }}"
+                      data-specialty="{{ $doctor->speciality->speciality_name }}">
+                    Book Now
+                  </button>
+                @endauth
+                
               </div>
             </div>
           </div>

@@ -354,8 +354,8 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-gray-500 text-xs md:text-sm">Top City</p>
-                                <h3 class="text-lg md:text-2xl font-bold text-gray-800">{{ $topCities->first()->name }}</h3>
-                                <p class="text-xs md:text-sm text-gray-500 mt-1">{{ $topCities->first()->appointments }} Appointments</p>
+                                <h3 class="text-lg md:text-2xl font-bold text-gray-800">{{ $topCities->city }}</h3>
+                                {{-- <p class="text-xs md:text-sm text-gray-500 mt-1">{{ $topCities->appointments }} Appointments</p> --}}
                             </div>
                             <div class="bg-[#e6f5f5] h-8 md:h-12 w-8 md:w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-map-marker-alt text-[#7fbfbf] text-base md:text-xl"></i>
@@ -368,8 +368,8 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-gray-500 text-xs md:text-sm">Top Specialty</p>
-                                <h3 class="text-lg md:text-2xl font-bold text-gray-800">{{ $topSpecialties->first()->name }}</h3>
-                                <p class="text-xs md:text-sm text-gray-500 mt-1">{{ $topSpecialties->first()->appointments }} Appointments</p>
+                                <h3 class="text-lg md:text-2xl font-bold text-gray-800">{{ $topSpecialties->speciality_name }}</h3>
+                                {{-- <p class="text-xs md:text-sm text-gray-500 mt-1">{{ $topSpecialties->appointments }} Appointments</p> --}}
                             </div>
                             <div class="bg-[#e6f5f5] h-8 md:h-12 w-8 md:w-12 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-stethoscope text-[#7fbfbf] text-base md:text-xl"></i>

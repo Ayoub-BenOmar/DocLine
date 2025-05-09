@@ -247,7 +247,7 @@
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
                                                     <div class="h-10 w-10 rounded-full bg-[#afdddd] flex items-center justify-center text-white font-bold">
-                                                        SM
+                                                        {{ substr($activeDoctor->name, 0, 1) }}{{ substr($activeDoctor->last_name, 0, 1) }}
                                                     </div>
                                                     <div class="ml-4">
                                                         <div class="text-sm font-medium text-gray-900">Dr. {{ $activeDoctor->name }} {{ $activeDoctor->last_name }}</div>
@@ -259,7 +259,7 @@
                                                 <div class="text-sm text-gray-900">{{ $activeDoctor->speciality->speciality_name ?? 'N/A'}}</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">142</div>
+                                                <div class="text-sm text-gray-900">{{ $activeDoctor->appointmentsAsDoctor()->distinct('patient_id')->count() }}</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm text-gray-900">{{ $activeDoctor->created_at->format('d M Y') }}</div>

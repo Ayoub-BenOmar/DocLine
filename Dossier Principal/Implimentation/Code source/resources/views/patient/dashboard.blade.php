@@ -130,7 +130,7 @@
                             </div>
                             <div>
                                 <h2 class="text-lg font-semibold">Welcome back, {{ Auth::user()->name}}!</h2>
-                                <p class="text-white text-opacity-80">Your next appointment is in 2 days</p>
+                                {{-- <p class="text-white text-opacity-80">Your next appointment is in 2 days</p> --}}
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                     <div class="bg-white rounded-lg shadow-md p-4">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-semibold text-gray-700">Recent Medical Records</h3>
-                            <a href="" class="text-[#7fbfbf] hover:underline text-sm">View all</a>
+                            <a href="{{ route('patient.medical-file') }}" class="text-[#7fbfbf] hover:underline text-sm">View all</a>
                         </div>
                         <div class="space-y-4">
                             @if ($consultationFiles && count($consultationFiles) > 0)

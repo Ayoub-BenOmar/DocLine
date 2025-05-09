@@ -95,16 +95,11 @@ Route::prefix('patient')
     ->middleware(['auth', CheckRole::class . ':patient'])
     ->group(function(){
         Route::get('/dashboard', [PatientController::class, 'dashboard'])->name('dashboard');
-
         Route::post('/dashboard', [PatientController::class, 'store'])->name('store');
-
         Route::get('/appointments', [PatientController::class, 'appointments'])->name('appointments');
-
         Route::get('/certificate', [PatientController::class, 'certificate'])->name('certificate');
         Route::post('/certificate', [CertificateController::class, 'store'])->name('medical-certificate.store');
-
         Route::get('/medical_file', [PatientController::class, 'medicalFile'])->name('medical-file');
-
 });
 
 
