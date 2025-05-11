@@ -35,7 +35,7 @@ class DoctorController extends Controller
     {
         // validate  data
         $request->validate([
-            'profile_pic' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5120',
+            'profile_pic' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:20480',
             'medical_licence' => 'required|string|unique:users,medical_licence',
             'medical_document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'speciality_id' => 'required|exists:speciality,id',

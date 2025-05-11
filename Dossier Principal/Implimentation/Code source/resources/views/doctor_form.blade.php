@@ -69,7 +69,7 @@
                           <input id="profile_pic" name="profile_pic" type="file" class="sr-only" accept=".jpg,.jpeg,.png">
                         </label>
                       </div>
-                      <p class="text-xs text-gray-500">JPG or PNG up to 5MB</p>
+                      <p class="text-xs text-gray-500">JPG or PNG up to 20MB</p>
                     </div>
                   </div>
                 </div>

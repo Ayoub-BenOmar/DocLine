@@ -347,8 +347,7 @@
                         <div class="border rounded-lg p-2 bg-gray-50 h-96 overflow-auto">
                             <!-- Document preview area -->
                             <div id="documentPreview" class="flex items-center justify-center h-full">
-                                <!-- This will be populated with the document preview -->
-                                <img src="https://via.placeholder.com/800x1100?text=Medical+Certificate+Preview" alt="Certificate Preview" class="max-w-full h-auto" id="previewImage">
+                                <iframe id="pdfViewer" src="" width="100%" height="100%" class="hidden"></iframe>
                             </div>
                         </div>
                     </div>
@@ -368,4 +367,41 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const documentModal = document.getElementById('documentModal');
+            const closeDocumentModal = document.getElementById('closeDocumentModal');
+            const documentModalTitle = document.getElementById('documentModalTitle');
+            const pdfViewer = document.getElementById('pdfViewer');
+            
+            const viewDocumentButtons = document.querySelectorAll('.view-document');
+            
+            viewDocumentButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const doctorName = this.getAttribute('data-doctor');
+                    const fileUrl = this.getAttribute('data-file');
+                    
+                    documentModalTitle.textContent = `Dr. ${doctorName}'s Certificate`;
+                    pdfViewer.src = fileUrl;
+                    pdfViewer.classList.remove('hidden');
+                    
+                    documentModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closeDocumentModal.addEventListener('click', function() {
+                documentModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+            
+            documentModal.addEventListener('click', function(e) {
+                if (e.target === documentModal) {
+                    documentModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
 @endsection
